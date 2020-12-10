@@ -1,26 +1,23 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 
 namespace AdventOfCode2020
 {
 	public abstract class Day
 	{
-		public (bool Performed, int Result) Perform(int problemNumber)
+		public (bool Performed, string Result) Perform(int problemNumber)
 		{
-			var inputFile = File.ReadAllText($@"InputFiles\{this.GetType().Name}.txt");
-			var intArray = inputFile.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(Int32.Parse).ToArray();
+			var inputString = File.ReadAllText($@"InputFiles\{this.GetType().Name}.txt");
 
 			switch (problemNumber)
 			{
-				case 1: return (true, this.Perform1(intArray));
-				case 2: return (true, this.Perform2(intArray));
+				case 1: return (true, this.Perform1(inputString));
+				case 2: return (true, this.Perform2(inputString));
 			}
 
-			return (false, 0);
+			return (false, null);
 		}
 
-		public abstract int Perform1(int[] intArray);
-		public abstract int Perform2(int[] intArray);
+		public abstract string Perform1(string inputString);
+		public abstract string Perform2(string inputString);
 	}
 }

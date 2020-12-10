@@ -1,9 +1,13 @@
-﻿namespace AdventOfCode2020
+﻿using System;
+using System.Linq;
+
+namespace AdventOfCode2020
 {
 	public class Day01 : Day
 	{
-		public override int Perform1(int[] intArray)
+		public override string Perform1(string inputString)
 		{
+			var intArray = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(Int32.Parse).ToArray();
 			var result = 0;
 			foreach (var a in intArray)
 			{
@@ -16,11 +20,12 @@
 				}
 				if (result != 0) break;
 			}
-			return result;
+			return result.ToString();
 		}
 
-		public override int Perform2(int[] intArray)
+		public override string Perform2(string inputString)
 		{
+			var intArray = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(Int32.Parse).ToArray();
 			var result = 0;
 			foreach (var a in intArray)
 			{
@@ -37,7 +42,7 @@
 				}
 				if (result != 0) break;
 			}
-			return result;
+			return result.ToString();
 		}
 	}
 }
