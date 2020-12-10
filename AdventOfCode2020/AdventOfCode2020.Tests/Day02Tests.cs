@@ -22,7 +22,7 @@ namespace AdventOfCode2020.Tests
 		public void Test2()
 		{
 			var result = this.Day02.Perform2(TestString);
-			Assert.Equal("241861950", result);
+			Assert.Equal("1", result);
 		}
 	}
 }

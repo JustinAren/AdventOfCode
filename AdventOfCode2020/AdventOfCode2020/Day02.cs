@@ -26,7 +26,23 @@ namespace AdventOfCode2020
 
 		public override string Perform2(string inputString)
 		{
-			throw new NotImplementedException();
+			var count = 0;
+			var inputArray = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+
+			foreach (var line in inputArray)
+			{
+				var lineSplitted = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+				var positions = lineSplitted[0].Split('-', StringSplitOptions.RemoveEmptyEntries);
+				var firstPosition = Int32.Parse(positions[0]);
+				var secondPosition = Int32.Parse(positions[1]);
+				var matchingCharacter = lineSplitted[1][0];
+				var firstCharacter = lineSplitted[2][firstPosition - 1];
+				var secondCharacter = lineSplitted[2][secondPosition - 1];
+				if (firstCharacter == matchingCharacter && secondCharacter != matchingCharacter ||
+				    firstCharacter != matchingCharacter && secondCharacter == matchingCharacter) count++;
+			}
+
+			return count.ToString();
 		}
 	}
 }
