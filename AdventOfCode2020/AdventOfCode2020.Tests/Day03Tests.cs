@@ -29,8 +29,8 @@ namespace AdventOfCode2020.Tests
 		[Fact]
 		public void Test2()
 		{
-			//var result = this.Day03.Perform2(TestString);
-			//Assert.Equal("", result);
+			var result = this.Day03.Perform2(TestString);
+			Assert.Equal("336", result);
 		}
 	}
 }
