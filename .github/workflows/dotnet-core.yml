@@ -2,9 +2,13 @@ name: .NET Core
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+      - master
+      - develop
   pull_request:
-    branches: [ master ]
+    branches: 
+      - master
+      - develop
 
 jobs:
   build:
@@ -19,7 +23,10 @@ jobs:
         dotnet-version: 3.1.301
     - name: Install dependencies
       run: dotnet restore
+      working-directory: ././AdventOfCode2020
     - name: Build
       run: dotnet build --configuration Release --no-restore
+      working-directory: ././AdventOfCode2020
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+      working-directory: ././AdventOfCode2020
