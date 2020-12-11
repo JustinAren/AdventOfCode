@@ -12,19 +12,19 @@ namespace AdventOfCode2020.Tests
 675
 1456";
 
-		private Day Day01 { get; } = new Day01();
+		private Day Day { get; } = new Day01();
 
 		[Fact]
 		public void Test1()
 		{
-			var result = this.Day01.Perform1(TestString);
+			var result = this.Day.Perform1(TestString);
 			Assert.Equal("514579", result);
 		}
 
 		[Fact]
 		public void Test2()
 		{
-			var result = this.Day01.Perform2(TestString);
+			var result = this.Day.Perform2(TestString);
 			Assert.Equal("241861950", result);
 		}
 	}

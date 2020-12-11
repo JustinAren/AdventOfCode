@@ -48,7 +48,7 @@ eyr:2022
 
 iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719";
 
-		private Day Day04 { get; } = new Day04();
+		private Day Day { get; } = new Day04();
 
 		[Theory]
 		[InlineData(TestString1, "2")]
@@ -56,7 +56,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719";
 		[InlineData(TestString3, "4")]
 		public void Test1(string input, string expected)
 		{
-			var result = this.Day04.Perform1(input);
+			var result = this.Day.Perform1(input);
 			Assert.Equal(expected, result);
 		}
 
@@ -66,7 +66,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719";
 		[InlineData(TestString3, "4")]
 		public void Test2(string input, string expected)
 		{
-			var result = this.Day04.Perform2(input);
+			var result = this.Day.Perform2(input);
 			Assert.Equal(expected, result);
 		}
 	}
