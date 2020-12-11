@@ -17,7 +17,17 @@ namespace AdventOfCode2020
 		public override string Perform2(string inputString)
 		{
 			var inputArray = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-			throw new NotImplementedException();
+			var seatIds = inputArray.Select(CalculateSeatId).OrderBy(i => i).ToArray();
+			var result = 0;
+			for (var i = 1; i < seatIds.Length; i++)
+			{
+				if (seatIds[i] - seatIds[i - 1] != 2) continue;
+
+				result = seatIds[i] - 1;
+				break;
+			}
+
+			return result.ToString();
 		}
 
 		public static int CalculateSeatId(string inputString)

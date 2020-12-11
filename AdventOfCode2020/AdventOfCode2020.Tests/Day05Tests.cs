@@ -9,7 +9,9 @@ namespace AdventOfCode2020.Tests
 FBFBBFFRLR
 BFFFBBFRRR
 FFFBBBFRRR
-BBFFBBFRLL";
+BBFFBBFRLL
+FFFFFFFLLL
+FFFFFFFLRL";
 
 		private Day Day { get; } = new Day05();
 
@@ -18,6 +20,8 @@ BBFFBBFRLL";
 		[InlineData("BFFFBBFRRR", 567)]
 		[InlineData("FFFBBBFRRR", 119)]
 		[InlineData("BBFFBBFRLL", 820)]
+		[InlineData("FFFFFFFLLL", 0)]
+		[InlineData("FFFFFFFLRL", 2)]
 		public void TestCalculateSeatId(string inputString, int expected)
 		{
 			var result = Day05.CalculateSeatId(inputString);
@@ -32,12 +36,12 @@ BBFFBBFRLL";
 			Assert.Equal(expected, result);
 		}
 
-		//[Theory]
-		//[InlineData(TestString, "2")]
-		//public void Test2(string input, string expected)
-		//{
-		//	var result = this.Day.Perform2(input);
-		//	Assert.Equal(expected, result);
-		//}
+		[Theory]
+		[InlineData(TestString, "1")]
+		public void Test2(string input, string expected)
+		{
+			var result = this.Day.Perform2(input);
+			Assert.Equal(expected, result);
+		}
 	}
 }
