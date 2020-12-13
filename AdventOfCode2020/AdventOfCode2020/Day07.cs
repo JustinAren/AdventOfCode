@@ -34,7 +34,8 @@ namespace AdventOfCode2020
 
 		public override string Perform2(string inputString)
 		{
-			throw new NotImplementedException();
+			var bags = ParseInput(inputString).ToDictionary(bag => bag.Color);
+			return (bags[BagColor].BagCount - 1).ToString();
 		}
 
 		private static List<Bag> ParseInput(string inputString)
@@ -74,6 +75,7 @@ namespace AdventOfCode2020
 	{
 		public string Color { get; }
 		public Dictionary<Bag, int> Contains { get; } = new Dictionary<Bag, int>();
+		public int BagCount => this.Contains.Sum(kvp => kvp.Key.BagCount * kvp.Value) + 1;
 
 		public Bag(string color)
 		{
