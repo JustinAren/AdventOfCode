@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace AdventOfCode2020
 {
@@ -6,6 +7,7 @@ namespace AdventOfCode2020
 	{
 		public static void Main()
 		{
+			var stopwatch = new Stopwatch();
 			while (true)
 			{
 				Console.WriteLine("Which day?");
@@ -26,10 +28,14 @@ namespace AdventOfCode2020
 				var day = Activator.CreateInstance(dayType) as Day;
 				if (day is null) continue;
 
+				stopwatch.Start();
 				var (performed, result) = day.Perform(problemNumber);
+				stopwatch.Stop();
 				if (!performed) continue;
 
-				Console.WriteLine($"Solution of Day{dayNumber:D2} Problem {problemNumber} is: {result}.");
+				Console.WriteLine($"Solution of Day{dayNumber:D2} Problem {problemNumber} is: {result}. Performed in {stopwatch.Elapsed:c}.");
+
+				stopwatch.Reset();
 			}
 
 			Console.WriteLine("Press any key to exit...");

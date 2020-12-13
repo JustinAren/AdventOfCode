@@ -33,8 +33,8 @@ b";
 		[Fact]
 		public void Test2()
 		{
-			//var result = this.Day.Perform2(TestString);
-			//Assert.Equal("336", result);
+			var result = this.Day.Perform2(TestString);
+			Assert.Equal("6", result);
 		}
 	}
 }
