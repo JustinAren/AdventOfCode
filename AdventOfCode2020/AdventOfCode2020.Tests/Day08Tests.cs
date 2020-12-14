@@ -27,8 +27,8 @@ acc +6";
 		[Fact]
 		public void Test2()
 		{
-			//var result = this.Day.Perform2(TestString);
-			//Assert.Equal("4", result);
+			var result = this.Day.Perform2(TestString);
+			Assert.Equal("8", result);
 		}
 	}
 }

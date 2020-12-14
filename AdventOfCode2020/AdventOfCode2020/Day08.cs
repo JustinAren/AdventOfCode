@@ -9,13 +9,36 @@ namespace AdventOfCode2020
 		public override string Perform1(string inputString)
 		{
 			var commands = ParseInput(inputString).ToArray();
+			return Execute(commands).AccumulatorResult.ToString();
+		}
 
-			var seenList = new List<int>();
-			var accumulator = 0;
+		public override string Perform2(string inputString)
+		{
+			var commands = ParseInput(inputString).ToArray();
+			var commandsCopy = new (Operation Operation, int Argument)[commands.Length];
 
 			for (var i = 0; i < commands.Length; i++)
 			{
-				if (seenList.Contains(i)) break;
+				var (operation, argument) = commands[i];
+				if (operation == Operation.Accumulator) continue;
+				var newCommand = (operation == Operation.Jump ? Operation.NoOperation : Operation.Jump, argument);
+				commands.CopyTo(commandsCopy, 0);
+				commandsCopy[i] = newCommand;
+				var (infiniteLoop, accumulatorResult) = Execute(commandsCopy);
+				if (!infiniteLoop) return accumulatorResult.ToString();
+			}
+
+			return null;
+		}
+
+		private static (bool InfiniteLoop, int AccumulatorResult) Execute(IReadOnlyList<(Operation Operation, int Argument)> commands)
+		{
+			var seenList = new List<int>();
+			var accumulatorResult = 0;
+
+			for (var i = 0; i < commands.Count; i++)
+			{
+				if (seenList.Contains(i)) return (true, accumulatorResult);
 
 				seenList.Add(i);
 				var (operation, argument) = commands[i];
@@ -23,7 +46,7 @@ namespace AdventOfCode2020
 				switch (operation)
 				{
 					case Operation.Accumulator:
-						accumulator += argument;
+						accumulatorResult += argument;
 						break;
 					case Operation.Jump:
 						i += argument - 1;
@@ -31,21 +54,16 @@ namespace AdventOfCode2020
 				}
 			}
 
-			return accumulator.ToString();
+			return (false, accumulatorResult);
 		}
 
-		public override string Perform2(string inputString)
-		{
-			throw new NotImplementedException();
-		}
-
-		private static IEnumerable<(Operation, int)> ParseInput(string inputString)
+		private static IEnumerable<(Operation Operation, int Argument)> ParseInput(string inputString)
 		{
 			var commands = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 			return commands.Select(ParseCommand);
 		}
 
-		private static (Operation, int) ParseCommand(string command)
+		private static (Operation Operation, int Argument) ParseCommand(string command)
 		{
 			var operations = command.Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
