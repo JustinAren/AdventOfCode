@@ -1,31 +1,34 @@
-using Xunit;
+﻿using Xunit;
 
 namespace AdventOfCode2020.Tests
 {
-	public class Day01Tests
+	public class Day08Tests
 	{
 		private const string TestString = @"
-1721
-979
-366
-299
-675
-1456";
+nop +0
+acc +1
+jmp +4
+acc +3
+jmp -3
+acc -99
+acc +1
+jmp -4
+acc +6";
 
-		private Day Day { get; } = new Day01();
+		private Day Day { get; } = new Day08();
 
 		[Fact]
 		public void Test1()
 		{
 			var result = this.Day.Perform1(TestString);
-			Assert.Equal("514579", result);
+			Assert.Equal("5", result);
 		}
-
+		
 		[Fact]
 		public void Test2()
 		{
 			var result = this.Day.Perform2(TestString);
-			Assert.Equal("241861950", result);
+			Assert.Equal("8", result);
 		}
 	}
 }

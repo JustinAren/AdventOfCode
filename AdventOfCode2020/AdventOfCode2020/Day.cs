@@ -19,5 +19,6 @@ namespace AdventOfCode2020
 
 		public abstract string Perform1(string inputString);
 		public abstract string Perform2(string inputString);
+		protected abstract object ParseInput(string inputString);
 	}
 }
