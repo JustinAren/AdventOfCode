@@ -15,14 +15,14 @@ namespace AdventOfCode2020.Tests
 		public void Test1()
 		{
 			var result = this.Day.Perform1(TestString);
-			Assert.Equal("2", result);
+			Assert.Equal((ulong) 2, result);
 		}
 
 		[Fact]
 		public void Test2()
 		{
 			var result = this.Day.Perform2(TestString);
-			Assert.Equal("1", result);
+			Assert.Equal((ulong) 1, result);
 		}
 	}
 }

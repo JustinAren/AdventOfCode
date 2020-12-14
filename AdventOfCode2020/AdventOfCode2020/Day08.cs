@@ -6,13 +6,13 @@ namespace AdventOfCode2020
 {
 	public class Day08 : Day
 	{
-		public override string Perform1(string inputString)
+		public override ulong Perform1(string inputString)
 		{
 			var commands = ((Operation Operation, int Argument)[]) this.ParseInput(inputString);
-			return Execute(commands).AccumulatorResult.ToString();
+			return (ulong) Execute(commands).AccumulatorResult;
 		}
 
-		public override string Perform2(string inputString)
+		public override ulong Perform2(string inputString)
 		{
 			var commands = ((Operation Operation, int Argument)[]) this.ParseInput(inputString);
 			var commandsCopy = new (Operation Operation, int Argument)[commands.Length];
@@ -25,10 +25,10 @@ namespace AdventOfCode2020
 				commands.CopyTo(commandsCopy, 0);
 				commandsCopy[i] = newCommand;
 				var (infiniteLoop, accumulatorResult) = Execute(commandsCopy);
-				if (!infiniteLoop) return accumulatorResult.ToString();
+				if (!infiniteLoop) return (ulong) accumulatorResult;
 			}
 
-			return null;
+			return 0;
 		}
 
 		private static (bool InfiniteLoop, int AccumulatorResult) Execute(IReadOnlyList<(Operation Operation, int Argument)> commands)

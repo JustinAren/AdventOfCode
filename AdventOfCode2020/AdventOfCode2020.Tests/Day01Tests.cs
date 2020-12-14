@@ -18,14 +18,14 @@ namespace AdventOfCode2020.Tests
 		public void Test1()
 		{
 			var result = this.Day.Perform1(TestString);
-			Assert.Equal("514579", result);
+			Assert.Equal((ulong) 514579, result);
 		}
 
 		[Fact]
 		public void Test2()
 		{
 			var result = this.Day.Perform2(TestString);
-			Assert.Equal("241861950", result);
+			Assert.Equal((ulong) 241861950, result);
 		}
 	}
 }
