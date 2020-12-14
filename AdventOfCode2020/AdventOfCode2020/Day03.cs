@@ -7,13 +7,13 @@ namespace AdventOfCode2020
 	{
 		public override string Perform1(string inputString)
 		{
-			var inputArray = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+			var inputArray = (string[]) this.ParseInput(inputString);
 			return CountTrees(inputArray, 1, 3).ToString();
 		}
 
 		public override string Perform2(string inputString)
 		{
-			var inputArray = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+			var inputArray = (string[]) this.ParseInput(inputString);
 			var solutions = new[]
 			{
 				CountTrees(inputArray, 1, 1),
@@ -23,6 +23,11 @@ namespace AdventOfCode2020
 				CountTrees(inputArray, 2, 1),
 			};
 			return solutions.Aggregate((ulong) 1, (a, b) => a * b).ToString();
+		}
+
+		protected override object ParseInput(string inputString)
+		{
+			return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 		}
 
 		private static ulong CountTrees(string[] inputArray, int down, int right)

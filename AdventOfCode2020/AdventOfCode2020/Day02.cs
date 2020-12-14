@@ -8,7 +8,7 @@ namespace AdventOfCode2020
 		public override string Perform1(string inputString)
 		{
 			var count = 0;
-			var inputArray = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+			var inputArray = (string[]) this.ParseInput(inputString);
 
 			foreach (var line in inputArray)
 			{
@@ -27,7 +27,7 @@ namespace AdventOfCode2020
 		public override string Perform2(string inputString)
 		{
 			var count = 0;
-			var inputArray = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+			var inputArray  = (string[]) this.ParseInput(inputString);
 
 			foreach (var line in inputArray)
 			{
@@ -43,6 +43,11 @@ namespace AdventOfCode2020
 			}
 
 			return count.ToString();
+		}
+
+		protected override object ParseInput(string inputString)
+		{
+			return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 		}
 	}
 }

@@ -8,14 +8,19 @@ namespace AdventOfCode2020
 	{
 		public override string Perform1(string inputString)
 		{
-			var inputStrings = inputString.Split($"{Environment.NewLine}{Environment.NewLine}", StringSplitOptions.RemoveEmptyEntries);
+			var inputStrings = (string[]) this.ParseInput(inputString);
 			return inputStrings.Select(ParseInput1).Sum().ToString();
 		}
 
 		public override string Perform2(string inputString)
 		{
-			var inputStrings = inputString.Split($"{Environment.NewLine}{Environment.NewLine}", StringSplitOptions.RemoveEmptyEntries);
+			var inputStrings = (string[]) this.ParseInput(inputString);
 			return inputStrings.Select(ParseInput2).Sum().ToString();
+		}
+
+		protected override object ParseInput(string inputString)
+		{
+			return inputString.Split($"{Environment.NewLine}{Environment.NewLine}", StringSplitOptions.RemoveEmptyEntries);
 		}
 
 		private static int ParseInput1(string inputString)
@@ -25,12 +30,7 @@ namespace AdventOfCode2020
 			var inputs = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
 			foreach (var input in inputs)
-			{
-				foreach (var character in input)
-				{
-					result.Add(character);
-				}
-			}
+				foreach (var character in input) result.Add(character);
 
 			return result.Count;
 		}
@@ -39,14 +39,13 @@ namespace AdventOfCode2020
 		{
 			var inputs = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 			var dictionary = new Dictionary<char, int>();
+
 			foreach (var input in inputs)
-			{
 				foreach (var character in input)
 				{
 					if (dictionary.ContainsKey(character)) dictionary[character]++;
 					else dictionary.Add(character, 1);
 				}
-			}
 
 			return dictionary.Count(kvp => kvp.Value == inputs.Length);
 		}

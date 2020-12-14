@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -8,16 +9,20 @@ namespace AdventOfCode2020
 	{
 		public override string Perform1(string inputString)
 		{
-			var passportInputStrings = inputString.Split($"{Environment.NewLine}{Environment.NewLine}", StringSplitOptions.RemoveEmptyEntries);
-			var passports = passportInputStrings.Select(ParsePassport);
+			var passports = (IEnumerable<Passport>) this.ParseInput(inputString);
 			return passports.Count(p => p.HasRequiredFields).ToString();
 		}
 
 		public override string Perform2(string inputString)
 		{
-			var passportInputStrings = inputString.Split($"{Environment.NewLine}{Environment.NewLine}", StringSplitOptions.RemoveEmptyEntries);
-			var passports = passportInputStrings.Select(ParsePassport);
+			var passports = (IEnumerable<Passport>) this.ParseInput(inputString);
 			return passports.Count(p => p.IsValid).ToString();
+		}
+
+		protected override object ParseInput(string inputString)
+		{
+			var passportInputStrings = inputString.Split($"{Environment.NewLine}{Environment.NewLine}", StringSplitOptions.RemoveEmptyEntries);
+			return passportInputStrings.Select(ParsePassport);
 		}
 
 		private static Passport ParsePassport(string passportString)

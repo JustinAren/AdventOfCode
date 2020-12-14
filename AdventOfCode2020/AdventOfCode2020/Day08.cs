@@ -8,13 +8,13 @@ namespace AdventOfCode2020
 	{
 		public override string Perform1(string inputString)
 		{
-			var commands = ParseInput(inputString).ToArray();
+			var commands = ((Operation Operation, int Argument)[]) this.ParseInput(inputString);
 			return Execute(commands).AccumulatorResult.ToString();
 		}
 
 		public override string Perform2(string inputString)
 		{
-			var commands = ParseInput(inputString).ToArray();
+			var commands = ((Operation Operation, int Argument)[]) this.ParseInput(inputString);
 			var commandsCopy = new (Operation Operation, int Argument)[commands.Length];
 
 			for (var i = 0; i < commands.Length; i++)
@@ -57,10 +57,10 @@ namespace AdventOfCode2020
 			return (false, accumulatorResult);
 		}
 
-		private static IEnumerable<(Operation Operation, int Argument)> ParseInput(string inputString)
+		protected override object ParseInput(string inputString)
 		{
 			var commands = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-			return commands.Select(ParseCommand);
+			return commands.Select(ParseCommand).ToArray();
 		}
 
 		private static (Operation Operation, int Argument) ParseCommand(string command)

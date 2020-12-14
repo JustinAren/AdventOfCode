@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode2020
@@ -10,14 +11,12 @@ namespace AdventOfCode2020
 
 		public override string Perform1(string inputString)
 		{
-			var inputArray = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-			return inputArray.Select(CalculateSeatId).Max().ToString();
+			return ((IEnumerable<int>) this.ParseInput(inputString)).Max().ToString();
 		}
 
 		public override string Perform2(string inputString)
 		{
-			var inputArray = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-			var seatIds = inputArray.Select(CalculateSeatId).OrderBy(i => i).ToArray();
+			var seatIds = ((IEnumerable<int>) this.ParseInput(inputString)).OrderBy(i => i).ToArray();
 			var result = 0;
 			for (var i = 1; i < seatIds.Length; i++)
 			{
@@ -28,6 +27,11 @@ namespace AdventOfCode2020
 			}
 
 			return result.ToString();
+		}
+
+		protected override object ParseInput(string inputString)
+		{
+			return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(CalculateSeatId);
 		}
 
 		public static int CalculateSeatId(string inputString)

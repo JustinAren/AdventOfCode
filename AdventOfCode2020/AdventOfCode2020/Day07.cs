@@ -11,7 +11,7 @@ namespace AdventOfCode2020
 		public override string Perform1(string inputString)
 		{
 			var foundColors = new HashSet<string>();
-			var bags = ParseInput(inputString);
+			var bags = (IEnumerable<Bag>) this.ParseInput(inputString);
 
 			foreach (var bag in bags)
 			{
@@ -34,11 +34,11 @@ namespace AdventOfCode2020
 
 		public override string Perform2(string inputString)
 		{
-			var bags = ParseInput(inputString).ToDictionary(bag => bag.Color);
+			var bags = ((IEnumerable<Bag>) this.ParseInput(inputString)).ToDictionary(bag => bag.Color);
 			return (bags[BagColor].BagCount - 1).ToString();
 		}
 
-		private static List<Bag> ParseInput(string inputString)
+		protected override object ParseInput(string inputString)
 		{
 			inputString = inputString.Replace(" bags", "").Replace(" bag", "").Replace(".", "");
 			var result = new Dictionary<string, Bag>();
