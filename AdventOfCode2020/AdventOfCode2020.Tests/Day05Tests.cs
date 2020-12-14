@@ -29,16 +29,16 @@ FFFFFFFLRL";
 		}
 
 		[Theory]
-		[InlineData(TestString, "820")]
-		public void Test1(string input, string expected)
+		[InlineData(TestString, 820)]
+		public void Test1(string input, ulong expected)
 		{
 			var result = this.Day.Perform1(input);
 			Assert.Equal(expected, result);
 		}
 
 		[Theory]
-		[InlineData(TestString, "1")]
-		public void Test2(string input, string expected)
+		[InlineData(TestString, 1)]
+		public void Test2(string input, ulong expected)
 		{
 			var result = this.Day.Perform2(input);
 			Assert.Equal(expected, result);

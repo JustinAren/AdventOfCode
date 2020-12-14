@@ -9,12 +9,12 @@ namespace AdventOfCode2020
 		private static readonly int[] Rows = Enumerable.Range(0, 128).ToArray();
 		private static readonly int[] Columns = Enumerable.Range(0, 8).ToArray();
 
-		public override string Perform1(string inputString)
+		public override ulong Perform1(string inputString)
 		{
-			return ((IEnumerable<int>) this.ParseInput(inputString)).Max().ToString();
+			return (ulong) ((IEnumerable<int>) this.ParseInput(inputString)).Max();
 		}
 
-		public override string Perform2(string inputString)
+		public override ulong Perform2(string inputString)
 		{
 			var seatIds = ((IEnumerable<int>) this.ParseInput(inputString)).OrderBy(i => i).ToArray();
 			var result = 0;
@@ -26,7 +26,7 @@ namespace AdventOfCode2020
 				break;
 			}
 
-			return result.ToString();
+			return (ulong) result;
 		}
 
 		protected override object ParseInput(string inputString)

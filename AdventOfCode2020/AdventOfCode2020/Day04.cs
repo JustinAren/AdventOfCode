@@ -7,16 +7,16 @@ namespace AdventOfCode2020
 {
 	public class Day04 : Day
 	{
-		public override string Perform1(string inputString)
+		public override ulong Perform1(string inputString)
 		{
 			var passports = (IEnumerable<Passport>) this.ParseInput(inputString);
-			return passports.Count(p => p.HasRequiredFields).ToString();
+			return (ulong) passports.Count(p => p.HasRequiredFields);
 		}
 
-		public override string Perform2(string inputString)
+		public override ulong Perform2(string inputString)
 		{
 			var passports = (IEnumerable<Passport>) this.ParseInput(inputString);
-			return passports.Count(p => p.IsValid).ToString();
+			return (ulong) passports.Count(p => p.IsValid);
 		}
 
 		protected override object ParseInput(string inputString)

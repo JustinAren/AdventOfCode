@@ -21,14 +21,14 @@ acc +6";
 		public void Test1()
 		{
 			var result = this.Day.Perform1(TestString);
-			Assert.Equal("5", result);
+			Assert.Equal((ulong) 5, result);
 		}
 		
 		[Fact]
 		public void Test2()
 		{
 			var result = this.Day.Perform2(TestString);
-			Assert.Equal("8", result);
+			Assert.Equal((ulong) 8, result);
 		}
 	}
 }

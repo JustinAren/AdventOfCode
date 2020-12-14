@@ -30,13 +30,13 @@ dark violet bags contain no other bags.";
 		public void Test1()
 		{
 			var result = this.Day.Perform1(TestString1);
-			Assert.Equal("4", result);
+			Assert.Equal((ulong) 4, result);
 		}
 
 		[Theory]
-		[InlineData(TestString1, "32")]
-		[InlineData(TestString2, "126")]
-		public void Test2(string inputString, string expected)
+		[InlineData(TestString1, 32)]
+		[InlineData(TestString2, 126)]
+		public void Test2(string inputString, ulong expected)
 		{
 			var result = this.Day.Perform2(inputString);
 			Assert.Equal(expected, result);
