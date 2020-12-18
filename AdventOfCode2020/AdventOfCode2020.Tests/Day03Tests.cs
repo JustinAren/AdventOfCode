@@ -17,7 +17,7 @@ namespace AdventOfCode2020.Tests
 #...##....#
 .#..#...#.#";
 
-		private Day Day { get; } = new Day03();
+		private IDay Day { get; } = new Day03();
 
 		[Fact]
 		public void Test1()

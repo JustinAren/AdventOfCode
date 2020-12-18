@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace AdventOfCode2020
 {
-	public class Day01 : Day
+	public class Day01 : Day<int[]>
 	{
 		public override ulong Perform1(string inputString)
 		{
-			var intArray = (int[]) this.ParseInput(inputString);
+			var intArray = this.ParseInput(inputString);
 			var result = 0;
 			foreach (var a in intArray)
 			{
@@ -25,7 +25,7 @@ namespace AdventOfCode2020
 
 		public override ulong Perform2(string inputString)
 		{
-			var intArray  = (int[]) this.ParseInput(inputString);
+			var intArray = this.ParseInput(inputString);
 			var result = 0;
 			foreach (var a in intArray)
 			{
@@ -45,7 +45,7 @@ namespace AdventOfCode2020
 			return (ulong) result;
 		}
 
-		protected override object ParseInput(string inputString)
+		protected override int[] ParseInput(string inputString)
 		{
 			return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(Int32.Parse).ToArray();
 		}

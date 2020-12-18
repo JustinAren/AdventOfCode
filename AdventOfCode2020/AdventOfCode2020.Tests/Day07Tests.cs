@@ -24,7 +24,7 @@ dark green bags contain 2 dark blue bags.
 dark blue bags contain 2 dark violet bags.
 dark violet bags contain no other bags.";
 
-		private Day Day { get; } = new Day07();
+		private IDay Day { get; } = new Day07();
 
 		[Fact]
 		public void Test1()

@@ -15,7 +15,7 @@ acc +1
 jmp -4
 acc +6";
 
-		private Day Day { get; } = new Day08();
+		private IDay Day { get; } = new Day08();
 
 		[Fact]
 		public void Test1()

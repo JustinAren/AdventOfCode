@@ -21,7 +21,7 @@ a
 
 b";
 
-		private Day Day { get; } = new Day06();
+		private IDay Day { get; } = new Day06();
 
 		[Fact]
 		public void Test1()

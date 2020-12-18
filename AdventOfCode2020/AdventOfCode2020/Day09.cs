@@ -4,17 +4,17 @@ using System.Linq;
 
 namespace AdventOfCode2020
 {
-	public class Day09 : Day
+	public class Day09 : Day<ulong[]>
 	{
 		public override ulong Perform1(string inputString)
 		{
-			var inputArray = (ulong[]) this.ParseInput(inputString);
+			var inputArray = this.ParseInput(inputString);
 			return GetInvalidEntry(inputArray);
 		}
 
 		public override ulong Perform2(string inputString)
 		{
-			var inputArray = (ulong[]) this.ParseInput(inputString);
+			var inputArray = this.ParseInput(inputString);
 			var invalidValue = GetInvalidEntry(inputArray);
 
 			for (var i = 0; i < inputArray.Length; i++)
@@ -30,7 +30,7 @@ namespace AdventOfCode2020
 			return 0;
 		}
 
-		protected override object ParseInput(string inputString)
+		protected override ulong[] ParseInput(string inputString)
 		{
 			return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(UInt64.Parse).ToArray();
 		}

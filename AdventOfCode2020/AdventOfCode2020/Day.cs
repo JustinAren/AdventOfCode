@@ -2,7 +2,7 @@
 
 namespace AdventOfCode2020
 {
-	public abstract class Day
+	public abstract class Day<T> : IDay
 	{
 		public (bool Performed, ulong Result) Perform(int problemNumber)
 		{
@@ -19,6 +19,13 @@ namespace AdventOfCode2020
 
 		public abstract ulong Perform1(string inputString);
 		public abstract ulong Perform2(string inputString);
-		protected abstract object ParseInput(string inputString);
+		protected abstract T ParseInput(string inputString);
+	}
+
+	public interface IDay
+	{
+		(bool Performed, ulong Result) Perform(int problemNumber);
+		ulong Perform1(string inputString);
+		ulong Perform2(string inputString);
 	}
 }

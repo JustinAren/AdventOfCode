@@ -48,7 +48,7 @@ eyr:2022
 
 iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719";
 
-		private Day Day { get; } = new Day04();
+		private IDay Day { get; } = new Day04();
 
 		[Theory]
 		[InlineData(TestString1, 2)]

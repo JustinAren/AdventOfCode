@@ -50,7 +50,7 @@ namespace AdventOfCode2020.Tests
 10
 3";
 
-		private Day Day { get; } = new Day10();
+		private IDay Day { get; } = new Day10();
 
 		[Theory]
 		[InlineData(TestString1, 35)]
@@ -61,11 +61,14 @@ namespace AdventOfCode2020.Tests
 			Assert.Equal(expected, result);
 		}
 		
-		[Fact]
-		public void Test2()
+		
+		[Theory]
+		[InlineData(TestString1, 8)]
+		[InlineData(TestString2, 19208)]
+		public void Test2(string inputString, ulong expected)
 		{
-			//var result = this.Day.Perform2(TestString1);
-			//Assert.Equal((ulong) 62, result);
+			var result = this.Day.Perform2(inputString);
+			Assert.Equal(expected, result);
 		}
 	}
 }

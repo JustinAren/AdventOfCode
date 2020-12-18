@@ -4,37 +4,37 @@ using System.Linq;
 
 namespace AdventOfCode2020
 {
-	public class Day10 : Day
+	public class Day10 : Day<List<int>>
 	{
 		public override ulong Perform1(string inputString)
 		{
-			var inputArray = (int[])this.ParseInput(inputString);
+			var inputList = this.ParseInput(inputString);
 
-			var resultDictionary = new Dictionary<int, int>()
+			var resultDictionary = new Dictionary<int, int>
 			{
 				{ 1, 0 },
 				{ 2, 0 },
-				{ 3, 1 },
+				{ 3, 0 },
 			};
 
-			for (var i = 0; i < inputArray.Length; i++)
-			{
-				if (i == 0) resultDictionary[inputArray[0]]++;
-				else resultDictionary[inputArray[i] - inputArray[i - 1]]++;
-			}
+			for (var i = 1; i < inputList.Count; i++) resultDictionary[inputList[i] - inputList[i - 1]]++;
 
 			return (ulong)(resultDictionary[1] * resultDictionary[3]);
 		}
 
 		public override ulong Perform2(string inputString)
 		{
-			var inputArray = (int[])this.ParseInput(inputString);
+			var inputList = this.ParseInput(inputString);
 			throw new NotImplementedException();
 		}
 
-		protected override object ParseInput(string inputString)
+		protected override List<int> ParseInput(string inputString)
 		{
-			return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(Int32.Parse).OrderBy(i => i).ToArray();
+			var inputList = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(Int32.Parse).OrderBy(i => i).ToList();
+			var maxValue = inputList.Last() + 3;
+			inputList.Insert(0, 0);
+			inputList.Add(maxValue);
+			return inputList;
 		}
 	}
 }

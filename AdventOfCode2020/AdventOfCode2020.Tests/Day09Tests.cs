@@ -26,7 +26,7 @@ namespace AdventOfCode2020.Tests
 309
 576";
 
-		private Day Day { get; } = new Day09();
+		private IDay Day { get; } = new Day09();
 
 		[Fact]
 		public void Test1()

@@ -4,14 +4,14 @@ using System.Linq;
 
 namespace AdventOfCode2020
 {
-	public class Day07 : Day
+	public class Day07 : Day<IEnumerable<Bag>>
 	{
 		private const string BagColor = "shiny gold";
 
 		public override ulong Perform1(string inputString)
 		{
 			var foundColors = new HashSet<string>();
-			var bags = (IEnumerable<Bag>) this.ParseInput(inputString);
+			var bags = this.ParseInput(inputString);
 
 			foreach (var bag in bags)
 			{
@@ -34,11 +34,11 @@ namespace AdventOfCode2020
 
 		public override ulong Perform2(string inputString)
 		{
-			var bags = ((IEnumerable<Bag>) this.ParseInput(inputString)).ToDictionary(bag => bag.Color);
+			var bags = this.ParseInput(inputString).ToDictionary(bag => bag.Color);
 			return (ulong) (bags[BagColor].BagCount - 1);
 		}
 
-		protected override object ParseInput(string inputString)
+		protected override IEnumerable<Bag> ParseInput(string inputString)
 		{
 			inputString = inputString.Replace(" bags", "").Replace(" bag", "").Replace(".", "");
 			var result = new Dictionary<string, Bag>();
