@@ -9,6 +9,9 @@ namespace AdventOfCode2020
 		public override ulong Perform1(string inputString)
 		{
 			var inputList = this.ParseInput(inputString);
+			var maxValue = inputList.Last() + 3;
+			inputList.Insert(0, 0);
+			inputList.Add(maxValue);
 
 			var resultDictionary = new Dictionary<int, int>
 			{
@@ -25,16 +28,22 @@ namespace AdventOfCode2020
 		public override ulong Perform2(string inputString)
 		{
 			var inputList = this.ParseInput(inputString);
-			throw new NotImplementedException();
+			return (ulong) this.Combinations(0, inputList);
+		}
+
+		private readonly Dictionary<int, long> _values = new();
+		
+		private long Combinations(int curValue, IEnumerable<int> input)
+		{
+			if (!input.Any()) return 1;
+			if (this._values.ContainsKey(curValue)) return this._values[curValue];
+			this._values[curValue] = input.TakeWhile(x => x > curValue && x <= curValue + 3).Select((x, idx) => this.Combinations(x, input.Skip(idx + 1))).Sum();
+			return this._values[curValue];
 		}
 
 		protected override List<int> ParseInput(string inputString)
 		{
-			var inputList = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(Int32.Parse).OrderBy(i => i).ToList();
-			var maxValue = inputList.Last() + 3;
-			inputList.Insert(0, 0);
-			inputList.Add(maxValue);
-			return inputList;
+			return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(Int32.Parse).OrderBy(i => i).ToList();
 		}
 	}
 }
