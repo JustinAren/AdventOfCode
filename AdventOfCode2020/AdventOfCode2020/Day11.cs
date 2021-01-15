@@ -9,21 +9,40 @@ namespace AdventOfCode2020
 		public override ulong Perform1(string inputString)
 		{
 			var map = this.ParseInput(inputString);
-			var newMap = PerformRound(map);
+			var newMap = PerformProblem1Round(map);
 
 			while (!ContentIsEqual(map, newMap))
 			{
 				map = newMap;
-				newMap = PerformRound(map);
+				newMap = PerformProblem1Round(map);
 			}
 
+			return GetOccupiedCount(newMap);
+		}
+
+		public override ulong Perform2(string inputString)
+		{
+			var map = this.ParseInput(inputString);
+			var newMap = PerformProblem2Round(map);
+
+			while (!ContentIsEqual(map, newMap))
+			{
+				map = newMap;
+				newMap = PerformProblem2Round(map);
+			}
+
+			return GetOccupiedCount(newMap);
+		}
+
+		private static ulong GetOccupiedCount(SeatStatus[,] map)
+		{
 			ulong occupiedCount = 0;
 
-			for (var i = 0; i < newMap.GetLength(0); i++)
+			for (var i = 0; i < map.GetLength(0); i++)
 			{
-				for (var j = 0; j < newMap.GetLength(1); j++)
+				for (var j = 0; j < map.GetLength(1); j++)
 				{
-					if (newMap[i, j] == SeatStatus.Occupied) occupiedCount++;
+					if (map[i, j] == SeatStatus.Occupied) occupiedCount++;
 				}
 			}
 
@@ -44,7 +63,7 @@ namespace AdventOfCode2020
 			return true;
 		}
 
-		private static SeatStatus[,] PerformRound(SeatStatus[,] map)
+		private static SeatStatus[,] PerformProblem1Round(SeatStatus[,] map)
 		{
 			var newMap = new SeatStatus[map.GetLength(0), map.GetLength(1)];
 
@@ -80,16 +99,115 @@ namespace AdventOfCode2020
 					if (j >= map.GetLength(1)) continue;
 					if (i == x && j == y) continue;
 
-					result.Add(map[i,j]);
+					result.Add(map[i, j]);
 				}
 			}
 			return result;
 		}
 
-		public override ulong Perform2(string inputString)
+		private static SeatStatus[,] PerformProblem2Round(SeatStatus[,] map)
 		{
-			var map = this.ParseInput(inputString);
-			throw new NotImplementedException();
+			var newMap = new SeatStatus[map.GetLength(0), map.GetLength(1)];
+
+			for (var i = 0; i < map.GetLength(0); i++)
+			{
+				for (var j = 0; j < map.GetLength(1); j++)
+				{
+					var visibleSeats = GetVisibleSeats(map, i, j).ToArray();
+					newMap[i, j] = map[i, j] switch
+					{
+						SeatStatus.Floor => SeatStatus.Floor,
+						SeatStatus.Empty when visibleSeats.All(seat => seat != SeatStatus.Occupied) => SeatStatus.Occupied,
+						SeatStatus.Occupied when visibleSeats.Count(seat => seat == SeatStatus.Occupied) >= 5 => SeatStatus.Empty,
+						_ => map[i, j],
+					};
+				}
+			}
+
+			return newMap;
+		}
+
+		private static IEnumerable<SeatStatus> GetVisibleSeats(SeatStatus[,] map, int x, int y)
+		{
+			var result = new List<SeatStatus>();
+
+			for (var i = x + 1; i < map.GetLength(0); i++)
+			{
+				if (map[i, y] == SeatStatus.Floor) continue;
+
+				result.Add(map[i, y]);
+				break;
+			}
+
+			for (var i = x - 1; i >= 0; i--)
+			{
+				if (map[i, y] == SeatStatus.Floor) continue;
+
+				result.Add(map[i, y]);
+				break;
+			}
+
+			for (var j = y + 1; j < map.GetLength(1); j++)
+			{
+				if (map[x, j] == SeatStatus.Floor) continue;
+
+				result.Add(map[x, j]);
+				break;
+			}
+
+			for (var j = y - 1; j >= 0; j--)
+			{
+				if (map[x, j] == SeatStatus.Floor) continue;
+
+				result.Add(map[x, j]);
+				break;
+			}
+
+			for (var i = 1; i < map.GetLength(0); i++)
+			{
+				if (x + i >= map.GetLength(0)) break;
+				if (y + i >= map.GetLength(1)) break;
+
+				if (map[x + i, y + i] == SeatStatus.Floor) continue;
+
+				result.Add(map[x + i, y + i]);
+				break;
+			}
+
+			for (var i = 1; i < map.GetLength(0); i++)
+			{
+				if (x - i < 0) break;
+				if (y + i >= map.GetLength(1)) break;
+
+				if (map[x - i, y + i] == SeatStatus.Floor) continue;
+
+				result.Add(map[x - i, y + i]);
+				break;
+			}
+
+			for (var i = 1; i < map.GetLength(0); i++)
+			{
+				if (x + i >= map.GetLength(0)) break;
+				if (y - i < 0) break;
+
+				if (map[x + i, y - i] == SeatStatus.Floor) continue;
+
+				result.Add(map[x + i, y - i]);
+				break;
+			}
+
+			for (var i = 1; i < map.GetLength(0); i++)
+			{
+				if (x - i < 0) break;
+				if (y - i < 0) break;
+
+				if (map[x - i, y - i] == SeatStatus.Floor) continue;
+
+				result.Add(map[x - i, y - i]);
+				break;
+			}
+
+			return result;
 		}
 
 		protected override SeatStatus[,] ParseInput(string inputString)
@@ -111,7 +229,7 @@ namespace AdventOfCode2020
 				'.' => SeatStatus.Floor,
 				'L' => SeatStatus.Empty,
 				'#' => SeatStatus.Occupied,
-				_ => throw new NotSupportedException($"Character {character} is not a known {nameof(SeatStatus)}.")
+				_ => throw new NotSupportedException($"Character \'{character}\' is not a known {nameof(SeatStatus)}.")
 			};
 		}
 	}

@@ -28,7 +28,7 @@ L.LLLLL.LL";
 		
 		
 		[Theory]
-		[InlineData(TestString1, 8)]
+		[InlineData(TestString1, 26)]
 		public void Test2(string inputString, ulong expected)
 		{
 			var result = this.Day.Perform2(inputString);
