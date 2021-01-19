@@ -60,8 +60,7 @@ namespace AdventOfCode2020.Tests
 			var result = this.Day.Perform1(inputString);
 			Assert.Equal(expected, result);
 		}
-		
-		
+
 		[Theory]
 		[InlineData(TestString1, 8)]
 		[InlineData(TestString2, 19208)]
