@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace AdventOfCode2020
 {
@@ -47,16 +48,16 @@ namespace AdventOfCode2020
 		public Ship()
 		{
 			this.Direction = Direction.East;
-			this.WayPointXCoordinate = -1;
-			this.WayPointYCoordinate = -10;
+			this.WayPointXCoordinate = 10;
+			this.WayPointYCoordinate = 1;
 		}
 
 		public void PerformInstruction1(char action, int value)
 		{
 			switch (action)
 			{
-				case 'N': this.YCoordinate -= value; break;
-				case 'S': this.YCoordinate += value; break;
+				case 'N': this.YCoordinate += value; break;
+				case 'S': this.YCoordinate -= value; break;
 				case 'E': this.XCoordinate += value; break;
 				case 'W': this.XCoordinate -= value; break;
 				case 'L':
@@ -67,9 +68,9 @@ namespace AdventOfCode2020
 				case 'F':
 					switch (this.Direction)
 					{
-						case Direction.North: this.YCoordinate -= value; break;
+						case Direction.North: this.YCoordinate += value; break;
 						case Direction.East: this.XCoordinate += value; break;
-						case Direction.South: this.YCoordinate += value; break;
+						case Direction.South: this.YCoordinate -= value; break;
 						case Direction.West: this.XCoordinate -= value; break;
 					}
 					break;
@@ -80,18 +81,31 @@ namespace AdventOfCode2020
 		{
 			switch (action)
 			{
-				case 'N': this.WayPointYCoordinate -= value; break;
-				case 'S': this.WayPointYCoordinate += value; break;
+				case 'N': this.WayPointYCoordinate += value; break;
+				case 'S': this.WayPointYCoordinate -= value; break;
 				case 'E': this.WayPointXCoordinate += value; break;
 				case 'W': this.WayPointXCoordinate -= value; break;
 				case 'L':
-					
+					for (var i = 0; i < value / 90; i++)
+					{
+						var newX = this.WayPointYCoordinate * -1;
+						var newY = this.WayPointXCoordinate;
+						this.WayPointYCoordinate = newY;
+						this.WayPointXCoordinate = newX;
+					}
 					break;
-				case 'R': 
-
+				case 'R':
+					for (var i = 0; i < value / 90; i++)
+					{
+						var newX = this.WayPointYCoordinate;
+						var newY = this.WayPointXCoordinate * -1;
+						this.WayPointYCoordinate = newY;
+						this.WayPointXCoordinate = newX;
+					}
 					break;
 				case 'F':
-					
+					this.XCoordinate += this.WayPointXCoordinate * value;
+					this.YCoordinate += this.WayPointYCoordinate * value;
 					break;
 			}
 		}
