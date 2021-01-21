@@ -4,25 +4,27 @@ namespace AdventOfCode2020.Tests
 {
 	public class Day02Tests
 	{
-		private const string TestString = @"
+		private const string TestString1 = @"
 1-3 a: abcde
 1-3 b: cdefg
 2-9 c: ccccccccc
 ";
 		private Day02 Day { get; } = new Day02();
 
-		[Fact]
-		public void Test1()
+		[Theory]
+		[InlineData(TestString1, 2)]
+		public void Test1(string inputString, ulong expected)
 		{
-			var result = this.Day.Perform1(TestString);
-			Assert.Equal((ulong) 2, result);
+			var result = this.Day.Perform1(inputString);
+			Assert.Equal(expected, result);
 		}
 
-		[Fact]
-		public void Test2()
+		[Theory]
+		[InlineData(TestString1, 1)]
+		public void Test2(string inputString, ulong expected)
 		{
-			var result = this.Day.Perform2(TestString);
-			Assert.Equal((ulong) 1, result);
+			var result = this.Day.Perform2(inputString);
+			Assert.Equal(expected, result);
 		}
 	}
 }

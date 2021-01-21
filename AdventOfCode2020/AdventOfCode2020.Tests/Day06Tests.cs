@@ -4,7 +4,7 @@ namespace AdventOfCode2020.Tests
 {
 	public class Day06Tests
 	{
-		private const string TestString = @"
+		private const string TestString1 = @"
 abc
 
 a
@@ -23,18 +23,20 @@ b";
 
 		private IDay Day { get; } = new Day06();
 
-		[Fact]
-		public void Test1()
+		[Theory]
+		[InlineData(TestString1, 11)]
+		public void Test1(string inputString, ulong expected)
 		{
-			var result = this.Day.Perform1(TestString);
-			Assert.Equal((ulong) 11, result);
+			var result = this.Day.Perform1(inputString);
+			Assert.Equal(expected, result);
 		}
 
-		[Fact]
-		public void Test2()
+		[Theory]
+		[InlineData(TestString1, 6)]
+		public void Test2(string inputString, ulong expected)
 		{
-			var result = this.Day.Perform2(TestString);
-			Assert.Equal((ulong) 6, result);
+			var result = this.Day.Perform2(inputString);
+			Assert.Equal(expected, result);
 		}
 	}
 }
