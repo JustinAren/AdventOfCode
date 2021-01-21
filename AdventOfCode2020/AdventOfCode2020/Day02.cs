@@ -3,12 +3,12 @@ using System.Linq;
 
 namespace AdventOfCode2020
 {
-	public class Day02 : Day
+	public class Day02 : Day<string[]>
 	{
 		public override ulong Perform1(string inputString)
 		{
 			var count = 0;
-			var inputArray = (string[]) this.ParseInput(inputString);
+			var inputArray = this.ParseInput(inputString);
 
 			foreach (var line in inputArray)
 			{
@@ -27,7 +27,7 @@ namespace AdventOfCode2020
 		public override ulong Perform2(string inputString)
 		{
 			var count = 0;
-			var inputArray  = (string[]) this.ParseInput(inputString);
+			var inputArray = this.ParseInput(inputString);
 
 			foreach (var line in inputArray)
 			{
@@ -45,7 +45,7 @@ namespace AdventOfCode2020
 			return (ulong) count;
 		}
 
-		protected override object ParseInput(string inputString)
+		protected override string[] ParseInput(string inputString)
 		{
 			return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 		}

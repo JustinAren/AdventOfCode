@@ -25,7 +25,7 @@ namespace AdventOfCode2020
 				var dayType = typeof(Program).Assembly.GetType($"AdventOfCode2020.Day{dayNumber:D2}");
 				if (dayType is null) continue;
 
-				var day = Activator.CreateInstance(dayType) as Day;
+				var day = Activator.CreateInstance(dayType) as IDay;
 				if (day is null) continue;
 
 				stopwatch.Start();

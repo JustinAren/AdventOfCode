@@ -5,21 +5,21 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode2020
 {
-	public class Day04 : Day
+	public class Day04 : Day<IEnumerable<Passport>>
 	{
 		public override ulong Perform1(string inputString)
 		{
-			var passports = (IEnumerable<Passport>) this.ParseInput(inputString);
+			var passports = this.ParseInput(inputString);
 			return (ulong) passports.Count(p => p.HasRequiredFields);
 		}
 
 		public override ulong Perform2(string inputString)
 		{
-			var passports = (IEnumerable<Passport>) this.ParseInput(inputString);
+			var passports = this.ParseInput(inputString);
 			return (ulong) passports.Count(p => p.IsValid);
 		}
 
-		protected override object ParseInput(string inputString)
+		protected override IEnumerable<Passport> ParseInput(string inputString)
 		{
 			var passportInputStrings = inputString.Split($"{Environment.NewLine}{Environment.NewLine}", StringSplitOptions.RemoveEmptyEntries);
 			return passportInputStrings.Select(ParsePassport);

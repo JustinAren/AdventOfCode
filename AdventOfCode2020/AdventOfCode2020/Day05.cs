@@ -4,19 +4,19 @@ using System.Linq;
 
 namespace AdventOfCode2020
 {
-	public class Day05 : Day
+	public class Day05 : Day<IEnumerable<int>>
 	{
 		private static readonly int[] Rows = Enumerable.Range(0, 128).ToArray();
 		private static readonly int[] Columns = Enumerable.Range(0, 8).ToArray();
 
 		public override ulong Perform1(string inputString)
 		{
-			return (ulong) ((IEnumerable<int>) this.ParseInput(inputString)).Max();
+			return (ulong) this.ParseInput(inputString).Max();
 		}
 
 		public override ulong Perform2(string inputString)
 		{
-			var seatIds = ((IEnumerable<int>) this.ParseInput(inputString)).OrderBy(i => i).ToArray();
+			var seatIds = this.ParseInput(inputString).OrderBy(i => i).ToArray();
 			var result = 0;
 			for (var i = 1; i < seatIds.Length; i++)
 			{
@@ -29,7 +29,7 @@ namespace AdventOfCode2020
 			return (ulong) result;
 		}
 
-		protected override object ParseInput(string inputString)
+		protected override IEnumerable<int> ParseInput(string inputString)
 		{
 			return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(CalculateSeatId);
 		}

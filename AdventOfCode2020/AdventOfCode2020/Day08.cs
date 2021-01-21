@@ -4,17 +4,17 @@ using System.Linq;
 
 namespace AdventOfCode2020
 {
-	public class Day08 : Day
+	public class Day08 : Day<(Operation Operation, int Argument)[]>
 	{
 		public override ulong Perform1(string inputString)
 		{
-			var commands = ((Operation Operation, int Argument)[]) this.ParseInput(inputString);
+			var commands = this.ParseInput(inputString);
 			return (ulong) Execute(commands).AccumulatorResult;
 		}
 
 		public override ulong Perform2(string inputString)
 		{
-			var commands = ((Operation Operation, int Argument)[]) this.ParseInput(inputString);
+			var commands = this.ParseInput(inputString);
 			var commandsCopy = new (Operation Operation, int Argument)[commands.Length];
 
 			for (var i = 0; i < commands.Length; i++)
@@ -57,7 +57,7 @@ namespace AdventOfCode2020
 			return (false, accumulatorResult);
 		}
 
-		protected override object ParseInput(string inputString)
+		protected override (Operation Operation, int Argument)[] ParseInput(string inputString)
 		{
 			var commands = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 			return commands.Select(ParseCommand).ToArray();

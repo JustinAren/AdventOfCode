@@ -13,7 +13,7 @@ BBFFBBFRLL
 FFFFFFFLLL
 FFFFFFFLRL";
 
-		private Day Day { get; } = new Day05();
+		private IDay Day { get; } = new Day05();
 
 		[Theory]
 		[InlineData("FBFBBFFRLR", 357)]
