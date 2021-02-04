@@ -23,7 +23,33 @@ namespace AdventOfCode2020
 		public override ulong Perform2(string inputString)
 		{
 			var (rules, myTicket, nearbyTickets) = this.ParseInput(inputString);
-			throw new NotImplementedException();
+			var validTickets = nearbyTickets.Where(ticket => ticket.ValidateAgainstRules(rules, out _)).ToArray();
+
+			var possibleColumnsPerRule = new Dictionary<string, List<int>>();
+
+			foreach (var rule in rules)
+			{
+				for (var i = 0; i < rules.Length; i++)
+				{
+					if (!validTickets.Select(ticket => ticket.Values[i]).All(value => rule.ValidateValue(value))) continue;
+
+					if (possibleColumnsPerRule.ContainsKey(rule.Name)) possibleColumnsPerRule[rule.Name].Add(i);
+					else possibleColumnsPerRule.Add(rule.Name, new List<int> {i});
+				}
+			}
+
+			var actualColumnForRule = new Dictionary<string, int>();
+
+			foreach (var (name, columns) in possibleColumnsPerRule.OrderBy(kvp => kvp.Value.Count))
+			{
+				var actualColumns = columns.Except(actualColumnForRule.Values).ToArray();
+				if (actualColumns.Length == 1) actualColumnForRule.Add(name, actualColumns[0]);
+			}
+
+			return actualColumnForRule
+				.Where(kvp => kvp.Key.StartsWith("departure"))
+				.Select(kvp => kvp.Value)
+				.Aggregate<int, ulong>(1, (current, column) => current * myTicket.Values[column]);
 		}
 
 		protected override (Rule[] Rules, Ticket MyTicket, Ticket[] NearbyTickets) ParseInput(string inputString)
@@ -71,9 +97,9 @@ namespace AdventOfCode2020
 
 	public class Ticket
 	{
-		public IReadOnlyCollection<ulong> Values { get; }
+		public ulong[] Values { get; }
 
-		public Ticket(IReadOnlyCollection<ulong> values)
+		public Ticket(ulong[] values)
 		{
 			this.Values = values;
 		}
