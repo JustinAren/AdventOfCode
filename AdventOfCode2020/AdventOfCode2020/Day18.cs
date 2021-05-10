@@ -15,7 +15,8 @@ namespace AdventOfCode2020
 		public override ulong Perform2(string inputString)
 		{
 			var input = this.ParseInput(inputString);
-			throw new NotImplementedException();
+			for (var i = 0; i < 100; i++) input = input.Select(expression => expression.Rewrite()).ToArray();
+			return input.Aggregate<IExpression, ulong>(0, (sum, expression) => sum + expression.Calculate());
 		}
 
 		protected override IExpression[] ParseInput(string inputString)
@@ -65,6 +66,7 @@ namespace AdventOfCode2020
 	public interface IExpression
 	{
 		ulong Calculate();
+		IExpression Rewrite();
 	}
 
 	public class Constant : IExpression
@@ -79,6 +81,11 @@ namespace AdventOfCode2020
 		public ulong Calculate()
 		{
 			return this.Value;
+		}
+
+		public IExpression Rewrite()
+		{
+			return this;
 		}
 	}
 
@@ -97,6 +104,12 @@ namespace AdventOfCode2020
 		{
 			return this.LeftSide.Calculate() + this.RightSide.Calculate();
 		}
+
+		public IExpression Rewrite()
+		{
+			if (this.LeftSide is Product product) return new Product(product.LeftSide.Rewrite(), new Sum(product.RightSide.Rewrite(), this.RightSide.Rewrite()));
+			return new Sum(this.LeftSide.Rewrite(), this.RightSide.Rewrite());
+		}
 	}
 
 	public class Product : IExpression
@@ -114,6 +127,11 @@ namespace AdventOfCode2020
 		{
 			return this.LeftSide.Calculate() * this.RightSide.Calculate();
 		}
+
+		public IExpression Rewrite()
+		{
+			return new Product(this.LeftSide.Rewrite(), this.RightSide.Rewrite());
+		}
 	}
 
 	public class Parenthesis : IExpression
@@ -128,6 +146,11 @@ namespace AdventOfCode2020
 		public ulong Calculate()
 		{
 			return this.InnerExpression.Calculate();
+		}
+
+		public IExpression Rewrite()
+		{
+			return new Parenthesis(this.InnerExpression.Rewrite());
 		}
 	}
 }
