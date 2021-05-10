@@ -19,12 +19,12 @@ namespace AdventOfCode2020.Tests
 			Assert.Equal(expected, result);
 		}
 
-		//[Theory]
-		//[InlineData(TestString1, 1)]
-		//public void Test2(string inputString, ulong expected)
-		//{
-		//	var result = this.Day.Perform2(inputString);
-		//	Assert.Equal(expected, result);
-		//}
+		[Theory]
+		[InlineData(TestString1, 848)]
+		public void Test2(string inputString, ulong expected)
+		{
+			var result = this.Day.Perform2(inputString);
+			Assert.Equal(expected, result);
+		}
 	}
 }
