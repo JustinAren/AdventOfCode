@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace AdventOfCode2020
 {
-	public class Day16 : Day<(Rule[] Rules, Ticket MyTicket, Ticket[] NearbyTickets)>
+	public class Day16 : Day<(Day16Rule[] Rules, Ticket MyTicket, Ticket[] NearbyTickets)>
 	{
 		public override ulong Perform1(string inputString)
 		{
@@ -52,23 +52,23 @@ namespace AdventOfCode2020
 				.Aggregate<int, ulong>(1, (current, column) => current * myTicket.Values[column]);
 		}
 
-		protected override (Rule[] Rules, Ticket MyTicket, Ticket[] NearbyTickets) ParseInput(string inputString)
+		protected override (Day16Rule[] Rules, Ticket MyTicket, Ticket[] NearbyTickets) ParseInput(string inputString)
 		{
 			var input = inputString.Split($"{Environment.NewLine}{Environment.NewLine}", StringSplitOptions.RemoveEmptyEntries);
 			var ruleStrings = input[0].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 			var myTicketString = input[1].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)[1];
 			var nearbyTicketStrings = input[2].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Skip(1);
-			return (ruleStrings.Select(Rule.Parse).ToArray(), Ticket.Parse(myTicketString), nearbyTicketStrings.Select(Ticket.Parse).ToArray());
+			return (ruleStrings.Select(Day16Rule.Parse).ToArray(), Ticket.Parse(myTicketString), nearbyTicketStrings.Select(Ticket.Parse).ToArray());
 		}
 	}
 
-	public class Rule
+	public class Day16Rule
 	{
 		public string Name { get; }
 		public (ulong Min, ulong Max) Range1 { get; }
 		public (ulong Min, ulong Max) Range2 { get; }
 
-		public Rule(string name, (ulong Min, ulong Max) range1, (ulong Min, ulong Max) range2)
+		public Day16Rule(string name, (ulong Min, ulong Max) range1, (ulong Min, ulong Max) range2)
 		{
 			this.Name = name;
 			this.Range1 = range1;
@@ -81,11 +81,11 @@ namespace AdventOfCode2020
 				   value >= this.Range2.Min && value <= this.Range2.Max;
 		}
 
-		public static Rule Parse(string inputString)
+		public static Day16Rule Parse(string inputString)
 		{
 			var inputs = inputString.Split(':', StringSplitOptions.RemoveEmptyEntries);
 			var ranges = inputs[1].Split("or", StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).Select(ParseRange).ToArray();
-			return new Rule(inputs[0], ranges[0], ranges[1]);
+			return new Day16Rule(inputs[0], ranges[0], ranges[1]);
 		}
 
 		private static (ulong Min, ulong Max) ParseRange(string rangeString)
@@ -104,7 +104,7 @@ namespace AdventOfCode2020
 			this.Values = values;
 		}
 
-		public bool ValidateAgainstRules(Rule[] rules, out IReadOnlyCollection<ulong> invalidValues)
+		public bool ValidateAgainstRules(Day16Rule[] rules, out IReadOnlyCollection<ulong> invalidValues)
 		{
 			invalidValues = this.Values.Where(value => !rules.Any(rule => rule.ValidateValue(value))).ToArray();
 			return !invalidValues.Any();
