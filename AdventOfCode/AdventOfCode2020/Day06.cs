@@ -7,16 +7,16 @@ namespace AdventOfCode2020
 {
 	public class Day06 : Day<string[]>
 	{
-		public override ulong Perform1(string inputString)
+		public override long Perform1(string inputString)
 		{
 			var inputStrings = this.ParseInput(inputString);
-			return (ulong) inputStrings.Select(ParseInput1).Sum();
+			return inputStrings.Select(ParseInput1).Sum();
 		}
 
-		public override ulong Perform2(string inputString)
+		public override long Perform2(string inputString)
 		{
 			var inputStrings = this.ParseInput(inputString);
-			return (ulong) inputStrings.Select(ParseInput2).Sum();
+			return inputStrings.Select(ParseInput2).Sum();
 		}
 
 		protected override string[] ParseInput(string inputString)

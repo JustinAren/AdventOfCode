@@ -5,29 +5,29 @@ using AdventOfCodeBase;
 
 namespace AdventOfCode2020
 {
-	public class Day15 : Day<ulong[]>
+	public class Day15 : Day<long[]>
 	{
-		public override ulong Perform1(string inputString)
+		public override long Perform1(string inputString)
 		{
 			return this.SolveProblem(inputString, 2020);
 		}
 
-		public override ulong Perform2(string inputString)
+		public override long Perform2(string inputString)
 		{
 			return this.SolveProblem(inputString, 30000000);
 		}
 
-		private ulong SolveProblem(string inputString, ulong iterations)
+		private long SolveProblem(string inputString, long iterations)
 		{
 			var inputArray = this.ParseInput(inputString);
-			var resultDictionary = new Dictionary<ulong, List<ulong>>();
-			ulong lastNumber = 0;
+			var resultDictionary = new Dictionary<long, List<long>>();
+			long lastNumber = 0;
 
-			for (ulong i = 1; i <= iterations; i++)
+			for (long i = 1; i <= iterations; i++)
 			{
-				if (i - 1 < (ulong) inputArray.Length)
+				if (i - 1 < inputArray.Length)
 				{
-					resultDictionary.Add(inputArray[i - 1], new List<ulong>{i});
+					resultDictionary.Add(inputArray[i - 1], new List<long>{i});
 					lastNumber = inputArray[i - 1];
 					continue;
 				}
@@ -40,7 +40,7 @@ namespace AdventOfCode2020
 				}
 				else
 				{
-					resultDictionary.Add(lastNumber, new List<ulong>{i - 1});
+					resultDictionary.Add(lastNumber, new List<long>{i - 1});
 					lastNumber = 0;
 				}
 			}
@@ -48,9 +48,9 @@ namespace AdventOfCode2020
 			return lastNumber;
 		}
 
-		protected override ulong[] ParseInput(string inputString)
+		protected override long[] ParseInput(string inputString)
 		{
-			return inputString.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(UInt64.Parse).ToArray();
+			return inputString.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(Int64.Parse).ToArray();
 		}
 	}
 }

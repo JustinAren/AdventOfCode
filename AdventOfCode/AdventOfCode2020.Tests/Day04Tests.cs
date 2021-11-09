@@ -55,7 +55,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719";
 		[InlineData(TestString1, 2)]
 		[InlineData(TestString2, 4)]
 		[InlineData(TestString3, 4)]
-		public void Test1(string input, ulong expected)
+		public void Test1(string input, long expected)
 		{
 			var result = this.Day.Perform1(input);
 			Assert.Equal(expected, result);
@@ -65,7 +65,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719";
 		[InlineData(TestString1, 2)]
 		[InlineData(TestString2, 0)]
 		[InlineData(TestString3, 4)]
-		public void Test2(string input, ulong expected)
+		public void Test2(string input, long expected)
 		{
 			var result = this.Day.Perform2(input);
 			Assert.Equal(expected, result);

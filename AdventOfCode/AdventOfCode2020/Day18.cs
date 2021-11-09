@@ -7,17 +7,17 @@ namespace AdventOfCode2020
 {
 	public class Day18 : Day<IExpression[]>
 	{
-		public override ulong Perform1(string inputString)
+		public override long Perform1(string inputString)
 		{
 			var input = this.ParseInput(inputString);
-			return input.Aggregate<IExpression, ulong>(0, (sum, expression) => sum + expression.Calculate());
+			return input.Aggregate<IExpression, long>(0, (sum, expression) => sum + expression.Calculate());
 		}
 
-		public override ulong Perform2(string inputString)
+		public override long Perform2(string inputString)
 		{
 			var input = this.ParseInput(inputString);
 			for (var i = 0; i < 100; i++) input = input.Select(expression => expression.Rewrite()).ToArray();
-			return input.Aggregate<IExpression, ulong>(0, (sum, expression) => sum + expression.Calculate());
+			return input.Aggregate<IExpression, long>(0, (sum, expression) => sum + expression.Calculate());
 		}
 
 		protected override IExpression[] ParseInput(string inputString)
@@ -34,7 +34,7 @@ namespace AdventOfCode2020
 
 		private static IExpression ParseExpression(string expressionString, int start, int end)
 		{
-			if (end - start == 1) return new Constant(UInt64.Parse(expressionString[start].ToString()));
+			if (end - start == 1) return new Constant(Int64.Parse(expressionString[start].ToString()));
 
 			var parenthesisCount = 0;
 
@@ -66,20 +66,20 @@ namespace AdventOfCode2020
 
 	public interface IExpression
 	{
-		ulong Calculate();
+		long Calculate();
 		IExpression Rewrite();
 	}
 
 	public class Constant : IExpression
 	{
-		public ulong Value { get; }
+		public long Value { get; }
 
-		public Constant(ulong value)
+		public Constant(long value)
 		{
 			this.Value = value;
 		}
 
-		public ulong Calculate()
+		public long Calculate()
 		{
 			return this.Value;
 		}
@@ -101,7 +101,7 @@ namespace AdventOfCode2020
 			this.RightSide = rightSide;
 		}
 
-		public ulong Calculate()
+		public long Calculate()
 		{
 			return this.LeftSide.Calculate() + this.RightSide.Calculate();
 		}
@@ -124,7 +124,7 @@ namespace AdventOfCode2020
 			this.RightSide = rightSide;
 		}
 
-		public ulong Calculate()
+		public long Calculate()
 		{
 			return this.LeftSide.Calculate() * this.RightSide.Calculate();
 		}
@@ -144,7 +144,7 @@ namespace AdventOfCode2020
 			this.InnerExpression = innerExpression;
 		}
 
-		public ulong Calculate()
+		public long Calculate()
 		{
 			return this.InnerExpression.Calculate();
 		}

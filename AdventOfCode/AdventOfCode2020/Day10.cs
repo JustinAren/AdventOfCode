@@ -7,7 +7,7 @@ namespace AdventOfCode2020
 {
 	public class Day10 : Day<List<int>>
 	{
-		public override ulong Perform1(string inputString)
+		public override long Perform1(string inputString)
 		{
 			var inputList = this.ParseInput(inputString);
 			var maxValue = inputList.Last() + 3;
@@ -23,13 +23,13 @@ namespace AdventOfCode2020
 
 			for (var i = 1; i < inputList.Count; i++) resultDictionary[inputList[i] - inputList[i - 1]]++;
 
-			return (ulong)(resultDictionary[1] * resultDictionary[3]);
+			return resultDictionary[1] * resultDictionary[3];
 		}
 
-		public override ulong Perform2(string inputString)
+		public override long Perform2(string inputString)
 		{
 			var inputList = this.ParseInput(inputString);
-			return (ulong) this.Combinations(0, inputList);
+			return this.Combinations(0, inputList);
 		}
 
 		private readonly Dictionary<int, long> _values = new();

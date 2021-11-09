@@ -9,7 +9,7 @@ namespace AdventOfCode2020
 	{
 		private const string BagColor = "shiny gold";
 
-		public override ulong Perform1(string inputString)
+		public override long Perform1(string inputString)
 		{
 			var foundColors = new HashSet<string>();
 			var bags = this.ParseInput(inputString);
@@ -20,7 +20,7 @@ namespace AdventOfCode2020
 				if (FindColor(bag)) foundColors.Add(bag.Color);
 			}
 
-			return (ulong) foundColors.Count;
+			return foundColors.Count;
 
 			static bool FindColor(Bag bag)
 			{
@@ -33,10 +33,10 @@ namespace AdventOfCode2020
 			}
 		}
 
-		public override ulong Perform2(string inputString)
+		public override long Perform2(string inputString)
 		{
 			var bags = this.ParseInput(inputString).ToDictionary(bag => bag.Color);
-			return (ulong) (bags[BagColor].BagCount - 1);
+			return bags[BagColor].BagCount - 1;
 		}
 
 		protected override IEnumerable<Bag> ParseInput(string inputString)

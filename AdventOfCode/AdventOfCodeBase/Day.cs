@@ -4,7 +4,7 @@ namespace AdventOfCodeBase
 {
 	public abstract class Day<T> : IDay
 	{
-		public (bool Performed, ulong Result) Perform(int problemNumber, int year)
+		public (bool Performed, long Result) Perform(int problemNumber, int year)
 		{
 			var inputString = File.ReadAllText($@"..\..\..\..\InputFiles\{year}\{this.GetType().Name}.txt");
 
@@ -16,15 +16,15 @@ namespace AdventOfCodeBase
 			};
 		}
 
-		public abstract ulong Perform1(string inputString);
-		public abstract ulong Perform2(string inputString);
+		public abstract long Perform1(string inputString);
+		public abstract long Perform2(string inputString);
 		protected abstract T ParseInput(string inputString);
 	}
 
 	public interface IDay
 	{
-		(bool Performed, ulong Result) Perform(int problemNumber, int year);
-		ulong Perform1(string inputString);
-		ulong Perform2(string inputString);
+		(bool Performed, long Result) Perform(int problemNumber, int year);
+		long Perform1(string inputString);
+		long Perform2(string inputString);
 	}
 }
