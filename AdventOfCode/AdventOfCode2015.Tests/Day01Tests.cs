@@ -23,12 +23,13 @@ namespace AdventOfCode2015.Tests
 			Assert.Equal(expected, result);
 		}
 
-		//[Theory]
-		//[InlineData(TestString1, 241861950)]
-		//public void Test2(string inputString, long expected)
-		//{
-		//	var result = this.Day.Perform2(inputString);
-		//	Assert.Equal(expected, result);
-		//}
+		[Theory]
+		[InlineData(")", 1)]
+		[InlineData("()())", 5)]
+		public void Test2(string inputString, long expected)
+		{
+			var result = this.Day.Perform2(inputString);
+			Assert.Equal(expected, result);
+		}
 	}
 }

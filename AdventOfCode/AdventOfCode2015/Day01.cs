@@ -12,10 +12,8 @@ namespace AdventOfCode2015
 			{
 				switch (character)
 				{
-					case '(': result++;
-						break;
-					case ')': result--;
-						break;
+					case '(': result++; break;
+					case ')': result--; break;
 				}
 			}
 
@@ -24,7 +22,20 @@ namespace AdventOfCode2015
 
 		public override long Perform2(string inputString)
 		{
-			throw new System.NotImplementedException();
+			var result = 0;
+
+			for (var i = 0; i < inputString.Length; i++)
+			{
+				switch (inputString[i])
+				{
+					case '(': result++; break;
+					case ')': result--; break;
+				}
+
+				if (result == -1) return i + 1;
+			}
+
+			return 0;
 		}
 
 		protected override string ParseInput(string inputString)
