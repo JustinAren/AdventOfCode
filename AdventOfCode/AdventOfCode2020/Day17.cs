@@ -6,22 +6,22 @@ namespace AdventOfCode2020
 {
 	public class Day17 : Day<HashSet<(int X, int Y, int Z, int W)>>
 	{
-		public override ulong Perform1(string inputString)
+		public override long Perform1(string inputString)
 		{
 			var activeCubes = this.ParseInput(inputString);
 
 			for (var i = 0; i < 6; i++) activeCubes = PerformCycle(activeCubes, useW: false);
 
-			return (ulong) activeCubes.Count;
+			return activeCubes.Count;
 		}
 
-		public override ulong Perform2(string inputString)
+		public override long Perform2(string inputString)
 		{
 			var activeCubes = this.ParseInput(inputString);
 
 			for (var i = 0; i < 6; i++) activeCubes = PerformCycle(activeCubes, useW: true);
 
-			return (ulong) activeCubes.Count;
+			return activeCubes.Count;
 		}
 
 		protected override HashSet<(int X, int Y, int Z, int W)> ParseInput(string inputString)

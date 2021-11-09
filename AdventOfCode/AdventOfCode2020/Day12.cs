@@ -7,20 +7,20 @@ namespace AdventOfCode2020
 {
 	public class Day12 : Day<IEnumerable<(char Action, int Value)>>
 	{
-		public override ulong Perform1(string inputString)
+		public override long Perform1(string inputString)
 		{
 			var instructions = this.ParseInput(inputString);
 			var ship = new Ship();
 			foreach (var (action, value) in instructions) ship.PerformInstruction1(action, value);
-			return (ulong) (Math.Abs(ship.XCoordinate) + Math.Abs(ship.YCoordinate));
+			return Math.Abs(ship.XCoordinate) + Math.Abs(ship.YCoordinate);
 		}
 
-		public override ulong Perform2(string inputString)
+		public override long Perform2(string inputString)
 		{
 			var instructions = this.ParseInput(inputString);
 			var ship = new Ship();
 			foreach (var (action, value) in instructions) ship.PerformInstruction2(action, value);
-			return (ulong) (Math.Abs(ship.XCoordinate) + Math.Abs(ship.YCoordinate));
+			return Math.Abs(ship.XCoordinate) + Math.Abs(ship.YCoordinate);
 		}
 
 		protected override IEnumerable<(char Action, int Value)> ParseInput(string inputString)

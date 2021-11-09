@@ -7,7 +7,7 @@ namespace AdventOfCode2020
 {
 	public class Day11 : Day<SeatStatus[,]>
 	{
-		public override ulong Perform1(string inputString)
+		public override long Perform1(string inputString)
 		{
 			var map = this.ParseInput(inputString);
 			var newMap = PerformProblem1Round(map);
@@ -21,7 +21,7 @@ namespace AdventOfCode2020
 			return GetOccupiedCount(newMap);
 		}
 
-		public override ulong Perform2(string inputString)
+		public override long Perform2(string inputString)
 		{
 			var map = this.ParseInput(inputString);
 			var newMap = PerformProblem2Round(map);
@@ -35,9 +35,9 @@ namespace AdventOfCode2020
 			return GetOccupiedCount(newMap);
 		}
 
-		private static ulong GetOccupiedCount(SeatStatus[,] map)
+		private static long GetOccupiedCount(SeatStatus[,] map)
 		{
-			ulong occupiedCount = 0;
+			long occupiedCount = 0;
 
 			for (var i = 0; i < map.GetLength(0); i++)
 			{

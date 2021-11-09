@@ -7,20 +7,20 @@ namespace AdventOfCode2020
 {
 	public class Day14 : Day<List<BitMaskGroup>>
 	{
-		public override ulong Perform1(string inputString)
+		public override long Perform1(string inputString)
 		{
 			var bitMaskGroups = this.ParseInput(inputString);
 			var arraySize = bitMaskGroups.Max(bmg => bmg.Operations.Max(o => o.Position)) + 1;
-			var resultArray = new ulong[arraySize];
+			var resultArray = new long[arraySize];
 
 			foreach (var bitMaskGroup in bitMaskGroups) ProcessBitMaskGroup1(bitMaskGroup, resultArray);
 
 			return resultArray.Aggregate((a, b) => a + b);
 		}
 
-		private static ulong ApplyBitMask1(string bitMask, ulong value)
+		private static long ApplyBitMask1(string bitMask, long value)
 		{
-			var binaryValueCharArray = Convert.ToString((long) value, 2).PadLeft(bitMask.Length, '0').ToArray();
+			var binaryValueCharArray = Convert.ToString(value, 2).PadLeft(bitMask.Length, '0').ToArray();
 
 			for (var i = 0; i < bitMask.Length; i++)
 			{
@@ -28,10 +28,10 @@ namespace AdventOfCode2020
 				binaryValueCharArray[i] = bitMask[i];
 			}
 
-			return Convert.ToUInt64(new string(binaryValueCharArray), 2);
+			return Convert.ToInt64(new string(binaryValueCharArray), 2);
 		}
 
-		private static void ProcessBitMaskGroup1(BitMaskGroup bitMaskGroup, ulong[] resultArray)
+		private static void ProcessBitMaskGroup1(BitMaskGroup bitMaskGroup, long[] resultArray)
 		{
 			foreach (var (position, value) in bitMaskGroup.Operations)
 			{
@@ -40,19 +40,19 @@ namespace AdventOfCode2020
 			}
 		}
 
-		public override ulong Perform2(string inputString)
+		public override long Perform2(string inputString)
 		{
 			var bitMaskGroups = this.ParseInput(inputString);
-			var resultDictionary = new Dictionary<ulong, ulong>();
+			var resultDictionary = new Dictionary<long, long>();
 
 			foreach (var bitMaskGroup in bitMaskGroups) ProcessBitMaskGroup2(bitMaskGroup, resultDictionary);
 
 			return resultDictionary.Values.Aggregate((a, b) => a + b);
 		}
 
-		private static ulong[] ApplyBitMask2(string bitMask, ulong position)
+		private static long[] ApplyBitMask2(string bitMask, long position)
 		{
-			var binaryPositionCharArray = Convert.ToString((long) position, 2).PadLeft(bitMask.Length, '0').ToArray();
+			var binaryPositionCharArray = Convert.ToString(position, 2).PadLeft(bitMask.Length, '0').ToArray();
 
 			for (var i = 0; i < bitMask.Length; i++)
 			{
@@ -63,7 +63,7 @@ namespace AdventOfCode2020
 			var xCount = binaryPositionCharArray.Count(v => v == 'X');
 			var newPositionCount = (int) Math.Pow(2, xCount);
 
-			var resultArray = new ulong[newPositionCount];
+			var resultArray = new long[newPositionCount];
 
 			for (var i = 0; i < newPositionCount; i++)
 			{
@@ -77,13 +77,13 @@ namespace AdventOfCode2020
 					copy[j] = iBinary[iPosition];
 					iPosition++;
 				}
-				resultArray[i] = Convert.ToUInt64(new string(copy), 2);
+				resultArray[i] = Convert.ToInt64(new string(copy), 2);
 			}
 
 			return resultArray;
 		}
 
-		private static void ProcessBitMaskGroup2(BitMaskGroup bitMaskGroup, Dictionary<ulong, ulong> resultDictionary)
+		private static void ProcessBitMaskGroup2(BitMaskGroup bitMaskGroup, Dictionary<long, long> resultDictionary)
 		{
 			foreach (var (position, value) in bitMaskGroup.Operations)
 			{
@@ -112,20 +112,20 @@ namespace AdventOfCode2020
 			return bitMaskGroups;
 		}
 
-		private static (ulong Position, ulong Value) ReadOperation(string operation)
+		private static (long Position, long Value) ReadOperation(string operation)
 		{
 			operation = operation.Substring(4);
 			var splits = operation.Split("] = ", StringSplitOptions.RemoveEmptyEntries);
-			return (UInt64.Parse(splits[0]), UInt64.Parse(splits[1]));
+			return (Int64.Parse(splits[0]), Int64.Parse(splits[1]));
 		}
 	}
 
 	public class BitMaskGroup
 	{
 		public string BitMask { get; }
-		public IReadOnlyCollection<(ulong Position, ulong Value)> Operations { get; }
+		public IReadOnlyCollection<(long Position, long Value)> Operations { get; }
 
-		public BitMaskGroup(string bitMask, IEnumerable<(ulong Position, ulong Value)> operations)
+		public BitMaskGroup(string bitMask, IEnumerable<(long Position, long Value)> operations)
 		{
 			this.BitMask = bitMask;
 			this.Operations = operations.ToList();

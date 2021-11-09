@@ -6,7 +6,7 @@ namespace AdventOfCode2020
 {
 	public class Day02 : Day<string[]>
 	{
-		public override ulong Perform1(string inputString)
+		public override long Perform1(string inputString)
 		{
 			var count = 0;
 			var inputArray = this.ParseInput(inputString);
@@ -22,10 +22,10 @@ namespace AdventOfCode2020
 				if (occurrences >= lowerLimit && occurrences <= upperLimit) count++;
 			}
 
-			return (ulong) count;
+			return count;
 		}
 
-		public override ulong Perform2(string inputString)
+		public override long Perform2(string inputString)
 		{
 			var count = 0;
 			var inputArray = this.ParseInput(inputString);
@@ -43,7 +43,7 @@ namespace AdventOfCode2020
 				    firstCharacter != matchingCharacter && secondCharacter == matchingCharacter) count++;
 			}
 
-			return (ulong) count;
+			return count;
 		}
 
 		protected override string[] ParseInput(string inputString)

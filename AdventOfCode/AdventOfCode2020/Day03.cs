@@ -6,13 +6,13 @@ namespace AdventOfCode2020
 {
 	public class Day03 : Day<string[]>
 	{
-		public override ulong Perform1(string inputString)
+		public override long Perform1(string inputString)
 		{
 			var inputArray = this.ParseInput(inputString);
 			return CountTrees(inputArray, 1, 3);
 		}
 
-		public override ulong Perform2(string inputString)
+		public override long Perform2(string inputString)
 		{
 			var inputArray = this.ParseInput(inputString);
 			var solutions = new[]
@@ -23,7 +23,7 @@ namespace AdventOfCode2020
 				CountTrees(inputArray, 1, 7),
 				CountTrees(inputArray, 2, 1),
 			};
-			return solutions.Aggregate((ulong) 1, (a, b) => a * b);
+			return solutions.Aggregate((long) 1, (a, b) => a * b);
 		}
 
 		protected override string[] ParseInput(string inputString)
@@ -31,9 +31,9 @@ namespace AdventOfCode2020
 			return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 		}
 
-		private static ulong CountTrees(string[] inputArray, int down, int right)
+		private static long CountTrees(string[] inputArray, int down, int right)
 		{
-			ulong treeCount = 0;
+			long treeCount = 0;
 			var position = 0;
 			var lineLength = inputArray[0].Length;
 

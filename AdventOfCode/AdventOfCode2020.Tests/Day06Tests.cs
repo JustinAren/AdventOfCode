@@ -26,7 +26,7 @@ b";
 
 		[Theory]
 		[InlineData(TestString1, 11)]
-		public void Test1(string inputString, ulong expected)
+		public void Test1(string inputString, long expected)
 		{
 			var result = this.Day.Perform1(inputString);
 			Assert.Equal(expected, result);
@@ -34,7 +34,7 @@ b";
 
 		[Theory]
 		[InlineData(TestString1, 6)]
-		public void Test2(string inputString, ulong expected)
+		public void Test2(string inputString, long expected)
 		{
 			var result = this.Day.Perform2(inputString);
 			Assert.Equal(expected, result);

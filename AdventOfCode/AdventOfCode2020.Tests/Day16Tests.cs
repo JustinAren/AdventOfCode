@@ -37,7 +37,7 @@ nearby tickets:
 
 		[Theory]
 		[InlineData(TestString1, 71)]
-		public void Test1(string inputString, ulong expected)
+		public void Test1(string inputString, long expected)
 		{
 			var result = this.Day.Perform1(inputString);
 			Assert.Equal(expected, result);
@@ -45,7 +45,7 @@ nearby tickets:
 
 		[Theory]
 		[InlineData(TestString2, 1)]
-		public void Test2(string inputString, ulong expected)
+		public void Test2(string inputString, long expected)
 		{
 			var result = this.Day.Perform2(inputString);
 			Assert.Equal(expected, result);

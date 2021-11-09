@@ -5,15 +5,15 @@ using AdventOfCodeBase;
 
 namespace AdventOfCode2020
 {
-	public class Day09 : Day<ulong[]>
+	public class Day09 : Day<long[]>
 	{
-		public override ulong Perform1(string inputString)
+		public override long Perform1(string inputString)
 		{
 			var inputArray = this.ParseInput(inputString);
 			return GetInvalidEntry(inputArray);
 		}
 
-		public override ulong Perform2(string inputString)
+		public override long Perform2(string inputString)
 		{
 			var inputArray = this.ParseInput(inputString);
 			var invalidValue = GetInvalidEntry(inputArray);
@@ -24,19 +24,19 @@ namespace AdventOfCode2020
 				{
 					if (i == j) continue;
 					var numbers = inputArray.Skip(i).Take(j - i).ToArray();
-					if ((ulong) numbers.Sum(n => (long) n) == invalidValue) return numbers.Min() + numbers.Max();
+					if (numbers.Sum(n => n) == invalidValue) return numbers.Min() + numbers.Max();
 				}
 			}
 
 			return 0;
 		}
 
-		protected override ulong[] ParseInput(string inputString)
+		protected override long[] ParseInput(string inputString)
 		{
-			return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(UInt64.Parse).ToArray();
+			return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(Int64.Parse).ToArray();
 		}
 
-		private static ulong GetInvalidEntry(IReadOnlyList<ulong> inputArray)
+		private static long GetInvalidEntry(IReadOnlyList<long> inputArray)
 		{
 			var preamble = inputArray.Count > 25 ? 25 : 5;
 
@@ -49,7 +49,7 @@ namespace AdventOfCode2020
 			return 0;
 		}
 
-		private static bool IsValid(ulong controlDigit, IReadOnlyList<ulong> previousDigits)
+		private static bool IsValid(long controlDigit, IReadOnlyList<long> previousDigits)
 		{
 			for (var i = 0; i < previousDigits.Count; i++)
 			{

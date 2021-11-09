@@ -7,15 +7,15 @@ namespace AdventOfCode2020
 {
 	public class Day19 : Day<(Dictionary<byte, Day19Rule> RulesByNumber, string[] Messages)>
 	{
-		public override ulong Perform1(string inputString)
+		public override long Perform1(string inputString)
 		{
 			var (rulesByNumber, messages) = this.ParseInput(inputString);
 			var possibleValues = rulesByNumber[0].GeneratePossibleValues(rulesByNumber);
 			var matchingCount = messages.Count(message => possibleValues.Contains(message));
-			return (ulong) matchingCount;
+			return matchingCount;
 		}
 
-		public override ulong Perform2(string inputString)
+		public override long Perform2(string inputString)
 		{
 			var (rulesByNumber, messages) = this.ParseInput(inputString);
 			throw new NotImplementedException();

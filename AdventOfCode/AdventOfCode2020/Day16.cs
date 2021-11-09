@@ -7,10 +7,10 @@ namespace AdventOfCode2020
 {
 	public class Day16 : Day<(Day16Rule[] Rules, Ticket MyTicket, Ticket[] NearbyTickets)>
 	{
-		public override ulong Perform1(string inputString)
+		public override long Perform1(string inputString)
 		{
 			var (rules, _, nearbyTickets) = this.ParseInput(inputString);
-			var invalidValues = new List<ulong>();
+			var invalidValues = new List<long>();
 
 			foreach (var ticket in nearbyTickets)
 			{
@@ -18,10 +18,10 @@ namespace AdventOfCode2020
 				invalidValues.AddRange(invalids);
 			}
 
-			return (ulong)invalidValues.Sum(v => (decimal)v);
+			return (long)invalidValues.Sum(v => (decimal)v);
 		}
 
-		public override ulong Perform2(string inputString)
+		public override long Perform2(string inputString)
 		{
 			var (rules, myTicket, nearbyTickets) = this.ParseInput(inputString);
 			var validTickets = nearbyTickets.Where(ticket => ticket.ValidateAgainstRules(rules, out _)).ToArray();
@@ -50,7 +50,7 @@ namespace AdventOfCode2020
 			return actualColumnForRule
 				.Where(kvp => kvp.Key.StartsWith("departure"))
 				.Select(kvp => kvp.Value)
-				.Aggregate<int, ulong>(1, (current, column) => current * myTicket.Values[column]);
+				.Aggregate<int, long>(1, (current, column) => current * myTicket.Values[column]);
 		}
 
 		protected override (Day16Rule[] Rules, Ticket MyTicket, Ticket[] NearbyTickets) ParseInput(string inputString)
@@ -66,17 +66,17 @@ namespace AdventOfCode2020
 	public class Day16Rule
 	{
 		public string Name { get; }
-		public (ulong Min, ulong Max) Range1 { get; }
-		public (ulong Min, ulong Max) Range2 { get; }
+		public (long Min, long Max) Range1 { get; }
+		public (long Min, long Max) Range2 { get; }
 
-		public Day16Rule(string name, (ulong Min, ulong Max) range1, (ulong Min, ulong Max) range2)
+		public Day16Rule(string name, (long Min, long Max) range1, (long Min, long Max) range2)
 		{
 			this.Name = name;
 			this.Range1 = range1;
 			this.Range2 = range2;
 		}
 
-		public bool ValidateValue(ulong value)
+		public bool ValidateValue(long value)
 		{
 			return value >= this.Range1.Min && value <= this.Range1.Max ||
 				   value >= this.Range2.Min && value <= this.Range2.Max;
@@ -89,23 +89,23 @@ namespace AdventOfCode2020
 			return new Day16Rule(inputs[0], ranges[0], ranges[1]);
 		}
 
-		private static (ulong Min, ulong Max) ParseRange(string rangeString)
+		private static (long Min, long Max) ParseRange(string rangeString)
 		{
 			var range = rangeString.Split('-', StringSplitOptions.RemoveEmptyEntries);
-			return (UInt64.Parse(range[0]), UInt64.Parse(range[1]));
+			return (Int64.Parse(range[0]), Int64.Parse(range[1]));
 		}
 	}
 
 	public class Ticket
 	{
-		public ulong[] Values { get; }
+		public long[] Values { get; }
 
-		public Ticket(ulong[] values)
+		public Ticket(long[] values)
 		{
 			this.Values = values;
 		}
 
-		public bool ValidateAgainstRules(Day16Rule[] rules, out IReadOnlyCollection<ulong> invalidValues)
+		public bool ValidateAgainstRules(Day16Rule[] rules, out IReadOnlyCollection<long> invalidValues)
 		{
 			invalidValues = this.Values.Where(value => !rules.Any(rule => rule.ValidateValue(value))).ToArray();
 			return !invalidValues.Any();
@@ -113,7 +113,7 @@ namespace AdventOfCode2020
 
 		public static Ticket Parse(string inputString)
 		{
-			return new(inputString.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(UInt64.Parse).ToArray());
+			return new(inputString.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(Int64.Parse).ToArray());
 		}
 	}
 }

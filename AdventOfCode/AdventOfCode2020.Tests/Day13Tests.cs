@@ -28,7 +28,7 @@ namespace AdventOfCode2020.Tests
 
 		[Theory]
 		[InlineData(TestString1, 295)]
-		public void Test1(string inputString, ulong expected)
+		public void Test1(string inputString, long expected)
 		{
 			var result = this.Day.Perform1(inputString);
 			Assert.Equal(expected, result);
@@ -41,7 +41,7 @@ namespace AdventOfCode2020.Tests
 		[InlineData(TestString4, 779210)]
 		[InlineData(TestString5, 1261476)]
 		[InlineData(TestString6, 1202161486)]
-		public void Test2(string inputString, ulong expected)
+		public void Test2(string inputString, long expected)
 		{
 			var result = this.Day.Perform2(inputString);
 			Assert.Equal(expected, result);
