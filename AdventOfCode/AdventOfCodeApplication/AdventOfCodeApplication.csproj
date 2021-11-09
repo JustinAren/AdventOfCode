@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdventOfCode2015\AdventOfCode2015.csproj" />
     <ProjectReference Include="..\AdventOfCode2020\AdventOfCode2020.csproj" />
     <ProjectReference Include="..\AdventOfCodeBase\AdventOfCodeBase.csproj" />
   </ItemGroup>

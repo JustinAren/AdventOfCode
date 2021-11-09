@@ -6,7 +6,20 @@ namespace AdventOfCode2015
 	{
 		public override long Perform1(string inputString)
 		{
-			throw new System.NotImplementedException();
+			var result = 0;
+
+			foreach (var character in inputString)
+			{
+				switch (character)
+				{
+					case '(': result++;
+						break;
+					case ')': result--;
+						break;
+				}
+			}
+
+			return result;
 		}
 
 		public override long Perform2(string inputString)
