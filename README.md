@@ -8,7 +8,7 @@
 |[3](https://adventofcode.com/2015/day/3)|2565|2639|
 |[4](https://adventofcode.com/2015/day/4)|117946|3938038|
 |[5](https://adventofcode.com/2015/day/5)|238|69|
-|[6](https://adventofcode.com/2015/day/6)|||
+|[6](https://adventofcode.com/2015/day/6)|400410|15343601|
 |[7](https://adventofcode.com/2015/day/7)|||
 |[8](https://adventofcode.com/2015/day/8)|||
 |[9](https://adventofcode.com/2015/day/9)|||
