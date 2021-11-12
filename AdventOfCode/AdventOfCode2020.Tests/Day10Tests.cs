@@ -1,11 +1,8 @@
-﻿using AdventOfCodeBase;
-using Xunit;
+﻿namespace AdventOfCode2020.Tests;
 
-namespace AdventOfCode2020.Tests
+public class Day10Tests
 {
-	public class Day10Tests
-	{
-		private const string TestString1 = @"
+	private const string TestString1 = @"
 16
 10
 15
@@ -18,7 +15,7 @@ namespace AdventOfCode2020.Tests
 12
 4";
 		
-		private const string TestString2 = @"
+	private const string TestString2 = @"
 28
 33
 18
@@ -51,24 +48,23 @@ namespace AdventOfCode2020.Tests
 10
 3";
 
-		private IDay Day { get; } = new Day10();
+	private IDay Day { get; } = new Day10();
 
-		[Theory]
-		[InlineData(TestString1, 35)]
-		[InlineData(TestString2, 220)]
-		public void Test1(string inputString, long expected)
-		{
-			var result = this.Day.Perform1(inputString);
-			Assert.Equal(expected, result);
-		}
+	[Theory]
+	[InlineData(TestString1, 35)]
+	[InlineData(TestString2, 220)]
+	public void Test1(string inputString, long expected)
+	{
+		var result = this.Day.Perform1(inputString);
+		Assert.Equal(expected, result);
+	}
 
-		[Theory]
-		[InlineData(TestString1, 8)]
-		[InlineData(TestString2, 19208)]
-		public void Test2(string inputString, long expected)
-		{
-			var result = this.Day.Perform2(inputString);
-			Assert.Equal(expected, result);
-		}
+	[Theory]
+	[InlineData(TestString1, 8)]
+	[InlineData(TestString2, 19208)]
+	public void Test2(string inputString, long expected)
+	{
+		var result = this.Day.Perform2(inputString);
+		Assert.Equal(expected, result);
 	}
 }
