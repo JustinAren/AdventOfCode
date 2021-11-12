@@ -16,14 +16,13 @@ namespace AdventOfCode2015.Tests
 			Assert.Equal(expected, result);
 		}
 
-		//[Theory]
-		//[InlineData("^v", 3)]
-		//[InlineData("^>v<", 3)]
-		//[InlineData("^v^v^v^v^v", 11)]
-		//public void Test2(string inputString, long expected)
-		//{
-		//	var result = this.Day.Perform2(inputString);
-		//	Assert.Equal(expected, result);
-		//}
+		[Theory]
+		[InlineData("abcdef", 6742839)]
+		[InlineData("pqrstuv", 5714438)]
+		public void Test2(string inputString, long expected)
+		{
+			var result = this.Day.Perform2(inputString);
+			Assert.Equal(expected, result);
+		}
 	}
 }

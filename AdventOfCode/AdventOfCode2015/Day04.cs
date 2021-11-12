@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using AdventOfCodeBase;
 
 namespace AdventOfCode2015
@@ -13,26 +8,31 @@ namespace AdventOfCode2015
 		public override long Perform1(string inputString)
 		{
 			var secretKey = this.ParseInput(inputString);
-
-			var counter = 0L;
-
-			while (true)
-			{
-				counter++;
-				var md5 = GenerateMd5($"{secretKey}{counter}");
-				if (md5.StartsWith("00000")) return counter;
-			}
+			return Perform(5, secretKey);
 		}
 
 		public override long Perform2(string inputString)
 		{
 			var secretKey = this.ParseInput(inputString);
-			throw new NotImplementedException();
+			return Perform(6, secretKey);
 		}
 
 		protected override string ParseInput(string inputString)
 		{
 			return inputString;
+		}
+
+		private static long Perform(byte leadingZeroes, string secretKey)
+		{
+			var counter = 0L;
+			var prefix = new string('0', leadingZeroes);
+
+			while (true)
+			{
+				counter++;
+				var md5 = GenerateMd5($"{secretKey}{counter}");
+				if (md5.StartsWith(prefix)) return counter;
+			}
 		}
 
 		private static string GenerateMd5(string input)
