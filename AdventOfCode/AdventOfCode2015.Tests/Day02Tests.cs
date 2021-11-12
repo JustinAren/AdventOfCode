@@ -16,13 +16,13 @@ namespace AdventOfCode2015.Tests
 			Assert.Equal(expected, result);
 		}
 
-        [Theory]
-        [InlineData("2x3x4", 34)]
-        [InlineData("1x1x10", 14)]
-        public void Test2(string inputString, long expected)
-        {
-            var result = this.Day.Perform2(inputString);
-            Assert.Equal(expected, result);
-        }
-    }
+		[Theory]
+		[InlineData("2x3x4", 34)]
+		[InlineData("1x1x10", 14)]
+		public void Test2(string inputString, long expected)
+		{
+			var result = this.Day.Perform2(inputString);
+			Assert.Equal(expected, result);
+		}
+	}
 }
