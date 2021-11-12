@@ -25,9 +25,9 @@ public class Day06 : Day<List<CommandStruct>>
 
 		var count = 0L;
 
-		for (var i = 0; i < 1000; i++) 
-		for (var j = 0; j < 1000; j++) 
-			if (grid[i, j]) count++;
+		for (var i = 0; i < 1000; i++)
+			for (var j = 0; j < 1000; j++)
+				if (grid[i, j]) count++;
 
 		return count;
 	}
@@ -35,7 +35,31 @@ public class Day06 : Day<List<CommandStruct>>
 	public override long Perform2(string inputString)
 	{
 		var commands = this.ParseInput(inputString);
-		throw new NotImplementedException();
+		var grid = new int[1000, 1000];
+		foreach (var (commandEnum, (startX, startY), (endX, endY)) in commands)
+		{
+			for (var i = startX; i <= endX; i++)
+			{
+				for (var j = startY; j <= endY; j++)
+				{
+					grid[i, j] = commandEnum switch
+					{
+						CommandEnum.Toggle => grid[i,j] + 2,
+						CommandEnum.TurnOn => grid[i,j] + 1,
+						CommandEnum.TurnOff => grid[i,j] > 0 ? grid[i,j] - 1 : 0,
+						_ => throw new ArgumentOutOfRangeException(),
+					};
+				}
+			}
+		}
+
+		var count = 0L;
+
+		for (var i = 0; i < 1000; i++)
+			for (var j = 0; j < 1000; j++)
+				count += grid[i, j];
+
+		return count;
 	}
 
 	protected override List<CommandStruct> ParseInput(string inputString)
@@ -49,7 +73,7 @@ public class Day06 : Day<List<CommandStruct>>
 			else switch (words[1])
 			{
 				case "on": result.Add(CreateCommand(CommandEnum.TurnOn, words[2], words[4])); break;
-				case "off":result.Add(CreateCommand(CommandEnum.TurnOff, words[2], words[4])); break;
+				case "off": result.Add(CreateCommand(CommandEnum.TurnOff, words[2], words[4])); break;
 			}
 		}
 
