@@ -7,45 +7,63 @@ namespace AdventOfCode2015.Tests
 	{
 		private IDay Day { get; } = new Day05();
 
-		private const string InputString = @"
+		private const string InputString1 = @"
 ugknbfddgicrmopn
 aaa
 jchzalrnumimnmhp
 haegwjzuvuyypxyu
 dvszwmarrgswjxmb";
 
+		private const string InputString2 = @"
+qjhvhtzxzqqjkmpb
+xxyxx
+uurcxstgmygtbstg
+ieodomkazucvgmuy";
+
 		[Theory]
-		[InlineData("ugknbfddgicrmopn")]
-		[InlineData("aaa")]
-		public void TestIsNice(string name)
+		[InlineData("ugknbfddgicrmopn", true)]
+		[InlineData("aaa", true)]
+		[InlineData("jchzalrnumimnmhp", false)]
+		[InlineData("haegwjzuvuyypxyu", false)]
+		[InlineData("dvszwmarrgswjxmb", false)]
+		[InlineData("qjhvhtzxzqqjkmpb", false)]
+		[InlineData("xxyxx", false)]
+		[InlineData("ieodomkazucvgmuy", false)]
+		public void TestIsNice1(string name, bool isNice)
 		{
-			Assert.True(new Name(name).IsNice);
+			Assert.Equal(isNice, new Name(name).IsNice1);
 		}
 
 		[Theory]
-		[InlineData("jchzalrnumimnmhp")]
-		[InlineData("haegwjzuvuyypxyu")]
-		[InlineData("dvszwmarrgswjxmb")]
-		public void TestIsNaughty(string name)
-		{
-			Assert.True(new Name(name).IsNaughty);
-		}
-
-		[Theory]
-		[InlineData(InputString, 2)]
+		[InlineData(InputString1, 2)]
+		[InlineData(InputString2, 0)]
 		public void Test1(string inputString, long expected)
 		{
 			var result = this.Day.Perform1(inputString);
 			Assert.Equal(expected, result);
 		}
 
-		//[Theory]
-		//[InlineData("abcdef", 6742839)]
-		//[InlineData("pqrstuv", 5714438)]
-		//public void Test2(string inputString, long expected)
-		//{
-		//	var result = this.Day.Perform2(inputString);
-		//	Assert.Equal(expected, result);
-		//}
+		[Theory]
+		[InlineData("qjhvhtzxzqqjkmpb", true)]
+		[InlineData("xxyxx", true)]
+		[InlineData("jchzalrnumimnmhp", false)]
+		[InlineData("haegwjzuvuyypxyu", false)]
+		[InlineData("dvszwmarrgswjxmb", false)]
+		[InlineData("ieodomkazucvgmuy", false)]
+		[InlineData("aaa", false)]
+		[InlineData("ugknbfddgicrmopn", false)]
+		public void TestIsNice2(string name, bool isNice)
+		{
+			Assert.Equal(isNice, new Name(name).IsNice2);
+		}
+
+		[Theory]
+		[InlineData(InputString1, 0)]
+		[InlineData(InputString2, 2)]
+		public void Test2(string inputString, long expected)
+		{
+			var result = this.Day.Perform2(inputString);
+			Assert.Equal(expected, result);
+		}
 	}
 }
