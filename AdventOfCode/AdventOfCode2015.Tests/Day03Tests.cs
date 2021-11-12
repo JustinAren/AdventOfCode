@@ -1,15 +1,16 @@
-using AdventOfCodeBase;
+﻿using AdventOfCodeBase;
 using Xunit;
 
 namespace AdventOfCode2015.Tests
 {
-	public class Day02Tests
+	public class Day03Tests
 	{
-		private IDay Day { get; } = new Day02();
+		private IDay Day { get; } = new Day03();
 
 		[Theory]
-		[InlineData("2x3x4", 58)]
-		[InlineData("1x1x10", 43)]
+		[InlineData(">", 2)]
+		[InlineData("^>v<", 4)]
+		[InlineData("^v^v^v^v^v", 2)]
 		public void Test1(string inputString, long expected)
 		{
 			var result = this.Day.Perform1(inputString);
@@ -17,8 +18,9 @@ namespace AdventOfCode2015.Tests
 		}
 
 		[Theory]
-		[InlineData("2x3x4", 34)]
-		[InlineData("1x1x10", 14)]
+		[InlineData("^v", 3)]
+		[InlineData("^>v<", 3)]
+		[InlineData("^v^v^v^v^v", 11)]
 		public void Test2(string inputString, long expected)
 		{
 			var result = this.Day.Perform2(inputString);
