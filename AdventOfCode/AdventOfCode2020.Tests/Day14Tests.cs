@@ -1,6 +1,6 @@
 ﻿namespace AdventOfCode2020.Tests;
 
-public class Day14Tests
+public class Day14Tests : DayTest<Day14>
 {
 	private const string TestString1 = @"
 mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
@@ -13,12 +13,10 @@ mask = 000000000000000000000000000000X1001X
 mem[42] = 100
 mask = 00000000000000000000000000000000X0XX
 mem[26] = 1";
-
-	private IDay Day { get; } = new Day14();
-
+	
 	[Theory]
 	[InlineData(TestString1, 165)]
-	public void Test1(string inputString, long expected)
+	public override void Test1(string inputString, long expected)
 	{
 		var result = this.Day.Perform1(inputString);
 		Assert.Equal(expected, result);
@@ -26,7 +24,7 @@ mem[26] = 1";
 
 	[Theory]
 	[InlineData(TestString2, 208)]
-	public void Test2(string inputString, long expected)
+	public override void Test2(string inputString, long expected)
 	{
 		var result = this.Day.Perform2(inputString);
 		Assert.Equal(expected, result);
