@@ -61,7 +61,7 @@
 ## [Results 2021](https://adventofcode.com/2021)
 |Day|Solution 1|Solution 2|
 |---:|---:|---:|
-|[1](https://adventofcode.com/2021/day/1)|1521||
+|[1](https://adventofcode.com/2021/day/1)|1521|1543|
 |[2](https://adventofcode.com/2021/day/2)|||
 |[3](https://adventofcode.com/2021/day/3)|||
 |[4](https://adventofcode.com/2021/day/4)|||

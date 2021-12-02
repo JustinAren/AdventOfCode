@@ -5,23 +5,35 @@ public class Day01 : Day<List<int>>
 	public override long Perform1(string inputString)
 	{
 		var heights = this.ParseInput(inputString);
-		var current = heights[0];
 		var increments = 0;
 
-		foreach (var height in heights.Skip(1))
+		var current = heights[0];
+
+		for (var i = 1; i < heights.Count; i++)
 		{
-			if (height > current) increments++;
-			current = height;
+			if (heights[i] > current) increments++;
+			current = heights[i];
 		}
 
 		return increments;
 	}
 
-	public override long Perform2(string inputString) => throw new NotImplementedException();
-
-	protected override List<int> ParseInput(string inputString)
+	public override long Perform2(string inputString)
 	{
-		var result = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(Int32.Parse).ToList();
-		return result;
+		var heights = this.ParseInput(inputString);
+		var increments = 0;
+
+		var currentSum = heights.Take(3).Sum();
+
+		for (var i = 1; i < heights.Count - 2; i++)
+		{
+			var slidingSum = new[] { heights[i], heights[i + 1], heights[i + 2] }.Sum();
+			if (slidingSum > currentSum) increments++;
+			currentSum = slidingSum;
+		}
+
+		return increments;
 	}
+
+	protected override List<int> ParseInput(string inputString) => inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(Int32.Parse).ToList();
 }
