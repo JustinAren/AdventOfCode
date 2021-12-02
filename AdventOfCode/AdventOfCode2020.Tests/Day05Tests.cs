@@ -1,8 +1,7 @@
 ﻿namespace AdventOfCode2020.Tests;
 
-public class Day05Tests
+public class Day05Tests : DayTest<Day05>
 {
-
 	private const string TestString = @"
 FBFBBFFRLR
 BFFFBBFRRR
@@ -10,9 +9,7 @@ FFFBBBFRRR
 BBFFBBFRLL
 FFFFFFFLLL
 FFFFFFFLRL";
-
-	private IDay Day { get; } = new Day05();
-
+	
 	[Theory]
 	[InlineData("FBFBBFFRLR", 357)]
 	[InlineData("BFFFBBFRRR", 567)]
@@ -28,7 +25,7 @@ FFFFFFFLRL";
 
 	[Theory]
 	[InlineData(TestString, 820)]
-	public void Test1(string input, long expected)
+	public override void Test1(string input, long expected)
 	{
 		var result = this.Day.Perform1(input);
 		Assert.Equal(expected, result);
@@ -36,7 +33,7 @@ FFFFFFFLRL";
 
 	[Theory]
 	[InlineData(TestString, 1)]
-	public void Test2(string input, long expected)
+	public override void Test2(string input, long expected)
 	{
 		var result = this.Day.Perform2(input);
 		Assert.Equal(expected, result);
