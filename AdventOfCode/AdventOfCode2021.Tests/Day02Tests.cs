@@ -19,10 +19,10 @@ forward 2";
 	}
 
 	[Theory]
-	[InlineData(Input, 5)]
+	[InlineData(Input, 900)]
 	public override void Test2(string inputString, long expected)
 	{
-		//var result = this.Day.Perform2(inputString);
-		//Assert.Equal(expected, result);
+		var result = this.Day.Perform2(inputString);
+		Assert.Equal(expected, result);
 	}
 }
