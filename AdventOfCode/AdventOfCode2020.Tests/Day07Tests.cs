@@ -1,6 +1,6 @@
 ﻿namespace AdventOfCode2020.Tests;
 
-public class Day07Tests
+public class Day07Tests : DayTest<Day07>
 {
 	private const string TestString1 = @"
 light red bags contain 1 bright white bag, 2 muted yellow bags.
@@ -21,12 +21,10 @@ dark yellow bags contain 2 dark green bags.
 dark green bags contain 2 dark blue bags.
 dark blue bags contain 2 dark violet bags.
 dark violet bags contain no other bags.";
-
-	private IDay Day { get; } = new Day07();
-
+	
 	[Theory]
 	[InlineData(TestString1, 4)]
-	public void Test1(string inputString, long expected)
+	public override void Test1(string inputString, long expected)
 	{
 		var result = this.Day.Perform1(inputString);
 		Assert.Equal(expected, result);
@@ -35,7 +33,7 @@ dark violet bags contain no other bags.";
 	[Theory]
 	[InlineData(TestString1, 32)]
 	[InlineData(TestString2, 126)]
-	public void Test2(string inputString, long expected)
+	public override void Test2(string inputString, long expected)
 	{
 		var result = this.Day.Perform2(inputString);
 		Assert.Equal(expected, result);

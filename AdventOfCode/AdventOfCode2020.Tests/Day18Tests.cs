@@ -1,6 +1,6 @@
 ﻿namespace AdventOfCode2020.Tests;
 
-public class Day18Tests
+public class Day18Tests : DayTest<Day18>
 {
 	private const string TestString1 = @"1 + 2 * 3 + 4 * 5 + 6";
 	private const string TestString2 = @"1 + (2 * 3) + (4 * (5 + 6))";
@@ -15,9 +15,7 @@ public class Day18Tests
 5 + (8 * 3 + 9 + 3 * 4 * 3)
 5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))
 ((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2";
-
-	private IDay Day { get; } = new Day18();
-
+	
 	[Theory]
 	[InlineData(TestString1, 71)]
 	[InlineData(TestString2, 51)]
@@ -26,7 +24,7 @@ public class Day18Tests
 	[InlineData(TestString5, 12240)]
 	[InlineData(TestString6, 13632)]
 	[InlineData(TestString7, 26457)]
-	public void Test1(string inputString, long expected)
+	public override void Test1(string inputString, long expected)
 	{
 		var result = this.Day.Perform1(inputString);
 		Assert.Equal(expected, result);
@@ -40,7 +38,7 @@ public class Day18Tests
 	[InlineData(TestString5, 669060)]
 	[InlineData(TestString6, 23340)]
 	[InlineData(TestString7, 694173)]
-	public void Test2(string inputString, long expected)
+	public override void Test2(string inputString, long expected)
 	{
 		var result = this.Day.Perform2(inputString);
 		Assert.Equal(expected, result);

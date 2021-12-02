@@ -1,6 +1,6 @@
 ﻿namespace AdventOfCode2020.Tests;
 
-public class Day11Tests
+public class Day11Tests : DayTest<Day11>
 {
 	private const string TestString1 = @"
 L.LL.LL.LL
@@ -13,12 +13,10 @@ L.LLLLL.LL
 LLLLLLLLLL
 L.LLLLLL.L
 L.LLLLL.LL";
-
-	private IDay Day { get; } = new Day11();
-
+	
 	[Theory]
 	[InlineData(TestString1, 37)]
-	public void Test1(string inputString, long expected)
+	public override void Test1(string inputString, long expected)
 	{
 		var result = this.Day.Perform1(inputString);
 		Assert.Equal(expected, result);
@@ -26,7 +24,7 @@ L.LLLLL.LL";
 
 	[Theory]
 	[InlineData(TestString1, 26)]
-	public void Test2(string inputString, long expected)
+	public override void Test2(string inputString, long expected)
 	{
 		var result = this.Day.Perform2(inputString);
 		Assert.Equal(expected, result);
