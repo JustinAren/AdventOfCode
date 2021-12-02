@@ -1,9 +1,7 @@
 namespace AdventOfCode2021.Tests;
 
-public class Day01Tests
+public class Day01Tests : DayTest<Day01>
 {
-    private IDay Day { get; } = new Day01();
-
 	private const string Input = @"
 199
 200
@@ -18,7 +16,7 @@ public class Day01Tests
 
 	[Theory]
 	[InlineData(Input, 7)]
-	public void Test1(string inputString, long expected)
+	public override void Test1(string inputString, long expected)
 	{
 		var result = this.Day.Perform1(inputString);
 		Assert.Equal(expected, result);
@@ -26,7 +24,7 @@ public class Day01Tests
 
 	[Theory]
 	[InlineData(Input, 1)]
-	public void Test2(string inputString, long expected)
+	public override void Test2(string inputString, long expected)
 	{
 		var result = this.Day.Perform2(inputString);
 		Assert.Equal(expected, result);
