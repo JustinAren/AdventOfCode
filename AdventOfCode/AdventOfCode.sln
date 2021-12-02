@@ -15,9 +15,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2015", "AdventO
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2015.Tests", "AdventOfCode2015.Tests\AdventOfCode2015.Tests.csproj", "{A27940F2-65EB-444D-86C1-2E5BA2397FB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2021", "AdventOfCode2021\AdventOfCode2021.csproj", "{43E129E0-3AA2-4FA6-9CAE-38958BD9F49E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2021", "AdventOfCode2021\AdventOfCode2021.csproj", "{43E129E0-3AA2-4FA6-9CAE-38958BD9F49E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2021.Tests", "AdventOfCode2021.Tests\AdventOfCode2021.Tests.csproj", "{9B0243C9-9887-4EF4-879E-BCA98209A61D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2021.Tests", "AdventOfCode2021.Tests\AdventOfCode2021.Tests.csproj", "{9B0243C9-9887-4EF4-879E-BCA98209A61D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{BAEA9CF2-6908-4DD2-969D-52A9A64C414B}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
