@@ -22,7 +22,28 @@ public class Day04 : Day<Bingo>
 
 	public override long Perform2(string inputString)
 	{
-		throw new NotImplementedException();
+		var (numbers, boards) = this.ParseInput(inputString);
+
+		var unmarkedSums = new Dictionary<int, long>();
+		var lastWonBoardIndex = 0;
+
+		foreach (var number in numbers)
+		{
+			for (var i = 0; i < boards.Length; i++)
+			{
+				if (unmarkedSums.ContainsKey(i)) continue;
+
+				var board = boards[i];
+				board.MarkNumber(number);
+				if (!board.HasBingo()) continue;
+
+				var unmarkedSum = board.GetUnmarkedSum();
+				unmarkedSums[i] = unmarkedSum * number;
+				lastWonBoardIndex = i;
+			}
+		}
+
+		return unmarkedSums[lastWonBoardIndex];
 	}
 
 	protected override Bingo ParseInput(string inputString)
