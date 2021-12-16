@@ -5,30 +5,30 @@ public class Day07 : Day<long[]>
 	public override long Perform1(string inputString)
 	{
 		var positions = this.ParseInput(inputString);
+		var fuelCosts = new List<long>();
 
-		var fuelCosts = CalculateFuelCosts(positions);
+		foreach (var alignment in Enumerable.Range(0, (int) positions[^1]))
+		{
+			var fuelCost = positions.Sum(position => Math.Abs(position - alignment));
+			fuelCosts.Add(fuelCost);
+		}
 
-		return fuelCosts.Min(tuple => tuple.FuelCost);
+		return fuelCosts.Min();
 	}
 
 	public override long Perform2(string inputString)
 	{
 		var positions = this.ParseInput(inputString);
-		throw new NotImplementedException();
-	}
 
-	private static IEnumerable<(long Alignment, long FuelCost)> CalculateFuelCosts(long[] positions)
-	{
-		var fuelCosts = new List<(long Alignment, long FuelCost)>();
-		var alignments = positions.Distinct();
+		var fuelCosts = new List<long>();
 
-		foreach (var alignment in alignments)
+		foreach (var alignment in Enumerable.Range(0, (int) positions[^1]))
 		{
-			var fuelCost = positions.Sum(position => Math.Abs(position - alignment));
-			fuelCosts.Add((alignment, fuelCost));
+			var fuelCost = positions.Sum(position => Enumerable.Range(1, (int) Math.Abs(position - alignment)).Sum());
+			fuelCosts.Add(fuelCost);
 		}
 
-		return fuelCosts;
+		return fuelCosts.Min();
 	}
 
 	protected override long[] ParseInput(string inputString)
