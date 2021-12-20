@@ -24,9 +24,9 @@ gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
 		Assert.Equal(expected, result);
 	}
 
-	//[Theory]
-	//[InlineData(Input1, 168)]
-	//[InlineData(Input2, 168)]
+	[Theory]
+	[InlineData(Input1, 5353)]
+	[InlineData(Input2, 61229)]
 	public override void Test2(string inputString, long expected)
 	{
 		var result = this.Day.Perform2(inputString);
