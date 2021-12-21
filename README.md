@@ -69,7 +69,7 @@
 |[6](https://adventofcode.com/2021/day/6)|390923|1749945484935|
 |[7](https://adventofcode.com/2021/day/7)|359648|100727924|
 |[8](https://adventofcode.com/2021/day/8)|421|986163|
-|[9](https://adventofcode.com/2021/day/9)|603||
+|[9](https://adventofcode.com/2021/day/9)|603|786780|
 |[10](https://adventofcode.com/2021/day/10)|||
 |[11](https://adventofcode.com/2021/day/11)|||
 |[12](https://adventofcode.com/2021/day/12)|||
