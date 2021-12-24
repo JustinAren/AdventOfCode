@@ -2,12 +2,20 @@
 
 public class Day10 : Day<Chunk[]>
 {
-	private static readonly IReadOnlyDictionary<char, long> Scores = new Dictionary<char, long>()
+	private static readonly IReadOnlyDictionary<char, long> Scores1 = new Dictionary<char, long>()
 	{
 		{')', 3},
 		{']', 57},
 		{'}', 1197},
 		{'>', 25137},
+	};
+
+	private static readonly IReadOnlyDictionary<char, long> Scores2 = new Dictionary<char, long>()
+	{
+		{')', 1},
+		{']', 2},
+		{'}', 3},
+		{'>', 4},
 	};
 
 	public override long Perform1(string inputString)
@@ -21,7 +29,7 @@ public class Day10 : Day<Chunk[]>
 			if (illegalCharacter != null) errors.Add(illegalCharacter.Value);
 		}
 
-		return errors.Sum(c => Scores[c]);
+		return errors.Sum(c => Scores1[c]);
 	}
 
 	public static char? GetFirstIllegalCharacter(Chunk chunk)
@@ -38,7 +46,34 @@ public class Day10 : Day<Chunk[]>
 	public override long Perform2(string inputString)
 	{
 		var chunks = this.ParseInput(inputString);
-		throw new NotImplementedException();
+
+		var missingEnds = new List<string>();
+
+		foreach (var chunk in chunks)
+		{
+			var illegalCharacter = GetFirstIllegalCharacter(chunk);
+			if (illegalCharacter is not null) continue;
+			var missingEnd = chunk.GetMissingEnds();
+			if (missingEnd != null) missingEnds.Add(missingEnd);
+		}
+
+		var scores = new List<long>();
+
+		foreach (var missingEnd in missingEnds)
+		{
+			var score = 0L;
+
+			foreach (var end in missingEnd)
+			{
+				score *= 5;
+				score += Scores2[end];
+			}
+
+			scores.Add(score);
+		}
+
+		scores = scores.OrderBy(score => score).ToList();
+		return scores[scores.Count / 2];
 	}
 
 	protected override Chunk[] ParseInput(string inputString)
@@ -51,7 +86,7 @@ public class Day10 : Day<Chunk[]>
 		var chunk = new Chunk(input[0]);
 		input.RemoveAt(0);
 		
-		while (input.Count > 0 && !Scores.ContainsKey(input[0])) chunk.InnerChunks.Add(ParseChunk(input));
+		while (input.Count > 0 && !Scores1.ContainsKey(input[0])) chunk.InnerChunks.Add(ParseChunk(input));
 
 		if (input.Count == 0) return chunk;
 
@@ -81,5 +116,12 @@ public class Chunk
 	public Chunk(char openingCharacter)
 	{
 		this.OpeningCharacter = openingCharacter;
+	}
+
+	public string? GetMissingEnds()
+	{
+		if (this.IsClosed) return null;
+		var missingEnds = $"{this.InnerChunks.LastOrDefault()?.GetMissingEnds()}{Pairs[this.OpeningCharacter]}";
+		return missingEnds;
 	}
 }

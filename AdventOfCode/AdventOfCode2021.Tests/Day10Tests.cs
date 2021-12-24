@@ -22,8 +22,8 @@ public class Day10Tests : DayTest<Day10>
 		Assert.Equal(expected, result);
 	}
 
-	//[Theory]
-	//[InlineData(Input, 1134)]
+	[Theory]
+	[InlineData(Input, 288957)]
 	public override void Test2(string inputString, long expected)
 	{
 		var result = this.Day.Perform2(inputString);
