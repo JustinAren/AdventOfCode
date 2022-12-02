@@ -2,109 +2,123 @@
 
 public class Day19 : Day<(Dictionary<byte, Day19Rule> RulesByNumber, string[] Messages)>
 {
-	public override long Perform1(string inputString)
-	{
-		var (rulesByNumber, messages) = this.ParseInput(inputString);
-		var possibleValues = rulesByNumber[0].GeneratePossibleValues(rulesByNumber);
-		var matchingCount = messages.Count(message => possibleValues.Contains(message));
-		return matchingCount;
-	}
+    private static Day19Rule ParseLine(string line)
+    {
+        var lineSplitted =
+            line.Split(":", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        var number = byte.Parse(lineSplitted[0]);
 
-	public override long Perform2(string inputString)
-	{
-		var (rulesByNumber, messages) = this.ParseInput(inputString);
-		throw new NotImplementedException();
-	}
+        if (lineSplitted[1][0] == '"') return new CharacterRule(number, lineSplitted[1].Replace(@"""", ""));
+        var sequences = lineSplitted[1]
+            .Split("|", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        var firstSequence = sequences[0]
+            .Split(" ", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Select(byte.Parse).ToArray();
+        var secondSequence = sequences.Length == 2
+            ? sequences[1].Split(" ", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Select(byte.Parse).ToArray()
+            : null;
+        return new SubRule(number, firstSequence, secondSequence);
+    }
 
-	protected override (Dictionary<byte, Day19Rule> RulesByNumber, string[] Messages) ParseInput(string inputString)
-	{
-		var lines = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-		var rulesByNumber = lines.Where(line => Char.IsDigit(line[0])).Select(ParseLine).ToDictionary(rule => rule.Number);
-		var messages = lines.Where(line => Char.IsLetter(line[0])).ToArray();
-		return (rulesByNumber, messages);
-	}
+    protected override (Dictionary<byte, Day19Rule> RulesByNumber, string[] Messages) ParseInput(
+        string inputString)
+    {
+        var lines = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var rulesByNumber = lines.Where(line => char.IsDigit(line[0])).Select(ParseLine)
+            .ToDictionary(rule => rule.Number);
+        var messages = lines.Where(line => char.IsLetter(line[0])).ToArray();
+        return (rulesByNumber, messages);
+    }
 
-	private static Day19Rule ParseLine(string line)
-	{
-		var lineSplitted = line.Split(":", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-		var number = Byte.Parse(lineSplitted[0]);
+    public override long Perform1(string inputString)
+    {
+        var (rulesByNumber, messages) = ParseInput(inputString);
+        var possibleValues = rulesByNumber[0].GeneratePossibleValues(rulesByNumber);
+        var matchingCount = messages.Count(message => possibleValues.Contains(message));
+        return matchingCount;
+    }
 
-		if (lineSplitted[1][0] == '"') return new CharacterRule(number, lineSplitted[1].Replace(@"""", ""));
-		var sequences = lineSplitted[1].Split("|", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-		var firstSequence = sequences[0].Split(" ", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Select(Byte.Parse).ToArray();
-		var secondSequence = sequences.Length == 2 ? sequences[1].Split(" ", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Select(Byte.Parse).ToArray() : null;
-		return new SubRule(number, firstSequence, secondSequence);
-	}
+    public override long Perform2(string inputString)
+    {
+        var (rulesByNumber, messages) = ParseInput(inputString);
+        throw new NotImplementedException();
+    }
 }
 
 public abstract class Day19Rule
 {
-	public override int GetHashCode() => this.Number.GetHashCode();
+    protected Day19Rule(byte number)
+    {
+        Number = number;
+    }
 
-	public byte Number { get; }
-	protected string[] PossibleValues { get; set; }
+    public abstract string[] GeneratePossibleValues(Dictionary<byte, Day19Rule> rulesByNumber);
 
-	protected Day19Rule(byte number)
-	{
-		this.Number = number;
-	}
+    public override int GetHashCode() => Number.GetHashCode();
 
-	public abstract string[] GeneratePossibleValues(Dictionary<byte, Day19Rule> rulesByNumber);
+    protected string[] PossibleValues { get; set; }
+
+    public byte Number { get; }
 }
 
 public class CharacterRule : Day19Rule
 {
-	public string Character { get; }
+    public CharacterRule(byte number, string character)
+        : base(number)
+    {
+        Character = character;
+    }
 
-	public CharacterRule(byte number, string character) 
-		: base(number)
-	{
-		this.Character = character;
-	}
+    public override string[] GeneratePossibleValues(Dictionary<byte, Day19Rule> rulesByNumber)
+    {
+        if (PossibleValues is not null) return PossibleValues;
+        PossibleValues = new[] { Character };
+        return PossibleValues;
+    }
 
-	public override string[] GeneratePossibleValues(Dictionary<byte, Day19Rule> rulesByNumber)
-	{
-		if (this.PossibleValues is not null) return this.PossibleValues;
-		this.PossibleValues = new[] {this.Character};
-		return this.PossibleValues;
-	}
+    public string Character { get; }
 }
 
 public class SubRule : Day19Rule
 {
-	public byte[] FirstSequence { get; }
-	public byte[] SecondSequence { get; }
+    public SubRule(byte number, byte[] firstSequence, byte[] secondSequence)
+        : base(number)
+    {
+        FirstSequence = firstSequence;
+        SecondSequence = secondSequence;
+    }
 
-	public SubRule(byte number, byte[] firstSequence, byte[] secondSequence) 
-		: base(number)
-	{
-		this.FirstSequence = firstSequence;
-		this.SecondSequence = secondSequence;
-	}
+    private static IEnumerable<string> ProcessSequence(byte[] sequence,
+        Dictionary<byte, Day19Rule> rulesByNumber)
+    {
+        if (sequence is null) return Array.Empty<string>();
 
-	public override string[] GeneratePossibleValues(Dictionary<byte, Day19Rule> rulesByNumber)
-	{
-		if (this.PossibleValues is not null) return this.PossibleValues;
-		this.PossibleValues = ProcessSequence(this.FirstSequence, rulesByNumber).Concat(ProcessSequence(this.SecondSequence, rulesByNumber)).ToArray();
-		return this.PossibleValues;
-	}
+        var result = new List<string> { "" };
 
-	private static IEnumerable<string> ProcessSequence(byte[] sequence, Dictionary<byte, Day19Rule> rulesByNumber)
-	{
-		if (sequence is null) return Array.Empty<string>();
+        foreach (var number in sequence)
+        {
+            var possibleValuesForNumber = rulesByNumber[number].GeneratePossibleValues(rulesByNumber);
+            var subResult = new List<string>();
 
-		var result = new List<string> {""};
+            foreach (var s in result)
+                subResult.AddRange(possibleValuesForNumber.Select(value => $"{s}{value}"));
 
-		foreach (var number in sequence)
-		{
-			var possibleValuesForNumber = rulesByNumber[number].GeneratePossibleValues(rulesByNumber);
-			var subResult = new List<string>();
+            result = subResult;
+        }
 
-			foreach (var s in result) subResult.AddRange(possibleValuesForNumber.Select(value => $"{s}{value}"));
+        return result;
+    }
 
-			result = subResult;
-		}
+    public override string[] GeneratePossibleValues(Dictionary<byte, Day19Rule> rulesByNumber)
+    {
+        if (PossibleValues is not null) return PossibleValues;
+        PossibleValues = ProcessSequence(FirstSequence, rulesByNumber)
+            .Concat(ProcessSequence(SecondSequence, rulesByNumber)).ToArray();
+        return PossibleValues;
+    }
 
-		return result;
-	}
+    public byte[] FirstSequence { get; }
+
+    public byte[] SecondSequence { get; }
 }

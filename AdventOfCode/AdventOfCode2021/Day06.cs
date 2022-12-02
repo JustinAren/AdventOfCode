@@ -2,41 +2,43 @@
 
 public class Day06 : Day<long[]>
 {
-	public override long Perform1(string inputString)
-	{
-		var fishCounters = this.ParseInput(inputString);
-		Simulate(fishCounters, 80);
-		return fishCounters.Sum();
-	}
+    private static void Simulate(long[] counters, int numberOfDays)
+    {
+        while (numberOfDays > 0)
+        {
+            var reproducingCount = counters[0];
 
-	public override long Perform2(string inputString)
-	{
-		var fishCounters = this.ParseInput(inputString);
-		Simulate(fishCounters, 256);
-		return fishCounters.Sum();
-	}
+            for (var i = 0; i < counters.Length - 1; i++) counters[i] = counters[i + 1];
 
-	protected override long[] ParseInput(string inputString)
-	{
-		var countDictionary = inputString.Trim().Split(',', StringSplitOptions.RemoveEmptyEntries).Select(Int32.Parse).GroupBy(x => x).ToDictionary(grouping => grouping.Key, grouping => grouping.Count());
-		var result = new long[9];
-		foreach (var (key, value) in countDictionary) result[key] = value;
+            counters[6] += reproducingCount;
+            counters[8] = reproducingCount;
 
-		return result;
-	}
+            numberOfDays--;
+        }
+    }
 
-	private static void Simulate(long[] counters, int numberOfDays)
-	{
-		while (numberOfDays > 0)
-		{
-			var reproducingCount = counters[0];
+    protected override long[] ParseInput(string inputString)
+    {
+        var countDictionary = inputString.Trim().Split(',', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse).GroupBy(x => x)
+            .ToDictionary(grouping => grouping.Key, grouping => grouping.Count());
+        var result = new long[9];
+        foreach (var (key, value) in countDictionary) result[key] = value;
 
-			for (var i = 0; i < counters.Length - 1; i++) counters[i] = counters[i + 1];
+        return result;
+    }
 
-			counters[6] += reproducingCount;
-			counters[8] = reproducingCount;
+    public override long Perform1(string inputString)
+    {
+        var fishCounters = ParseInput(inputString);
+        Simulate(fishCounters, 80);
+        return fishCounters.Sum();
+    }
 
-			numberOfDays--;
-		}
-	}
+    public override long Perform2(string inputString)
+    {
+        var fishCounters = ParseInput(inputString);
+        Simulate(fishCounters, 256);
+        return fishCounters.Sum();
+    }
 }

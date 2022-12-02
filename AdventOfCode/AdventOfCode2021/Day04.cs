@@ -2,121 +2,125 @@
 
 public class Day04 : Day<Bingo>
 {
-	public override long Perform1(string inputString)
-	{
-		var (numbers, boards) = this.ParseInput(inputString);
-		foreach (var number in numbers)
-		{
-			foreach (var board in boards)
-			{
-				board.MarkNumber(number);
-				if (!board.HasBingo()) continue;
+    protected override Bingo ParseInput(string inputString)
+    {
+        var boardsInput = inputString.Split($"{Environment.NewLine}{Environment.NewLine}",
+            StringSplitOptions.TrimEntries);
+        var numbers = boardsInput[0].Split(',').Select(byte.Parse).ToArray();
 
-				var unmarkedSum = board.GetUnmarkedSum();
-				return unmarkedSum * number;
-			}
-		}
+        var boards = new List<Board>();
 
-		return 0;
-	}
+        foreach (var boardInput in boardsInput.Skip(1))
+        {
+            var rows = boardInput.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+            var cells = new Cell[5, 5];
 
-	public override long Perform2(string inputString)
-	{
-		var (numbers, boards) = this.ParseInput(inputString);
+            for (var i = 0; i < 5; i++)
+            {
+                var rowCells = rows[i].Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                    .Select(number => new Cell(byte.Parse(number))).ToArray();
+                for (var j = 0; j < 5; j++) cells[i, j] = rowCells[j];
+            }
 
-		var unmarkedSums = new Dictionary<int, long>();
-		var lastWonBoardIndex = 0;
+            boards.Add(new Board(cells));
+        }
 
-		foreach (var number in numbers)
-		{
-			for (var i = 0; i < boards.Length; i++)
-			{
-				if (unmarkedSums.ContainsKey(i)) continue;
+        return new Bingo(numbers, boards.ToArray());
+    }
 
-				var board = boards[i];
-				board.MarkNumber(number);
-				if (!board.HasBingo()) continue;
+    public override long Perform1(string inputString)
+    {
+        var (numbers, boards) = ParseInput(inputString);
+        foreach (var number in numbers)
+        {
+            foreach (var board in boards)
+            {
+                board.MarkNumber(number);
+                if (!board.HasBingo()) continue;
 
-				var unmarkedSum = board.GetUnmarkedSum();
-				unmarkedSums[i] = unmarkedSum * number;
-				lastWonBoardIndex = i;
-			}
-		}
+                var unmarkedSum = board.GetUnmarkedSum();
+                return unmarkedSum * number;
+            }
+        }
 
-		return unmarkedSums[lastWonBoardIndex];
-	}
+        return 0;
+    }
 
-	protected override Bingo ParseInput(string inputString)
-	{
-		var boardsInput = inputString.Split($"{Environment.NewLine}{Environment.NewLine}", StringSplitOptions.TrimEntries);
-		var numbers = boardsInput[0].Split(',').Select(Byte.Parse).ToArray();
+    public override long Perform2(string inputString)
+    {
+        var (numbers, boards) = ParseInput(inputString);
 
-		var boards = new List<Board>();
+        var unmarkedSums = new Dictionary<int, long>();
+        var lastWonBoardIndex = 0;
 
-		foreach (var boardInput in boardsInput.Skip(1))
-		{
-			var rows = boardInput.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-			var cells = new Cell[5, 5];
+        foreach (var number in numbers)
+        {
+            for (var i = 0; i < boards.Length; i++)
+            {
+                if (unmarkedSums.ContainsKey(i)) continue;
 
-			for (var i = 0; i < 5; i++)
-			{
-				var rowCells = rows[i].Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(number => new Cell(Byte.Parse(number))).ToArray();
-				for (var j = 0; j < 5; j++) cells[i, j] = rowCells[j];
-			}
+                var board = boards[i];
+                board.MarkNumber(number);
+                if (!board.HasBingo()) continue;
 
-			boards.Add(new Board(cells));
-		}
+                var unmarkedSum = board.GetUnmarkedSum();
+                unmarkedSums[i] = unmarkedSum * number;
+                lastWonBoardIndex = i;
+            }
+        }
 
-		return new Bingo(numbers, boards.ToArray());
-	}
+        return unmarkedSums[lastWonBoardIndex];
+    }
 }
 
 public readonly record struct Bingo(byte[] Numbers, Board[] Boards);
 
 public readonly record struct Board(Cell[,] Cells)
 {
-	public void MarkNumber(byte number)
-	{
-		foreach (var cell in this.Cells) cell.MarkNumber(number);
-	}
+    public long GetUnmarkedSum()
+    {
+        return Cells.Cast<Cell>().Where(cell => !cell.IsMarked)
+            .Aggregate(0L, (current, cell) => current + cell.Number);
+    }
 
-	public bool HasBingo()
-	{
-		var cells = this.Cells;
+    public bool HasBingo()
+    {
+        var cells = Cells;
 
-		if (Enumerable.Range(0, 5).Select(i => cells[i, 0]).All(c => c.IsMarked)) return true;
-		if (Enumerable.Range(0, 5).Select(i => cells[i, 1]).All(c => c.IsMarked)) return true;
-		if (Enumerable.Range(0, 5).Select(i => cells[i, 2]).All(c => c.IsMarked)) return true;
-		if (Enumerable.Range(0, 5).Select(i => cells[i, 3]).All(c => c.IsMarked)) return true;
-		if (Enumerable.Range(0, 5).Select(i => cells[i, 4]).All(c => c.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(i => cells[i, 0]).All(c => c.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(i => cells[i, 1]).All(c => c.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(i => cells[i, 2]).All(c => c.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(i => cells[i, 3]).All(c => c.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(i => cells[i, 4]).All(c => c.IsMarked)) return true;
 
-		if (Enumerable.Range(0, 5).Select(i => cells[0, i]).All(c => c.IsMarked)) return true;
-		if (Enumerable.Range(0, 5).Select(i => cells[1, i]).All(c => c.IsMarked)) return true;
-		if (Enumerable.Range(0, 5).Select(i => cells[2, i]).All(c => c.IsMarked)) return true;
-		if (Enumerable.Range(0, 5).Select(i => cells[3, i]).All(c => c.IsMarked)) return true;
-		if (Enumerable.Range(0, 5).Select(i => cells[4, i]).All(c => c.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(i => cells[0, i]).All(c => c.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(i => cells[1, i]).All(c => c.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(i => cells[2, i]).All(c => c.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(i => cells[3, i]).All(c => c.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(i => cells[4, i]).All(c => c.IsMarked)) return true;
 
-		return false;
-	}
+        return false;
+    }
 
-	public long GetUnmarkedSum()
-	{
-		return this.Cells.Cast<Cell>().Where(cell => !cell.IsMarked).Aggregate(0L, (current, cell) => current + cell.Number);
-	}
+    public void MarkNumber(byte number)
+    {
+        foreach (var cell in Cells) cell.MarkNumber(number);
+    }
 }
 
 public class Cell
 {
-	public byte Number { get; }
-	public bool IsMarked { get; private set; }
+    public Cell(byte number)
+    {
+        Number = number;
+    }
 
-	public Cell(byte number)
-	{
-		this.Number = number;
-	}
+    public void MarkNumber(byte number)
+    {
+        if (Number == number) IsMarked = true;
+    }
 
-	public void MarkNumber(byte number)
-	{
-		if (this.Number == number) this.IsMarked = true;
-	}
+    public bool IsMarked { get; private set; }
+
+    public byte Number { get; }
 }

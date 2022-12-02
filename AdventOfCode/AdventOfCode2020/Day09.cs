@@ -2,58 +2,59 @@
 
 public class Day09 : Day<long[]>
 {
-	public override long Perform1(string inputString)
-	{
-		var inputArray = this.ParseInput(inputString);
-		return GetInvalidEntry(inputArray);
-	}
+    private static long GetInvalidEntry(IReadOnlyList<long> inputArray)
+    {
+        var preamble = inputArray.Count > 25 ? 25 : 5;
 
-	public override long Perform2(string inputString)
-	{
-		var inputArray = this.ParseInput(inputString);
-		var invalidValue = GetInvalidEntry(inputArray);
+        for (var i = preamble; i < inputArray.Count; i++)
+        {
+            var previousDigits = inputArray.Skip(i - preamble).Take(preamble).ToArray();
+            if (!IsValid(inputArray[i], previousDigits)) return inputArray[i];
+        }
 
-		for (var i = 0; i < inputArray.Length; i++)
-		{
-			for (var j = i + 1; j < inputArray.Length; j++)
-			{
-				if (i == j) continue;
-				var numbers = inputArray.Skip(i).Take(j - i).ToArray();
-				if (numbers.Sum(n => n) == invalidValue) return numbers.Min() + numbers.Max();
-			}
-		}
+        return 0;
+    }
 
-		return 0;
-	}
+    private static bool IsValid(long controlDigit, IReadOnlyList<long> previousDigits)
+    {
+        for (var i = 0; i < previousDigits.Count; i++)
+        {
+            for (var j = i + 1; j < previousDigits.Count; j++)
+            {
+                if (previousDigits[i] + previousDigits[j] == controlDigit) return true;
+            }
+        }
 
-	protected override long[] ParseInput(string inputString)
-	{
-		return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(Int64.Parse).ToArray();
-	}
+        return false;
+    }
 
-	private static long GetInvalidEntry(IReadOnlyList<long> inputArray)
-	{
-		var preamble = inputArray.Count > 25 ? 25 : 5;
+    protected override long[] ParseInput(string inputString)
+    {
+        return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse)
+            .ToArray();
+    }
 
-		for (var i = preamble; i < inputArray.Count; i++)
-		{
-			var previousDigits = inputArray.Skip(i - preamble).Take(preamble).ToArray();
-			if (!IsValid(inputArray[i], previousDigits)) return inputArray[i];
-		}
+    public override long Perform1(string inputString)
+    {
+        var inputArray = ParseInput(inputString);
+        return GetInvalidEntry(inputArray);
+    }
 
-		return 0;
-	}
+    public override long Perform2(string inputString)
+    {
+        var inputArray = ParseInput(inputString);
+        var invalidValue = GetInvalidEntry(inputArray);
 
-	private static bool IsValid(long controlDigit, IReadOnlyList<long> previousDigits)
-	{
-		for (var i = 0; i < previousDigits.Count; i++)
-		{
-			for (var j = i + 1; j < previousDigits.Count; j++)
-			{
-				if (previousDigits[i] + previousDigits[j] == controlDigit) return true;
-			}
-		}
+        for (var i = 0; i < inputArray.Length; i++)
+        {
+            for (var j = i + 1; j < inputArray.Length; j++)
+            {
+                if (i == j) continue;
+                var numbers = inputArray.Skip(i).Take(j - i).ToArray();
+                if (numbers.Sum(n => n) == invalidValue) return numbers.Min() + numbers.Max();
+            }
+        }
 
-		return false;
-	}
+        return 0;
+    }
 }
