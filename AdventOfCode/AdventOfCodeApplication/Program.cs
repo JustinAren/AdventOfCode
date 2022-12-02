@@ -48,6 +48,8 @@ public class Program
                     $"AdventOfCode{year:D4}.Day{dayNumber:D2}"),
                 2021 => typeof(AdventOfCode2021.Day01).Assembly.GetType(
                     $"AdventOfCode{year:D4}.Day{dayNumber:D2}"),
+                2022 => typeof(AdventOfCode2022.Day01).Assembly.GetType(
+                    $"AdventOfCode{year:D4}.Day{dayNumber:D2}"),
                 _ => null,
             };
 

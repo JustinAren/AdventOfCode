@@ -90,7 +90,7 @@
 ## [Results 2022](https://adventofcode.com/2022)
 |Day|Solution 1|Solution 2|
 |---:|---:|---:|
-|[1](https://adventofcode.com/2022/day/1)|||
+|[1](https://adventofcode.com/2022/day/1)|75622||
 |[2](https://adventofcode.com/2022/day/2)|||
 |[3](https://adventofcode.com/2022/day/3)|||
 |[4](https://adventofcode.com/2022/day/4)|||
