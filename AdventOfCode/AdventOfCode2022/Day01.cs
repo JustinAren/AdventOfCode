@@ -16,6 +16,7 @@ public class Day01 : Day<long[][]>
 
     public override long Perform2(string inputString)
     {
-        throw new NotImplementedException();
+        var groups = ParseInput(inputString);
+        return groups.Select(group => group.Sum()).OrderByDescending(sum => sum).Take(3).Sum();
     }
 }
