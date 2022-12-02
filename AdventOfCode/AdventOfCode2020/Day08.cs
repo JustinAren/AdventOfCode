@@ -2,82 +2,83 @@
 
 public class Day08 : Day<(Operation Operation, int Argument)[]>
 {
-	public override long Perform1(string inputString)
-	{
-		var commands = this.ParseInput(inputString);
-		return Execute(commands).AccumulatorResult;
-	}
+    private static (bool InfiniteLoop, int AccumulatorResult) Execute(
+        IReadOnlyList<(Operation Operation, int Argument)> commands)
+    {
+        var seenList = new List<int>();
+        var accumulatorResult = 0;
 
-	public override long Perform2(string inputString)
-	{
-		var commands = this.ParseInput(inputString);
-		var commandsCopy = new (Operation Operation, int Argument)[commands.Length];
+        for (var i = 0; i < commands.Count; i++)
+        {
+            if (seenList.Contains(i)) return (true, accumulatorResult);
 
-		for (var i = 0; i < commands.Length; i++)
-		{
-			var (operation, argument) = commands[i];
-			if (operation == Operation.Accumulator) continue;
-			var newCommand = (operation == Operation.Jump ? Operation.NoOperation : Operation.Jump, argument);
-			commands.CopyTo(commandsCopy, 0);
-			commandsCopy[i] = newCommand;
-			var (infiniteLoop, accumulatorResult) = Execute(commandsCopy);
-			if (!infiniteLoop) return accumulatorResult;
-		}
+            seenList.Add(i);
+            var (operation, argument) = commands[i];
 
-		return 0;
-	}
+            switch (operation)
+            {
+                case Operation.Accumulator:
+                    accumulatorResult += argument;
+                    break;
+                case Operation.Jump:
+                    i += argument - 1;
+                    break;
+            }
+        }
 
-	private static (bool InfiniteLoop, int AccumulatorResult) Execute(IReadOnlyList<(Operation Operation, int Argument)> commands)
-	{
-		var seenList = new List<int>();
-		var accumulatorResult = 0;
+        return (false, accumulatorResult);
+    }
 
-		for (var i = 0; i < commands.Count; i++)
-		{
-			if (seenList.Contains(i)) return (true, accumulatorResult);
+    private static (Operation Operation, int Argument) ParseCommand(string command)
+    {
+        var operations = command.Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
-			seenList.Add(i);
-			var (operation, argument) = commands[i];
+        var operation = operations[0] switch
+        {
+            "acc" => Operation.Accumulator,
+            "jmp" => Operation.Jump,
+            _ => Operation.NoOperation,
+        };
 
-			switch (operation)
-			{
-				case Operation.Accumulator:
-					accumulatorResult += argument;
-					break;
-				case Operation.Jump:
-					i += argument - 1;
-					break;
-			}
-		}
+        var argument = int.Parse(operations[1]);
+        return (operation, argument);
+    }
 
-		return (false, accumulatorResult);
-	}
+    protected override (Operation Operation, int Argument)[] ParseInput(string inputString)
+    {
+        var commands = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        return commands.Select(ParseCommand).ToArray();
+    }
 
-	protected override (Operation Operation, int Argument)[] ParseInput(string inputString)
-	{
-		var commands = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-		return commands.Select(ParseCommand).ToArray();
-	}
+    public override long Perform1(string inputString)
+    {
+        var commands = ParseInput(inputString);
+        return Execute(commands).AccumulatorResult;
+    }
 
-	private static (Operation Operation, int Argument) ParseCommand(string command)
-	{
-		var operations = command.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+    public override long Perform2(string inputString)
+    {
+        var commands = ParseInput(inputString);
+        var commandsCopy = new (Operation Operation, int Argument)[commands.Length];
 
-		var operation = operations[0] switch
-		{
-			"acc" => Operation.Accumulator,
-			"jmp" => Operation.Jump,
-			_ => Operation.NoOperation,
-		};
+        for (var i = 0; i < commands.Length; i++)
+        {
+            var (operation, argument) = commands[i];
+            if (operation == Operation.Accumulator) continue;
+            var newCommand = (operation == Operation.Jump ? Operation.NoOperation : Operation.Jump, argument);
+            commands.CopyTo(commandsCopy, 0);
+            commandsCopy[i] = newCommand;
+            var (infiniteLoop, accumulatorResult) = Execute(commandsCopy);
+            if (!infiniteLoop) return accumulatorResult;
+        }
 
-		var argument = Int32.Parse(operations[1]);
-		return (operation, argument);
-	}
+        return 0;
+    }
 }
 
 public enum Operation
 {
-	NoOperation,
-	Accumulator,
-	Jump,
+    NoOperation,
+    Accumulator,
+    Jump,
 }

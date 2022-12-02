@@ -2,38 +2,39 @@
 
 public class Day01 : Day<List<int>>
 {
-	public override long Perform1(string inputString)
-	{
-		var heights = this.ParseInput(inputString);
-		var increments = 0;
+    protected override List<int> ParseInput(string inputString) => inputString
+        .Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
 
-		var current = heights[0];
+    public override long Perform1(string inputString)
+    {
+        var heights = ParseInput(inputString);
+        var increments = 0;
 
-		for (var i = 1; i < heights.Count; i++)
-		{
-			if (heights[i] > current) increments++;
-			current = heights[i];
-		}
+        var current = heights[0];
 
-		return increments;
-	}
+        for (var i = 1; i < heights.Count; i++)
+        {
+            if (heights[i] > current) increments++;
+            current = heights[i];
+        }
 
-	public override long Perform2(string inputString)
-	{
-		var heights = this.ParseInput(inputString);
-		var increments = 0;
+        return increments;
+    }
 
-		var currentSum = heights.Take(3).Sum();
+    public override long Perform2(string inputString)
+    {
+        var heights = ParseInput(inputString);
+        var increments = 0;
 
-		for (var i = 1; i < heights.Count - 2; i++)
-		{
-			var slidingSum = new[] { heights[i], heights[i + 1], heights[i + 2] }.Sum();
-			if (slidingSum > currentSum) increments++;
-			currentSum = slidingSum;
-		}
+        var currentSum = heights.Take(3).Sum();
 
-		return increments;
-	}
+        for (var i = 1; i < heights.Count - 2; i++)
+        {
+            var slidingSum = new[] { heights[i], heights[i + 1], heights[i + 2] }.Sum();
+            if (slidingSum > currentSum) increments++;
+            currentSum = slidingSum;
+        }
 
-	protected override List<int> ParseInput(string inputString) => inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(Int32.Parse).ToList();
+        return increments;
+    }
 }
