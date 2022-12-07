@@ -91,7 +91,7 @@
 |Day|Solution 1|Solution 2|
 |---:|---:|---:|
 |[1](https://adventofcode.com/2022/day/1)|75622|213159|
-|[2](https://adventofcode.com/2022/day/2)|12156||
+|[2](https://adventofcode.com/2022/day/2)|12156|10835|
 |[3](https://adventofcode.com/2022/day/3)|||
 |[4](https://adventofcode.com/2022/day/4)|||
 |[5](https://adventofcode.com/2022/day/5)|||

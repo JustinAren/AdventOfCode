@@ -8,7 +8,12 @@ public class Day02 : Day<Round[]>
 		return rounds.Sum(round => round.Score);
 	}
 
-	public override long Perform2(string inputString) => throw new NotImplementedException();
+	public override long Perform2(string inputString)
+	{
+		var rounds = this.ParseInput(inputString);
+		return rounds.Sum(round => round.Score2);
+	}
+
 	protected override Round[] ParseInput(string inputString) => inputString
 		.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
 		.Select(Round.Parse)
@@ -22,29 +27,65 @@ public enum Choice
 	Scissors = 3,
 }
 
-public record Round(Choice OpponentChoice, Choice OwnChoice)
+public enum Outcome
 {
-	public long Score => this.OpponentChoice switch
+	Win,
+	Lose,
+	Draw,
+}
+
+public record Round(Choice OpponentChoice, Choice OwnChoice, Outcome Outcome)
+{
+	public long Score => DetermineScore(OpponentChoice, OwnChoice);
+	public long Score2 => DetermineScore(OpponentChoice, DetermineOwnChoice(OpponentChoice, Outcome));
+
+	private static int DetermineScore(Choice opponentChoice, Choice ownChoice) => opponentChoice switch
 	{
-		Choice.Rock => this.OwnChoice switch
+		Choice.Rock => ownChoice switch
 		{
 			Choice.Rock => 4,
 			Choice.Paper => 8,
 			Choice.Scissors => 3,
 			_ => throw new NotSupportedException(),
 		},
-		Choice.Paper => this.OwnChoice switch
+		Choice.Paper => ownChoice switch
 		{
 			Choice.Rock => 1,
 			Choice.Paper => 5,
 			Choice.Scissors => 9,
 			_ => throw new NotSupportedException(),
 		},
-		Choice.Scissors => this.OwnChoice switch
+		Choice.Scissors => ownChoice switch
 		{
 			Choice.Rock => 7,
 			Choice.Paper => 2,
 			Choice.Scissors => 6,
+			_ => throw new NotSupportedException(),
+		},
+		_ => throw new NotSupportedException(),
+	};
+
+	private static Choice DetermineOwnChoice(Choice opponentChoice, Outcome outcome) => opponentChoice switch
+	{
+		Choice.Rock => outcome switch
+		{
+			Outcome.Win => Choice.Paper,
+			Outcome.Draw => Choice.Rock,
+			Outcome.Lose => Choice.Scissors,
+			_ => throw new NotSupportedException(),
+		},
+		Choice.Paper => outcome switch
+		{
+			Outcome.Win => Choice.Scissors,
+			Outcome.Draw => Choice.Paper,
+			Outcome.Lose => Choice.Rock,
+			_ => throw new NotSupportedException(),
+		},
+		Choice.Scissors => outcome switch
+		{
+			Outcome.Win => Choice.Rock,
+			Outcome.Draw => Choice.Scissors,
+			Outcome.Lose => Choice.Paper,
 			_ => throw new NotSupportedException(),
 		},
 		_ => throw new NotSupportedException(),
@@ -61,14 +102,26 @@ public record Round(Choice OpponentChoice, Choice OwnChoice)
 			_ => throw new NotSupportedException(),
 		};
 
-		var ownChoice = choices[1] switch
-		{
-			"X" => Choice.Rock,
-			"Y" => Choice.Paper,
-			"Z" => Choice.Scissors,
-			_ => throw new NotSupportedException(),
-		};
+		Choice ownChoice;
+		Outcome outcome;
 
-		return new Round(opponentChoice, ownChoice);
+		switch (choices[1])
+		{
+			case "X":
+				ownChoice = Choice.Rock;
+				outcome = Outcome.Lose;
+				break;
+			case "Y":
+				ownChoice = Choice.Paper;
+				outcome = Outcome.Draw;
+				break;
+			case "Z":
+				ownChoice = Choice.Scissors;
+				outcome = Outcome.Win;
+				break;
+			default: throw new NotSupportedException();
+		}
+
+		return new Round(opponentChoice, ownChoice, outcome);
 	}
 }
