@@ -19,7 +19,7 @@ CrZsJsPPZsGzwwsLwLmpwMDw";
     }
 
     [Theory]
-    [InlineData(Input, 12)]
+    [InlineData(Input, 70)]
     public override void Test2(string inputString, long expected)
     {
         var result = Day.Perform2(inputString);
