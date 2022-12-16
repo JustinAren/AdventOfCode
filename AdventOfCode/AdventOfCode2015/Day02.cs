@@ -15,18 +15,18 @@ public class Day02 : Day<Present[]>
         return result;
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var inputRectangles = ParseInput(inputString);
         var result = inputRectangles.Select(present => present.CalculateWrappingPaperSurface()).Sum();
-        return result;
+        return result.ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var inputRectangles = ParseInput(inputString);
         var result = inputRectangles.Select(present => present.CalculateRibbonLength()).Sum();
-        return result;
+        return result.ToString();
     }
 }
 

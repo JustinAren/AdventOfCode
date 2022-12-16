@@ -7,7 +7,7 @@ public class Day02 : Day<string[]>
         return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var count = 0;
         var inputArray = ParseInput(inputString);
@@ -23,10 +23,10 @@ public class Day02 : Day<string[]>
             if (occurrences >= lowerLimit && occurrences <= upperLimit) count++;
         }
 
-        return count;
+        return count.ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var count = 0;
         var inputArray = ParseInput(inputString);
@@ -44,6 +44,6 @@ public class Day02 : Day<string[]>
                 (firstCharacter != matchingCharacter && secondCharacter == matchingCharacter)) count++;
         }
 
-        return count;
+        return count.ToString();
     }
 }

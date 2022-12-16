@@ -51,16 +51,16 @@ public class Day04 : Day<IEnumerable<Passport>>
         return passportInputStrings.Select(ParsePassport);
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var passports = ParseInput(inputString);
-        return passports.Count(p => p.HasRequiredFields);
+        return passports.Count(p => p.HasRequiredFields).ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var passports = ParseInput(inputString);
-        return passports.Count(p => p.IsValid);
+        return passports.Count(p => p.IsValid).ToString();
     }
 }
 

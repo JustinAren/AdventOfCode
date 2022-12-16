@@ -2,7 +2,7 @@
 
 public class Day04Tests : DayTest<Day04>
 {
-	private const string Input = @"
+    private const string Input = @"
 7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
 
 22 13 17 11  0
@@ -23,19 +23,19 @@ public class Day04Tests : DayTest<Day04>
 22 11 13  6  5
  2  0 12  3  7";
 
-	[Theory]
-	[InlineData(Input, 4512)]
-	public override void Test1(string inputString, long expected)
-	{
-		var result = this.Day.Perform1(inputString);
-		Assert.Equal(expected, result);
-	}
+    [Theory]
+    [InlineData(Input, "4512")]
+    public override void Test1(string inputString, string expected)
+    {
+        var result = Day.Perform1(inputString);
+        Assert.Equal(expected, result);
+    }
 
-	[Theory]
-	[InlineData(Input, 1924)]
-	public override void Test2(string inputString, long expected)
-	{
-		var result = this.Day.Perform2(inputString);
-		Assert.Equal(expected, result);
-	}
+    [Theory]
+    [InlineData(Input, "1924")]
+    public override void Test2(string inputString, string expected)
+    {
+        var result = Day.Perform2(inputString);
+        Assert.Equal(expected, result);
+    }
 }

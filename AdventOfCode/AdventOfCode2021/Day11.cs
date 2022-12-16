@@ -50,15 +50,15 @@ public class Day11 : Day<byte[,]>
         return result;
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var grid = ParseInput(inputString);
         var flashingOctopuses = 0L;
         for (var i = 0; i < 100; i++) flashingOctopuses += PerformStep(grid);
-        return flashingOctopuses;
+        return flashingOctopuses.ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var grid = ParseInput(inputString);
         var stepCount = 0L;
@@ -73,6 +73,6 @@ public class Day11 : Day<byte[,]>
             if (allZeroes) break;
         }
 
-        return stepCount;
+        return stepCount.ToString();
     }
 }

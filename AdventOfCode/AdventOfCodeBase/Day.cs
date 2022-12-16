@@ -2,26 +2,34 @@
 
 public abstract class Day<T> : IDay
 {
-	public (bool Performed, long Result) Perform(int problemNumber, int year)
-	{
-		var inputString = File.ReadAllText($@"..\..\..\..\InputFiles\{year}\{this.GetType().Name}.txt");
+    #region Implementation of IDay
 
-		return problemNumber switch
-		{
-			1 => (true, this.Perform1(inputString)),
-			2 => (true, this.Perform2(inputString)),
-			_ => (false, 0),
-		};
-	}
+    public (bool Performed, string Result) Perform(int problemNumber, int year)
+    {
+        var inputString = File.ReadAllText($@"..\..\..\..\InputFiles\{year}\{GetType().Name}.txt");
 
-	public abstract long Perform1(string inputString);
-	public abstract long Perform2(string inputString);
-	protected abstract T ParseInput(string inputString);
+        return problemNumber switch
+        {
+            1 => (true, Perform1(inputString)),
+            2 => (true, Perform2(inputString)),
+            _ => (false, "0"),
+        };
+    }
+
+    public abstract string Perform1(string inputString);
+
+    public abstract string Perform2(string inputString);
+
+    #endregion
+
+    protected abstract T ParseInput(string inputString);
 }
 
 public interface IDay
 {
-	(bool Performed, long Result) Perform(int problemNumber, int year);
-	long Perform1(string inputString);
-	long Perform2(string inputString);
+    (bool Performed, string Result) Perform(int problemNumber, int year);
+
+    string Perform1(string inputString);
+
+    string Perform2(string inputString);
 }

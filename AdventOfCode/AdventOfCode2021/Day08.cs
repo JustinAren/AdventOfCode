@@ -12,19 +12,19 @@ public class Day08 : Day<Pattern[]>
             .Select(Pattern.Parse).ToArray();
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var patterns = ParseInput(inputString);
         var result = patterns.SelectMany(pattern => pattern.OutputSignals)
             .Count(signal => EasyLengths.Contains(signal.Length));
-        return result;
+        return result.ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var patterns = ParseInput(inputString);
         var result = patterns.Sum(pattern => pattern.CalculateOutputSignal());
-        return result;
+        return result.ToString();
     }
 }
 

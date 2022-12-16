@@ -94,7 +94,7 @@ public class Day14 : Day<List<BitMaskGroup>>
         return bitMaskGroups;
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var bitMaskGroups = ParseInput(inputString);
         var arraySize = bitMaskGroups.Max(bmg => bmg.Operations.Max(o => o.Position)) + 1;
@@ -102,17 +102,17 @@ public class Day14 : Day<List<BitMaskGroup>>
 
         foreach (var bitMaskGroup in bitMaskGroups) ProcessBitMaskGroup1(bitMaskGroup, resultArray);
 
-        return resultArray.Aggregate((a, b) => a + b);
+        return resultArray.Aggregate((a, b) => a + b).ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var bitMaskGroups = ParseInput(inputString);
         var resultDictionary = new Dictionary<long, long>();
 
         foreach (var bitMaskGroup in bitMaskGroups) ProcessBitMaskGroup2(bitMaskGroup, resultDictionary);
 
-        return resultDictionary.Values.Aggregate((a, b) => a + b);
+        return resultDictionary.Values.Aggregate((a, b) => a + b).ToString();
     }
 }
 

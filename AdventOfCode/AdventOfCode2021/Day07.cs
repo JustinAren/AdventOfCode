@@ -8,7 +8,7 @@ public class Day07 : Day<long[]>
             .OrderBy(x => x).ToArray();
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var positions = ParseInput(inputString);
         var fuelCosts = new List<long>();
@@ -19,10 +19,10 @@ public class Day07 : Day<long[]>
             fuelCosts.Add(fuelCost);
         }
 
-        return fuelCosts.Min();
+        return fuelCosts.Min().ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var positions = ParseInput(inputString);
 
@@ -35,6 +35,6 @@ public class Day07 : Day<long[]>
             fuelCosts.Add(fuelCost);
         }
 
-        return fuelCosts.Min();
+        return fuelCosts.Min().ToString();
     }
 }

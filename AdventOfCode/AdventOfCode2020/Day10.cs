@@ -19,7 +19,7 @@ public class Day10 : Day<List<int>>
             .OrderBy(i => i).ToList();
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var inputList = ParseInput(inputString);
         var maxValue = inputList.Last() + 3;
@@ -35,12 +35,12 @@ public class Day10 : Day<List<int>>
 
         for (var i = 1; i < inputList.Count; i++) resultDictionary[inputList[i] - inputList[i - 1]]++;
 
-        return resultDictionary[1] * resultDictionary[3];
+        return (resultDictionary[1] * resultDictionary[3]).ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var inputList = ParseInput(inputString);
-        return Combinations(0, inputList);
+        return Combinations(0, inputList).ToString();
     }
 }

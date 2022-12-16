@@ -8,7 +8,7 @@ public class Day01 : Day<int[]>
             .ToArray();
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var intArray = ParseInput(inputString);
         var result = 0;
@@ -25,10 +25,10 @@ public class Day01 : Day<int[]>
             if (result != 0) break;
         }
 
-        return result;
+        return result.ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var intArray = ParseInput(inputString);
         var result = 0;
@@ -50,6 +50,6 @@ public class Day01 : Day<int[]>
             if (result != 0) break;
         }
 
-        return result;
+        return result.ToString();
     }
 }

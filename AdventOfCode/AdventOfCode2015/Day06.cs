@@ -34,7 +34,7 @@ public class Day06 : Day<List<CommandStruct>>
         }
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var commands = ParseInput(inputString);
         var grid = new bool[1000, 1000];
@@ -62,10 +62,10 @@ public class Day06 : Day<List<CommandStruct>>
             if (grid[i, j])
                 count++;
 
-        return count;
+        return count.ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var commands = ParseInput(inputString);
         var grid = new int[1000, 1000];
@@ -92,7 +92,7 @@ public class Day06 : Day<List<CommandStruct>>
         for (var j = 0; j < 1000; j++)
             count += grid[i, j];
 
-        return count;
+        return count.ToString();
     }
 }
 

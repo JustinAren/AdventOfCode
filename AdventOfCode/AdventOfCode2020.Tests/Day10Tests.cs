@@ -2,7 +2,7 @@
 
 public class Day10Tests : DayTest<Day10>
 {
-	private const string TestString1 = @"
+    private const string TestString1 = @"
 16
 10
 15
@@ -14,8 +14,8 @@ public class Day10Tests : DayTest<Day10>
 6
 12
 4";
-		
-	private const string TestString2 = @"
+
+    private const string TestString2 = @"
 28
 33
 18
@@ -47,22 +47,22 @@ public class Day10Tests : DayTest<Day10>
 34
 10
 3";
-	
-	[Theory]
-	[InlineData(TestString1, 35)]
-	[InlineData(TestString2, 220)]
-	public override void Test1(string inputString, long expected)
-	{
-		var result = this.Day.Perform1(inputString);
-		Assert.Equal(expected, result);
-	}
 
-	[Theory]
-	[InlineData(TestString1, 8)]
-	[InlineData(TestString2, 19208)]
-	public override void Test2(string inputString, long expected)
-	{
-		var result = this.Day.Perform2(inputString);
-		Assert.Equal(expected, result);
-	}
+    [Theory]
+    [InlineData(TestString1, "35")]
+    [InlineData(TestString2, "220")]
+    public override void Test1(string inputString, string expected)
+    {
+        var result = Day.Perform1(inputString);
+        Assert.Equal(expected, result);
+    }
+
+    [Theory]
+    [InlineData(TestString1, "8")]
+    [InlineData(TestString2, "19208")]
+    public override void Test2(string inputString, string expected)
+    {
+        var result = Day.Perform2(inputString);
+        Assert.Equal(expected, result);
+    }
 }

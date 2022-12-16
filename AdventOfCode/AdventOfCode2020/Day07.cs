@@ -36,7 +36,7 @@ public class Day07 : Day<IEnumerable<Bag>>
         return result.Values.ToList();
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var foundColors = new HashSet<string>();
         var bags = ParseInput(inputString);
@@ -47,7 +47,7 @@ public class Day07 : Day<IEnumerable<Bag>>
             if (FindColor(bag)) foundColors.Add(bag.Color);
         }
 
-        return foundColors.Count;
+        return foundColors.Count.ToString();
 
         static bool FindColor(Bag bag)
         {
@@ -61,10 +61,10 @@ public class Day07 : Day<IEnumerable<Bag>>
         }
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var bags = ParseInput(inputString).ToDictionary(bag => bag.Color);
-        return bags[BagColor].BagCount - 1;
+        return (bags[BagColor].BagCount - 1).ToString();
     }
 }
 

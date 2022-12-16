@@ -34,13 +34,13 @@ public class Day09 : Day<long[]>
             .ToArray();
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var inputArray = ParseInput(inputString);
-        return GetInvalidEntry(inputArray);
+        return GetInvalidEntry(inputArray).ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var inputArray = ParseInput(inputString);
         var invalidValue = GetInvalidEntry(inputArray);
@@ -51,10 +51,10 @@ public class Day09 : Day<long[]>
             {
                 if (i == j) continue;
                 var numbers = inputArray.Skip(i).Take(j - i).ToArray();
-                if (numbers.Sum(n => n) == invalidValue) return numbers.Min() + numbers.Max();
+                if (numbers.Sum(n => n) == invalidValue) return (numbers.Min() + numbers.Max()).ToString();
             }
         }
 
-        return 0;
+        return 0.ToString();
     }
 }

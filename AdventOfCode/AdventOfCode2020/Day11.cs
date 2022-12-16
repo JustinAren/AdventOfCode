@@ -2,237 +2,245 @@
 
 public class Day11 : Day<SeatStatus[,]>
 {
-	public override long Perform1(string inputString)
-	{
-		var map = this.ParseInput(inputString);
-		var newMap = PerformProblem1Round(map);
+    private static bool ContentIsEqual(SeatStatus[,] map1, SeatStatus[,] map2)
+    {
+        if (map1.Length != map2.Length) return false;
+        if (map1.GetLength(0) != map2.GetLength(0)) return false;
+        for (var i = 0; i < map1.GetLength(0); i++)
+        {
+            for (var j = 0; j < map1.GetLength(1); j++)
+            {
+                if (map1[i, j] != map2[i, j]) return false;
+            }
+        }
 
-		while (!ContentIsEqual(map, newMap))
-		{
-			map = newMap;
-			newMap = PerformProblem1Round(map);
-		}
+        return true;
+    }
 
-		return GetOccupiedCount(newMap);
-	}
+    private static IEnumerable<SeatStatus> GetAdjacentSeats(SeatStatus[,] map, int x, int y)
+    {
+        var result = new List<SeatStatus>();
+        for (var i = x - 1; i <= x + 1; i++)
+        {
+            if (i < 0) continue;
+            if (i >= map.GetLength(0)) continue;
 
-	public override long Perform2(string inputString)
-	{
-		var map = this.ParseInput(inputString);
-		var newMap = PerformProblem2Round(map);
+            for (var j = y - 1; j <= y + 1; j++)
+            {
+                if (j < 0) continue;
+                if (j >= map.GetLength(1)) continue;
+                if (i == x && j == y) continue;
 
-		while (!ContentIsEqual(map, newMap))
-		{
-			map = newMap;
-			newMap = PerformProblem2Round(map);
-		}
+                result.Add(map[i, j]);
+            }
+        }
 
-		return GetOccupiedCount(newMap);
-	}
+        return result;
+    }
 
-	private static long GetOccupiedCount(SeatStatus[,] map)
-	{
-		long occupiedCount = 0;
+    private static long GetOccupiedCount(SeatStatus[,] map)
+    {
+        long occupiedCount = 0;
 
-		for (var i = 0; i < map.GetLength(0); i++)
-		{
-			for (var j = 0; j < map.GetLength(1); j++)
-			{
-				if (map[i, j] == SeatStatus.Occupied) occupiedCount++;
-			}
-		}
+        for (var i = 0; i < map.GetLength(0); i++)
+        {
+            for (var j = 0; j < map.GetLength(1); j++)
+            {
+                if (map[i, j] == SeatStatus.Occupied) occupiedCount++;
+            }
+        }
 
-		return occupiedCount;
-	}
+        return occupiedCount;
+    }
 
-	private static bool ContentIsEqual(SeatStatus[,] map1, SeatStatus[,] map2)
-	{
-		if (map1.Length != map2.Length) return false;
-		if (map1.GetLength(0) != map2.GetLength(0)) return false;
-		for (var i = 0; i < map1.GetLength(0); i++)
-		{
-			for (var j = 0; j < map1.GetLength(1); j++)
-			{
-				if (map1[i, j] != map2[i, j]) return false;
-			}
-		}
-		return true;
-	}
+    private static IEnumerable<SeatStatus> GetVisibleSeats(SeatStatus[,] map, int x, int y)
+    {
+        var result = new List<SeatStatus>();
 
-	private static SeatStatus[,] PerformProblem1Round(SeatStatus[,] map)
-	{
-		var newMap = new SeatStatus[map.GetLength(0), map.GetLength(1)];
+        for (var i = x + 1; i < map.GetLength(0); i++)
+        {
+            if (map[i, y] == SeatStatus.Floor) continue;
 
-		for (var i = 0; i < map.GetLength(0); i++)
-		{
-			for (var j = 0; j < map.GetLength(1); j++)
-			{
-				var adjacentSeats = GetAdjacentSeats(map, i, j).ToArray();
-				newMap[i, j] = map[i, j] switch
-				{
-					SeatStatus.Floor => SeatStatus.Floor,
-					SeatStatus.Empty when adjacentSeats.All(seat => seat != SeatStatus.Occupied) => SeatStatus.Occupied,
-					SeatStatus.Occupied when adjacentSeats.Count(seat => seat == SeatStatus.Occupied) >= 4 => SeatStatus.Empty,
-					_ => map[i, j],
-				};
-			}
-		}
+            result.Add(map[i, y]);
+            break;
+        }
 
-		return newMap;
-	}
+        for (var i = x - 1; i >= 0; i--)
+        {
+            if (map[i, y] == SeatStatus.Floor) continue;
 
-	private static IEnumerable<SeatStatus> GetAdjacentSeats(SeatStatus[,] map, int x, int y)
-	{
-		var result = new List<SeatStatus>();
-		for (var i = x - 1; i <= x + 1; i++)
-		{
-			if (i < 0) continue;
-			if (i >= map.GetLength(0)) continue;
+            result.Add(map[i, y]);
+            break;
+        }
 
-			for (var j = y - 1; j <= y + 1; j++)
-			{
-				if (j < 0) continue;
-				if (j >= map.GetLength(1)) continue;
-				if (i == x && j == y) continue;
+        for (var j = y + 1; j < map.GetLength(1); j++)
+        {
+            if (map[x, j] == SeatStatus.Floor) continue;
 
-				result.Add(map[i, j]);
-			}
-		}
-		return result;
-	}
+            result.Add(map[x, j]);
+            break;
+        }
 
-	private static SeatStatus[,] PerformProblem2Round(SeatStatus[,] map)
-	{
-		var newMap = new SeatStatus[map.GetLength(0), map.GetLength(1)];
+        for (var j = y - 1; j >= 0; j--)
+        {
+            if (map[x, j] == SeatStatus.Floor) continue;
 
-		for (var i = 0; i < map.GetLength(0); i++)
-		{
-			for (var j = 0; j < map.GetLength(1); j++)
-			{
-				var visibleSeats = GetVisibleSeats(map, i, j).ToArray();
-				newMap[i, j] = map[i, j] switch
-				{
-					SeatStatus.Floor => SeatStatus.Floor,
-					SeatStatus.Empty when visibleSeats.All(seat => seat != SeatStatus.Occupied) => SeatStatus.Occupied,
-					SeatStatus.Occupied when visibleSeats.Count(seat => seat == SeatStatus.Occupied) >= 5 => SeatStatus.Empty,
-					_ => map[i, j],
-				};
-			}
-		}
+            result.Add(map[x, j]);
+            break;
+        }
 
-		return newMap;
-	}
+        for (var i = 1; i < map.GetLength(0); i++)
+        {
+            if (x + i >= map.GetLength(0)) break;
+            if (y + i >= map.GetLength(1)) break;
 
-	private static IEnumerable<SeatStatus> GetVisibleSeats(SeatStatus[,] map, int x, int y)
-	{
-		var result = new List<SeatStatus>();
+            if (map[x + i, y + i] == SeatStatus.Floor) continue;
 
-		for (var i = x + 1; i < map.GetLength(0); i++)
-		{
-			if (map[i, y] == SeatStatus.Floor) continue;
+            result.Add(map[x + i, y + i]);
+            break;
+        }
 
-			result.Add(map[i, y]);
-			break;
-		}
+        for (var i = 1; i < map.GetLength(0); i++)
+        {
+            if (x - i < 0) break;
+            if (y + i >= map.GetLength(1)) break;
 
-		for (var i = x - 1; i >= 0; i--)
-		{
-			if (map[i, y] == SeatStatus.Floor) continue;
+            if (map[x - i, y + i] == SeatStatus.Floor) continue;
 
-			result.Add(map[i, y]);
-			break;
-		}
+            result.Add(map[x - i, y + i]);
+            break;
+        }
 
-		for (var j = y + 1; j < map.GetLength(1); j++)
-		{
-			if (map[x, j] == SeatStatus.Floor) continue;
+        for (var i = 1; i < map.GetLength(0); i++)
+        {
+            if (x + i >= map.GetLength(0)) break;
+            if (y - i < 0) break;
 
-			result.Add(map[x, j]);
-			break;
-		}
+            if (map[x + i, y - i] == SeatStatus.Floor) continue;
 
-		for (var j = y - 1; j >= 0; j--)
-		{
-			if (map[x, j] == SeatStatus.Floor) continue;
+            result.Add(map[x + i, y - i]);
+            break;
+        }
 
-			result.Add(map[x, j]);
-			break;
-		}
+        for (var i = 1; i < map.GetLength(0); i++)
+        {
+            if (x - i < 0) break;
+            if (y - i < 0) break;
 
-		for (var i = 1; i < map.GetLength(0); i++)
-		{
-			if (x + i >= map.GetLength(0)) break;
-			if (y + i >= map.GetLength(1)) break;
+            if (map[x - i, y - i] == SeatStatus.Floor) continue;
 
-			if (map[x + i, y + i] == SeatStatus.Floor) continue;
+            result.Add(map[x - i, y - i]);
+            break;
+        }
 
-			result.Add(map[x + i, y + i]);
-			break;
-		}
+        return result;
+    }
 
-		for (var i = 1; i < map.GetLength(0); i++)
-		{
-			if (x - i < 0) break;
-			if (y + i >= map.GetLength(1)) break;
+    private static SeatStatus ParseSeatStatus(char character)
+    {
+        return character switch
+        {
+            '.' => SeatStatus.Floor,
+            'L' => SeatStatus.Empty,
+            '#' => SeatStatus.Occupied,
+            _ => throw new NotSupportedException(
+                $"Character \'{character}\' is not a known {nameof(SeatStatus)}.")
+        };
+    }
 
-			if (map[x - i, y + i] == SeatStatus.Floor) continue;
+    private static SeatStatus[,] PerformProblem1Round(SeatStatus[,] map)
+    {
+        var newMap = new SeatStatus[map.GetLength(0), map.GetLength(1)];
 
-			result.Add(map[x - i, y + i]);
-			break;
-		}
+        for (var i = 0; i < map.GetLength(0); i++)
+        {
+            for (var j = 0; j < map.GetLength(1); j++)
+            {
+                var adjacentSeats = GetAdjacentSeats(map, i, j).ToArray();
+                newMap[i, j] = map[i, j] switch
+                {
+                    SeatStatus.Floor => SeatStatus.Floor,
+                    SeatStatus.Empty when adjacentSeats.All(seat => seat != SeatStatus.Occupied) => SeatStatus
+                        .Occupied,
+                    SeatStatus.Occupied when adjacentSeats.Count(seat => seat == SeatStatus.Occupied) >= 4 =>
+                        SeatStatus.Empty,
+                    _ => map[i, j],
+                };
+            }
+        }
 
-		for (var i = 1; i < map.GetLength(0); i++)
-		{
-			if (x + i >= map.GetLength(0)) break;
-			if (y - i < 0) break;
+        return newMap;
+    }
 
-			if (map[x + i, y - i] == SeatStatus.Floor) continue;
+    private static SeatStatus[,] PerformProblem2Round(SeatStatus[,] map)
+    {
+        var newMap = new SeatStatus[map.GetLength(0), map.GetLength(1)];
 
-			result.Add(map[x + i, y - i]);
-			break;
-		}
+        for (var i = 0; i < map.GetLength(0); i++)
+        {
+            for (var j = 0; j < map.GetLength(1); j++)
+            {
+                var visibleSeats = GetVisibleSeats(map, i, j).ToArray();
+                newMap[i, j] = map[i, j] switch
+                {
+                    SeatStatus.Floor => SeatStatus.Floor,
+                    SeatStatus.Empty when visibleSeats.All(seat => seat != SeatStatus.Occupied) => SeatStatus
+                        .Occupied,
+                    SeatStatus.Occupied when visibleSeats.Count(seat => seat == SeatStatus.Occupied) >= 5 =>
+                        SeatStatus.Empty,
+                    _ => map[i, j],
+                };
+            }
+        }
 
-		for (var i = 1; i < map.GetLength(0); i++)
-		{
-			if (x - i < 0) break;
-			if (y - i < 0) break;
+        return newMap;
+    }
 
-			if (map[x - i, y - i] == SeatStatus.Floor) continue;
+    protected override SeatStatus[,] ParseInput(string inputString)
+    {
+        var rows = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var map = new SeatStatus[rows.Length, rows[0].Length];
+        for (var i = 0; i < rows.Length; i++)
+        {
+            var seats = rows[i].Select(ParseSeatStatus).ToArray();
+            for (var j = 0; j < seats.Length; j++) map[i, j] = seats[j];
+        }
 
-			result.Add(map[x - i, y - i]);
-			break;
-		}
+        return map;
+    }
 
-		return result;
-	}
+    public override string Perform1(string inputString)
+    {
+        var map = ParseInput(inputString);
+        var newMap = PerformProblem1Round(map);
 
-	protected override SeatStatus[,] ParseInput(string inputString)
-	{
-		var rows = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-		var map = new SeatStatus[rows.Length, rows[0].Length];
-		for (var i = 0; i < rows.Length; i++)
-		{
-			var seats = rows[i].Select(ParseSeatStatus).ToArray();
-			for (var j = 0; j < seats.Length; j++) map[i, j] = seats[j];
-		}
-		return map;
-	}
+        while (!ContentIsEqual(map, newMap))
+        {
+            map = newMap;
+            newMap = PerformProblem1Round(map);
+        }
 
-	private static SeatStatus ParseSeatStatus(char character)
-	{
-		return character switch
-		{
-			'.' => SeatStatus.Floor,
-			'L' => SeatStatus.Empty,
-			'#' => SeatStatus.Occupied,
-			_ => throw new NotSupportedException($"Character \'{character}\' is not a known {nameof(SeatStatus)}.")
-		};
-	}
+        return GetOccupiedCount(newMap).ToString();
+    }
+
+    public override string Perform2(string inputString)
+    {
+        var map = ParseInput(inputString);
+        var newMap = PerformProblem2Round(map);
+
+        while (!ContentIsEqual(map, newMap))
+        {
+            map = newMap;
+            newMap = PerformProblem2Round(map);
+        }
+
+        return GetOccupiedCount(newMap).ToString();
+    }
 }
 
 public enum SeatStatus
 {
-	Floor,
-	Empty,
-	Occupied,
+    Floor,
+    Empty,
+    Occupied,
 }

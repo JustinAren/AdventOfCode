@@ -73,20 +73,20 @@ public class Day09 : Day<LowPoint[,]>
         return result;
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var grid = ParseInput(inputString);
         var lowPoints = GetLowPoints(grid).ToArray();
-        return lowPoints.Sum(lowPoint => lowPoint.Value) + lowPoints.Length;
+        return (lowPoints.Sum(lowPoint => lowPoint.Value) + lowPoints.Length).ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var grid = ParseInput(inputString);
         var lowPoints = GetLowPoints(grid);
         var basins = lowPoints.Select(lowPoint => GetBasin(lowPoint, grid, new List<LowPoint>()));
         return basins.OrderByDescending(basin => basin.Count()).Take(3)
-            .Aggregate(1L, (l, basin) => l * basin.Count());
+            .Aggregate(1L, (l, basin) => l * basin.Count()).ToString();
     }
 }
 
