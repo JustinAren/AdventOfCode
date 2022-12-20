@@ -96,7 +96,7 @@
 |[4](https://adventofcode.com/2022/day/4)|532|854|
 |[5](https://adventofcode.com/2022/day/5)|VGBBJCRMN|LBBVJBRMH|
 |[6](https://adventofcode.com/2022/day/6)|1987|3059|
-|[7](https://adventofcode.com/2022/day/7)|||
+|[7](https://adventofcode.com/2022/day/7)|1306611||
 |[8](https://adventofcode.com/2022/day/8)|||
 |[9](https://adventofcode.com/2022/day/9)|||
 |[10](https://adventofcode.com/2022/day/10)|||
