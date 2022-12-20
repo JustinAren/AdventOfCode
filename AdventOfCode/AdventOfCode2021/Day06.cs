@@ -28,17 +28,17 @@ public class Day06 : Day<long[]>
         return result;
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var fishCounters = ParseInput(inputString);
         Simulate(fishCounters, 80);
-        return fishCounters.Sum();
+        return fishCounters.Sum().ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var fishCounters = ParseInput(inputString);
         Simulate(fishCounters, 256);
-        return fishCounters.Sum();
+        return fishCounters.Sum().ToString();
     }
 }

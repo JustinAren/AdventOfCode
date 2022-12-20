@@ -5,7 +5,7 @@ public class Day01 : Day<List<int>>
     protected override List<int> ParseInput(string inputString) => inputString
         .Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var heights = ParseInput(inputString);
         var increments = 0;
@@ -18,10 +18,10 @@ public class Day01 : Day<List<int>>
             current = heights[i];
         }
 
-        return increments;
+        return increments.ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var heights = ParseInput(inputString);
         var increments = 0;
@@ -35,6 +35,6 @@ public class Day01 : Day<List<int>>
             currentSum = slidingSum;
         }
 
-        return increments;
+        return increments.ToString();
     }
 }

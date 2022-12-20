@@ -55,17 +55,19 @@ public class Day18 : Day<IExpression[]>
         return expressions.Select(ParseExpression).ToArray();
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var input = ParseInput(inputString);
-        return input.Aggregate<IExpression, long>(0, (sum, expression) => sum + expression.Calculate());
+        return input.Aggregate<IExpression, long>(0, (sum, expression) => sum + expression.Calculate())
+            .ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var input = ParseInput(inputString);
         for (var i = 0; i < 100; i++) input = input.Select(expression => expression.Rewrite()).ToArray();
-        return input.Aggregate<IExpression, long>(0, (sum, expression) => sum + expression.Calculate());
+        return input.Aggregate<IExpression, long>(0, (sum, expression) => sum + expression.Calculate())
+            .ToString();
     }
 }
 

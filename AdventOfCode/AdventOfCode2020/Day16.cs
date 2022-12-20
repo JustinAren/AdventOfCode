@@ -15,7 +15,7 @@ public class Day16 : Day<(Day16Rule[] Rules, Ticket MyTicket, Ticket[] NearbyTic
             nearbyTicketStrings.Select(Ticket.Parse).ToArray());
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var (rules, _, nearbyTickets) = ParseInput(inputString);
         var invalidValues = new List<long>();
@@ -26,10 +26,10 @@ public class Day16 : Day<(Day16Rule[] Rules, Ticket MyTicket, Ticket[] NearbyTic
             invalidValues.AddRange(invalids);
         }
 
-        return (long)invalidValues.Sum(v => (decimal)v);
+        return ((long)invalidValues.Sum(v => (decimal)v)).ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var (rules, myTicket, nearbyTickets) = ParseInput(inputString);
         var validTickets = nearbyTickets.Where(ticket => ticket.ValidateAgainstRules(rules, out _)).ToArray();
@@ -59,7 +59,8 @@ public class Day16 : Day<(Day16Rule[] Rules, Ticket MyTicket, Ticket[] NearbyTic
         return actualColumnForRule
             .Where(kvp => kvp.Key.StartsWith("departure"))
             .Select(kvp => kvp.Value)
-            .Aggregate<int, long>(1, (current, column) => current * myTicket.Values[column]);
+            .Aggregate<int, long>(1, (current, column) => current * myTicket.Values[column])
+            .ToString();
     }
 }
 

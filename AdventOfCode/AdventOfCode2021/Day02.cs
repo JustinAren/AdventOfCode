@@ -18,7 +18,7 @@ public class Day02 : Day<List<CommandDay02>>
         return result;
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var commands = ParseInput(inputString);
         var horizontal = 0;
@@ -40,10 +40,10 @@ public class Day02 : Day<List<CommandDay02>>
             }
         }
 
-        return horizontal * depth;
+        return (horizontal * depth).ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var commands = ParseInput(inputString);
         var horizontal = 0;
@@ -67,7 +67,7 @@ public class Day02 : Day<List<CommandDay02>>
             }
         }
 
-        return horizontal * depth;
+        return (horizontal * depth).ToString();
     }
 }
 

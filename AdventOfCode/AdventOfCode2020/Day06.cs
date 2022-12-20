@@ -2,47 +2,49 @@
 
 public class Day06 : Day<string[]>
 {
-	public override long Perform1(string inputString)
-	{
-		var inputStrings = this.ParseInput(inputString);
-		return inputStrings.Select(ParseInput1).Sum();
-	}
+    private static int ParseInput1(string inputString)
+    {
+        var result = new HashSet<char>();
 
-	public override long Perform2(string inputString)
-	{
-		var inputStrings = this.ParseInput(inputString);
-		return inputStrings.Select(ParseInput2).Sum();
-	}
+        var inputs = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
-	protected override string[] ParseInput(string inputString)
-	{
-		return inputString.Split($"{Environment.NewLine}{Environment.NewLine}", StringSplitOptions.RemoveEmptyEntries);
-	}
+        foreach (var input in inputs)
+        foreach (var character in input)
+            result.Add(character);
 
-	private static int ParseInput1(string inputString)
-	{
-		var result = new HashSet<char>();
+        return result.Count;
+    }
 
-		var inputs = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+    private static int ParseInput2(string inputString)
+    {
+        var inputs = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var dictionary = new Dictionary<char, int>();
 
-		foreach (var input in inputs)
-		foreach (var character in input) result.Add(character);
+        foreach (var input in inputs)
+        foreach (var character in input)
+        {
+            if (dictionary.ContainsKey(character)) dictionary[character]++;
+            else dictionary.Add(character, 1);
+        }
 
-		return result.Count;
-	}
+        return dictionary.Count(kvp => kvp.Value == inputs.Length);
+    }
 
-	private static int ParseInput2(string inputString)
-	{
-		var inputs = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-		var dictionary = new Dictionary<char, int>();
+    protected override string[] ParseInput(string inputString)
+    {
+        return inputString.Split($"{Environment.NewLine}{Environment.NewLine}",
+            StringSplitOptions.RemoveEmptyEntries);
+    }
 
-		foreach (var input in inputs)
-		foreach (var character in input)
-		{
-			if (dictionary.ContainsKey(character)) dictionary[character]++;
-			else dictionary.Add(character, 1);
-		}
+    public override string Perform1(string inputString)
+    {
+        var inputStrings = ParseInput(inputString);
+        return inputStrings.Select(ParseInput1).Sum().ToString();
+    }
 
-		return dictionary.Count(kvp => kvp.Value == inputs.Length);
-	}
+    public override string Perform2(string inputString)
+    {
+        var inputStrings = ParseInput(inputString);
+        return inputStrings.Select(ParseInput2).Sum().ToString();
+    }
 }

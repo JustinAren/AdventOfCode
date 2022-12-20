@@ -9,7 +9,7 @@ public class Day05 : Day<Line[]>
         return result;
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var gridDictionary = new Dictionary<(int X, int Y), int>();
         var lines = ParseInput(inputString);
@@ -42,10 +42,10 @@ public class Day05 : Day<Line[]>
         }
 
         var overlapCount = gridDictionary.Count(kvp => kvp.Value > 1);
-        return overlapCount;
+        return overlapCount.ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var gridDictionary = new Dictionary<(int X, int Y), int>();
         var lines = ParseInput(inputString);
@@ -93,7 +93,7 @@ public class Day05 : Day<Line[]>
         }
 
         var overlapCount = gridDictionary.Count(kvp => kvp.Value > 1);
-        return overlapCount;
+        return overlapCount.ToString();
     }
 }
 

@@ -39,13 +39,13 @@ public class Day15 : Day<long[]>
         return inputString.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToArray();
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
-        return SolveProblem(inputString, 2020);
+        return SolveProblem(inputString, 2020).ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
-        return SolveProblem(inputString, 30000000);
+        return SolveProblem(inputString, 30000000).ToString();
     }
 }

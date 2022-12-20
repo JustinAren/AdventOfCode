@@ -59,8 +59,7 @@ public class Program
                 continue;
             }
 
-            var day = Activator.CreateInstance(dayType) as IDay;
-            if (day is null)
+            if (Activator.CreateInstance(dayType) is not IDay day)
             {
                 Console.WriteLine(
                     $"Implementation of AdventOfCode{year:D4}.Day{dayNumber:D2} cannot be created");

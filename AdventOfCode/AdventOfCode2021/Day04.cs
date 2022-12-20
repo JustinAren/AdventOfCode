@@ -28,7 +28,7 @@ public class Day04 : Day<Bingo>
         return new Bingo(numbers, boards.ToArray());
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var (numbers, boards) = ParseInput(inputString);
         foreach (var number in numbers)
@@ -39,14 +39,14 @@ public class Day04 : Day<Bingo>
                 if (!board.HasBingo()) continue;
 
                 var unmarkedSum = board.GetUnmarkedSum();
-                return unmarkedSum * number;
+                return (unmarkedSum * number).ToString();
             }
         }
 
-        return 0;
+        return 0.ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var (numbers, boards) = ParseInput(inputString);
 
@@ -69,7 +69,7 @@ public class Day04 : Day<Bingo>
             }
         }
 
-        return unmarkedSums[lastWonBoardIndex];
+        return unmarkedSums[lastWonBoardIndex].ToString();
     }
 }
 

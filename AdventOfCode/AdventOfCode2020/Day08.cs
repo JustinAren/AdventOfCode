@@ -50,13 +50,13 @@ public class Day08 : Day<(Operation Operation, int Argument)[]>
         return commands.Select(ParseCommand).ToArray();
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var commands = ParseInput(inputString);
-        return Execute(commands).AccumulatorResult;
+        return Execute(commands).AccumulatorResult.ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var commands = ParseInput(inputString);
         var commandsCopy = new (Operation Operation, int Argument)[commands.Length];
@@ -69,10 +69,10 @@ public class Day08 : Day<(Operation Operation, int Argument)[]>
             commands.CopyTo(commandsCopy, 0);
             commandsCopy[i] = newCommand;
             var (infiniteLoop, accumulatorResult) = Execute(commandsCopy);
-            if (!infiniteLoop) return accumulatorResult;
+            if (!infiniteLoop) return accumulatorResult.ToString();
         }
 
-        return 0;
+        return 0.ToString();
     }
 }
 

@@ -8,20 +8,20 @@ public class Day12 : Day<IEnumerable<(char Action, int Value)>>
             .Select(row => (row[0], int.Parse(row[1..])));
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var instructions = ParseInput(inputString);
         var ship = new Ship();
         foreach (var (action, value) in instructions) ship.PerformInstruction1(action, value);
-        return Math.Abs(ship.XCoordinate) + Math.Abs(ship.YCoordinate);
+        return (Math.Abs(ship.XCoordinate) + Math.Abs(ship.YCoordinate)).ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var instructions = ParseInput(inputString);
         var ship = new Ship();
         foreach (var (action, value) in instructions) ship.PerformInstruction2(action, value);
-        return Math.Abs(ship.XCoordinate) + Math.Abs(ship.YCoordinate);
+        return (Math.Abs(ship.XCoordinate) + Math.Abs(ship.YCoordinate)).ToString();
     }
 }
 

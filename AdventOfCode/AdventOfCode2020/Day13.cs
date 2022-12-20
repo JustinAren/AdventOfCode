@@ -11,7 +11,7 @@ public class Day13 : Day<(long TimeStamp, int[] BusNumbers)>
         return (timeStamp, busNumbers);
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var (currentTimeStamp, busNumbers) = ParseInput(inputString);
         var departureTimeStamp = long.MaxValue;
@@ -27,10 +27,10 @@ public class Day13 : Day<(long TimeStamp, int[] BusNumbers)>
             usedBusNumber = busNumber;
         }
 
-        return (departureTimeStamp - currentTimeStamp) * usedBusNumber;
+        return ((departureTimeStamp - currentTimeStamp) * usedBusNumber).ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var (_, busNumbers) = ParseInput(inputString);
 
@@ -48,6 +48,6 @@ public class Day13 : Day<(long TimeStamp, int[] BusNumbers)>
             increment *= id;
         }
 
-        return timestamp;
+        return timestamp.ToString();
     }
 }

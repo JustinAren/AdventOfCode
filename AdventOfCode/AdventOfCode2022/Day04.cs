@@ -2,38 +2,41 @@
 
 public class Day04 : Day<AssingmentPair[]>
 {
-	public override long Perform1(string inputString)
-	{
-		var assignmentPairs = this.ParseInput(inputString);
-		return assignmentPairs.Count(pair => pair.RangesFullyOverlap);
-	}
+    protected override AssingmentPair[] ParseInput(string inputString) => inputString
+        .Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(AssingmentPair.Parse)
+        .ToArray();
 
-	public override long Perform2(string inputString)
-	{
-		var assignmentPairs = this.ParseInput(inputString);
-		return assignmentPairs.Count(pair => pair.RangesOverlap);
-	}
+    public override string Perform1(string inputString)
+    {
+        var assignmentPairs = ParseInput(inputString);
+        return assignmentPairs.Count(pair => pair.RangesFullyOverlap).ToString();
+    }
 
-	protected override AssingmentPair[] ParseInput(string inputString) => inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(AssingmentPair.Parse).ToArray();
+    public override string Perform2(string inputString)
+    {
+        var assignmentPairs = ParseInput(inputString);
+        return assignmentPairs.Count(pair => pair.RangesOverlap).ToString();
+    }
 }
 
 public readonly record struct AssingmentPair(int LowerboundA, int UpperboundA, int LowerboundB, int UpperboundB)
 {
-	public bool RangesFullyOverlap =>
-		(this.LowerboundA >= this.LowerboundB && this.UpperboundA <= this.UpperboundB) ||
-		(this.LowerboundB >= this.LowerboundA && this.UpperboundB <= this.UpperboundA);
+    public static AssingmentPair Parse(string inputString)
+    {
+        var splits = inputString.Split(",", StringSplitOptions.RemoveEmptyEntries);
+        var boundsA = splits[0].Split("-", StringSplitOptions.RemoveEmptyEntries);
+        var boundsB = splits[1].Split("-", StringSplitOptions.RemoveEmptyEntries);
+        return new AssingmentPair(int.Parse(boundsA[0]), int.Parse(boundsA[1]), int.Parse(boundsB[0]),
+            int.Parse(boundsB[1]));
+    }
 
-	public bool RangesOverlap =>
-		(this.LowerboundA >= this.LowerboundB && this.LowerboundA <= this.UpperboundB) ||
-		(this.UpperboundA >= this.LowerboundB && this.UpperboundA <= this.UpperboundB) ||
-		(this.LowerboundB >= this.LowerboundA && this.LowerboundB <= this.UpperboundA) ||
-		(this.UpperboundB >= this.LowerboundA && this.UpperboundB <= this.UpperboundA);
+    public bool RangesFullyOverlap =>
+        (LowerboundA >= LowerboundB && UpperboundA <= UpperboundB) ||
+        (LowerboundB >= LowerboundA && UpperboundB <= UpperboundA);
 
-	public static AssingmentPair Parse(string inputString)
-	{
-		var splits = inputString.Split(",", StringSplitOptions.RemoveEmptyEntries);
-		var boundsA = splits[0].Split("-", StringSplitOptions.RemoveEmptyEntries);
-		var boundsB = splits[1].Split("-", StringSplitOptions.RemoveEmptyEntries);
-		return new AssingmentPair(int.Parse(boundsA[0]), int.Parse(boundsA[1]), int.Parse(boundsB[0]), int.Parse(boundsB[1]));
-	}
+    public bool RangesOverlap =>
+        (LowerboundA >= LowerboundB && LowerboundA <= UpperboundB) ||
+        (UpperboundA >= LowerboundB && UpperboundA <= UpperboundB) ||
+        (LowerboundB >= LowerboundA && LowerboundB <= UpperboundA) ||
+        (UpperboundB >= LowerboundA && UpperboundB <= UpperboundA);
 }

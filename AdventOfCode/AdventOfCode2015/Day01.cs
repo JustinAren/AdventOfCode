@@ -2,42 +2,50 @@
 
 public class Day01 : Day<string>
 {
-	public override long Perform1(string inputString)
-	{
-		var result = 0;
+    protected override string ParseInput(string inputString)
+    {
+        return inputString;
+    }
 
-		foreach (var character in inputString)
-		{
-			switch (character)
-			{
-				case '(': result++; break;
-				case ')': result--; break;
-			}
-		}
+    public override string Perform1(string inputString)
+    {
+        var result = 0;
 
-		return result;
-	}
+        foreach (var character in inputString)
+        {
+            switch (character)
+            {
+                case '(':
+                    result++;
+                    break;
+                case ')':
+                    result--;
+                    break;
+            }
+        }
 
-	public override long Perform2(string inputString)
-	{
-		var result = 0;
+        return result.ToString();
+    }
 
-		for (var i = 0; i < inputString.Length; i++)
-		{
-			switch (inputString[i])
-			{
-				case '(': result++; break;
-				case ')': result--; break;
-			}
+    public override string Perform2(string inputString)
+    {
+        var result = 0;
 
-			if (result == -1) return i + 1;
-		}
+        for (var i = 0; i < inputString.Length; i++)
+        {
+            switch (inputString[i])
+            {
+                case '(':
+                    result++;
+                    break;
+                case ')':
+                    result--;
+                    break;
+            }
 
-		return 0;
-	}
+            if (result == -1) return (i + 1).ToString();
+        }
 
-	protected override string ParseInput(string inputString)
-	{
-		return inputString;
-	}
+        return 0.ToString();
+    }
 }

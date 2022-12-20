@@ -31,15 +31,15 @@ public class Day19 : Day<(Dictionary<byte, Day19Rule> RulesByNumber, string[] Me
         return (rulesByNumber, messages);
     }
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var (rulesByNumber, messages) = ParseInput(inputString);
         var possibleValues = rulesByNumber[0].GeneratePossibleValues(rulesByNumber);
         var matchingCount = messages.Count(message => possibleValues.Contains(message));
-        return matchingCount;
+        return matchingCount.ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var (rulesByNumber, messages) = ParseInput(inputString);
         throw new NotImplementedException();

@@ -8,15 +8,15 @@ public class Day01 : Day<long[][]>
             .Select(long.Parse).ToArray())
         .ToArray();
 
-    public override long Perform1(string inputString)
+    public override string Perform1(string inputString)
     {
         var groups = ParseInput(inputString);
-        return groups.Select(group => group.Sum()).Max();
+        return groups.Select(group => group.Sum()).Max().ToString();
     }
 
-    public override long Perform2(string inputString)
+    public override string Perform2(string inputString)
     {
         var groups = ParseInput(inputString);
-        return groups.Select(group => group.Sum()).OrderByDescending(sum => sum).Take(3).Sum();
+        return groups.Select(group => group.Sum()).OrderByDescending(sum => sum).Take(3).Sum().ToString();
     }
 }
