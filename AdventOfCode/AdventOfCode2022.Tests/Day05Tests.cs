@@ -22,7 +22,7 @@ move 1 from 1 to 2";
     }
 
     [Theory]
-    [InlineData(Input, "")]
+    [InlineData(Input, "MCD")]
     public override void Test2(string inputString, string expected)
     {
         var result = Day.Perform2(inputString);
