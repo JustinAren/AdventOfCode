@@ -27,17 +27,17 @@ $ ls
 5626152 d.ext
 7214296 k";
 
-	[Theory]
+    [Theory]
     [InlineData(Input, "95437")]
-	public override void Test1(string inputString, string expected)
+    public override void Test1(string inputString, string expected)
     {
         var result = Day.Perform1(inputString);
         Assert.Equal(expected, result);
     }
 
     [Theory]
-	[InlineData(Input, "19")]
-	public override void Test2(string inputString, string expected)
+    [InlineData(Input, "24933642")]
+    public override void Test2(string inputString, string expected)
     {
         var result = Day.Perform2(inputString);
         Assert.Equal(expected, result);
