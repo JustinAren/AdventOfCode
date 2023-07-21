@@ -2,11 +2,14 @@
 
 namespace AdventOfCode2020;
 
-public class Day18 : Day<IExpression[]>
+public partial class Day18 : Day<IExpression[]>
 {
+    [GeneratedRegex("\\s")]
+    private static partial Regex ExpressionRegex();
+
     private static IExpression ParseExpression(string expressionString)
     {
-        expressionString = Regex.Replace(expressionString, @"\s", "");
+        expressionString = ExpressionRegex().Replace(expressionString, "");
         return ParseExpression(expressionString, 0, expressionString.Length);
     }
 
@@ -25,9 +28,11 @@ public class Day18 : Day<IExpression[]>
                 case '(':
                     parenthesisCount++;
                     break;
+
                 case ')':
                     parenthesisCount--;
                     break;
+
                 default:
                 {
                     if (parenthesisCount == 0)
@@ -36,6 +41,7 @@ public class Day18 : Day<IExpression[]>
                             case '+':
                                 return new Sum(ParseExpression(expressionString, start, i),
                                     ParseExpression(expressionString, i + 1, end));
+
                             case '*':
                                 return new Product(ParseExpression(expressionString, start, i),
                                     ParseExpression(expressionString, i + 1, end));
@@ -80,26 +86,17 @@ public interface IExpression
 
 public class Constant : IExpression
 {
-    public Constant(long value)
-    {
-        Value = value;
-    }
+    public Constant(long value) => Value = value;
 
     #region Implementation of IExpression
 
-    public long Calculate()
-    {
-        return Value;
-    }
+    public long Calculate() => Value;
 
-    public IExpression Rewrite()
-    {
-        return this;
-    }
+    public IExpression Rewrite() => this;
 
     #endregion
 
-    public long Value { get; }
+    private long Value { get; }
 }
 
 public class Sum : IExpression
@@ -112,24 +109,22 @@ public class Sum : IExpression
 
     #region Implementation of IExpression
 
-    public long Calculate()
-    {
-        return LeftSide.Calculate() + RightSide.Calculate();
-    }
+    public long Calculate() => LeftSide.Calculate() + RightSide.Calculate();
 
     public IExpression Rewrite()
     {
         if (LeftSide is Product product)
             return new Product(product.LeftSide.Rewrite(),
                 new Sum(product.RightSide.Rewrite(), RightSide.Rewrite()));
+
         return new Sum(LeftSide.Rewrite(), RightSide.Rewrite());
     }
 
     #endregion
 
-    public IExpression LeftSide { get; }
+    private IExpression LeftSide { get; }
 
-    public IExpression RightSide { get; }
+    private IExpression RightSide { get; }
 }
 
 public class Product : IExpression
@@ -142,15 +137,9 @@ public class Product : IExpression
 
     #region Implementation of IExpression
 
-    public long Calculate()
-    {
-        return LeftSide.Calculate() * RightSide.Calculate();
-    }
+    public long Calculate() => LeftSide.Calculate() * RightSide.Calculate();
 
-    public IExpression Rewrite()
-    {
-        return new Product(LeftSide.Rewrite(), RightSide.Rewrite());
-    }
+    public IExpression Rewrite() => new Product(LeftSide.Rewrite(), RightSide.Rewrite());
 
     #endregion
 
@@ -161,24 +150,15 @@ public class Product : IExpression
 
 public class Parenthesis : IExpression
 {
-    public Parenthesis(IExpression innerExpression)
-    {
-        InnerExpression = innerExpression;
-    }
+    public Parenthesis(IExpression innerExpression) => InnerExpression = innerExpression;
 
     #region Implementation of IExpression
 
-    public long Calculate()
-    {
-        return InnerExpression.Calculate();
-    }
+    public long Calculate() => InnerExpression.Calculate();
 
-    public IExpression Rewrite()
-    {
-        return new Parenthesis(InnerExpression.Rewrite());
-    }
+    public IExpression Rewrite() => new Parenthesis(InnerExpression.Rewrite());
 
     #endregion
 
-    public IExpression InnerExpression { get; }
+    private IExpression InnerExpression { get; }
 }

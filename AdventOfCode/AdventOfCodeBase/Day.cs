@@ -12,7 +12,7 @@ public abstract class Day<T> : IDay
         {
             1 => (true, Perform1(inputString)),
             2 => (true, Perform2(inputString)),
-            _ => (false, "0"),
+            _ => (false, "0")
         };
     }
 

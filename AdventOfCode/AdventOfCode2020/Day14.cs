@@ -15,7 +15,7 @@ public class Day14 : Day<List<BitMaskGroup>>
         return Convert.ToInt64(new string(binaryValueCharArray), 2);
     }
 
-    private static long[] ApplyBitMask2(string bitMask, long position)
+    private static IEnumerable<long> ApplyBitMask2(string bitMask, long position)
     {
         var binaryPositionCharArray = Convert.ToString(position, 2).PadLeft(bitMask.Length, '0').ToArray();
 
@@ -25,7 +25,7 @@ public class Day14 : Day<List<BitMaskGroup>>
             binaryPositionCharArray[i] = bitMask[i];
         }
 
-        var xCount = binaryPositionCharArray.Count(v => v == 'X');
+        var xCount = binaryPositionCharArray.Count(@char => @char == 'X');
         var newPositionCount = (int)Math.Pow(2, xCount);
 
         var resultArray = new long[newPositionCount];
@@ -49,54 +49,47 @@ public class Day14 : Day<List<BitMaskGroup>>
         return resultArray;
     }
 
-    private static void ProcessBitMaskGroup1(BitMaskGroup bitMaskGroup, long[] resultArray)
+    private static void ProcessBitMaskGroup1(BitMaskGroup bitMaskGroup, IList<long> resultArray)
     {
         foreach (var (position, value) in bitMaskGroup.Operations)
         {
             var newValue = ApplyBitMask1(bitMaskGroup.BitMask, value);
-            resultArray[position] = newValue;
+            resultArray[(int)position] = newValue;
         }
     }
 
-    private static void ProcessBitMaskGroup2(BitMaskGroup bitMaskGroup, Dictionary<long, long> resultDictionary)
+    private static void ProcessBitMaskGroup2(BitMaskGroup bitMaskGroup,
+        IDictionary<long, long> resultDictionary)
     {
         foreach (var (position, value) in bitMaskGroup.Operations)
         {
             var newPositions = ApplyBitMask2(bitMaskGroup.BitMask, position);
-            foreach (var newPosition in newPositions)
-            {
-                resultDictionary[newPosition] = value;
-            }
+            foreach (var newPosition in newPositions) resultDictionary[newPosition] = value;
         }
     }
 
     private static (long Position, long Value) ReadOperation(string operation)
     {
-        operation = operation.Substring(4);
+        operation = operation[4..];
         var splits = operation.Split("] = ", StringSplitOptions.RemoveEmptyEntries);
         return (long.Parse(splits[0]), long.Parse(splits[1]));
     }
 
     protected override List<BitMaskGroup> ParseInput(string inputString)
     {
-        var bitMaskGroups = new List<BitMaskGroup>();
-
         var maskGroupStrings = inputString.Trim().Split("mask = ", StringSplitOptions.RemoveEmptyEntries);
 
-        foreach (var maskGroupString in maskGroupStrings)
-        {
-            var rows = maskGroupString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-            var operations = rows.Skip(1).Select(ReadOperation);
-            bitMaskGroups.Add(new BitMaskGroup(rows[0], operations));
-        }
-
-        return bitMaskGroups;
+        return (from maskGroupString in maskGroupStrings
+                select maskGroupString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
+                into rows
+                let operations = rows.Skip(1).Select(ReadOperation)
+                select new BitMaskGroup(rows[0], operations)).ToList();
     }
 
     public override string Perform1(string inputString)
     {
         var bitMaskGroups = ParseInput(inputString);
-        var arraySize = bitMaskGroups.Max(bmg => bmg.Operations.Max(o => o.Position)) + 1;
+        var arraySize = bitMaskGroups.Max(bmg => bmg.Operations.Max(operation => operation.Position)) + 1;
         var resultArray = new long[arraySize];
 
         foreach (var bitMaskGroup in bitMaskGroups) ProcessBitMaskGroup1(bitMaskGroup, resultArray);

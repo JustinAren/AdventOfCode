@@ -2,7 +2,7 @@
 
 public class Day05Tests : DayTest<Day05>
 {
-    private const string Input = @"
+    private const string Input = """
 0,9 -> 5,9
 8,0 -> 0,8
 9,4 -> 3,4
@@ -12,7 +12,8 @@ public class Day05Tests : DayTest<Day05>
 0,9 -> 2,9
 3,4 -> 1,4
 0,0 -> 8,8
-5,5 -> 8,2";
+5,5 -> 8,2
+""";
 
     [Theory]
     [InlineData(Input, "5")]

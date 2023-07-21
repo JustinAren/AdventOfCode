@@ -21,6 +21,7 @@ public class Day03 : Day<Rucksack[]>
         {
             var intersectingChar = rucksacks[i].Content.Intersect(rucksacks[i + 1].Content)
                 .Intersect(rucksacks[i + 2].Content).Single();
+
             score += Rucksack.GetPriorityOfCharacter(intersectingChar);
         }
 
@@ -33,8 +34,8 @@ public record Rucksack(string Compartment1, string Compartment2)
     public static long GetPriorityOfCharacter(char c) => c >= 'a' ? (c - 'a') + 1 : (c - 'A') + 27;
 
     public static Rucksack Parse(string inputString) =>
-        new Rucksack(inputString.Substring(0, inputString.Length / 2),
-            inputString.Substring(inputString.Length / 2));
+        new(inputString[..(inputString.Length / 2)],
+            inputString[(inputString.Length / 2)..]);
 
     public long GetPriorityOfIntersectingCharacter()
     {

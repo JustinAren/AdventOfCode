@@ -2,7 +2,7 @@
 
 public class Day03Tests : DayTest<Day03>
 {
-    private const string Input = @"
+    private const string Input = """
 00100
 11110
 10110
@@ -14,7 +14,8 @@ public class Day03Tests : DayTest<Day03>
 10000
 11001
 00010
-01010";
+01010
+""";
 
     [Theory]
     [InlineData(Input, "198")]

@@ -9,6 +9,7 @@ public class Day04 : Day<IEnumerable<Passport>>
         var passport = new Passport();
         var fields = passportString.Split(new[] { Environment.NewLine, " " },
             StringSplitOptions.RemoveEmptyEntries);
+
         foreach (var field in fields)
         {
             var kvp = field.Split(':', StringSplitOptions.RemoveEmptyEntries);
@@ -17,21 +18,27 @@ public class Day04 : Day<IEnumerable<Passport>>
                 case "byr":
                     passport.BirthYear = kvp[1];
                     break;
+
                 case "iyr":
                     passport.IssueYear = kvp[1];
                     break;
+
                 case "eyr":
                     passport.ExpirationYear = kvp[1];
                     break;
+
                 case "hgt":
                     passport.Height = kvp[1];
                     break;
+
                 case "hcl":
                     passport.HairColor = kvp[1];
                     break;
+
                 case "ecl":
                     passport.EyeColor = kvp[1];
                     break;
+
                 case "pid":
                     passport.PassportId = kvp[1];
                     break;
@@ -45,25 +52,32 @@ public class Day04 : Day<IEnumerable<Passport>>
     {
         var passportInputStrings = inputString.Split($"{Environment.NewLine}{Environment.NewLine}",
             StringSplitOptions.RemoveEmptyEntries);
+
         return passportInputStrings.Select(ParsePassport);
     }
 
     public override string Perform1(string inputString)
     {
         var passports = ParseInput(inputString);
-        return passports.Count(p => p.HasRequiredFields).ToString();
+        return passports.Count(passport => passport.HasRequiredFields).ToString();
     }
 
     public override string Perform2(string inputString)
     {
         var passports = ParseInput(inputString);
-        return passports.Count(p => p.IsValid).ToString();
+        return passports.Count(passport => passport.IsValid).ToString();
     }
 }
 
-public class Passport
+public partial class Passport
 {
     private static readonly string[] ValidEyeColors = { "amb", "blu", "brn", "gry", "grn", "hzl", "oth" };
+
+    [GeneratedRegex("^#[0-9a-f]{6}$")]
+    private static partial Regex HairColorRegex();
+
+    [GeneratedRegex("^[0-9]{9}$")]
+    private static partial Regex PassportIdRegex();
 
     private static bool ValidateHeight(string height)
     {
@@ -71,18 +85,37 @@ public class Passport
         {
             height = height.Replace("in", "");
             if (!int.TryParse(height, out var heightInt)) return false;
-            return heightInt >= 59 && heightInt <= 76;
+            return heightInt is >= 59 and <= 76;
         }
 
         if (height.EndsWith("cm"))
         {
             height = height.Replace("cm", "");
             if (!int.TryParse(height, out var heightInt)) return false;
-            return heightInt >= 150 && heightInt <= 193;
+            return heightInt is >= 150 and <= 193;
         }
 
         return false;
     }
+
+    private bool IsBirthYearValid => !string.IsNullOrEmpty(BirthYear) &&
+        int.TryParse(BirthYear, out var birthYear) && birthYear is >= 1920 and <= 2002;
+
+    private bool IsExpirationYearValid => !string.IsNullOrEmpty(ExpirationYear) &&
+        int.TryParse(ExpirationYear, out var expirationYear) && expirationYear is >= 2020 and <= 2030;
+
+    private bool IsEyeColorValid => !string.IsNullOrEmpty(EyeColor) && ValidEyeColors.Contains(EyeColor);
+
+    private bool IsHairColorValid =>
+        !string.IsNullOrEmpty(HairColor) && HairColorRegex().IsMatch(HairColor);
+
+    private bool IsHeightValid => !string.IsNullOrEmpty(Height) && ValidateHeight(Height);
+
+    private bool IsIssueYearValid => !string.IsNullOrEmpty(IssueYear) &&
+        int.TryParse(IssueYear, out var issueYear) && issueYear is >= 2010 and <= 2020;
+
+    private bool IsPassportIdValid =>
+        !string.IsNullOrEmpty(PassportId) && PassportIdRegex().IsMatch(PassportId);
 
     public string BirthYear { get; set; }
 
@@ -102,26 +135,6 @@ public class Passport
         !string.IsNullOrEmpty(PassportId);
 
     public string Height { get; set; }
-
-    public bool IsBirthYearValid => !string.IsNullOrEmpty(BirthYear) &&
-        int.TryParse(BirthYear, out var birthYear) && birthYear >= 1920 && birthYear <= 2002;
-
-    public bool IsExpirationYearValid => !string.IsNullOrEmpty(ExpirationYear) &&
-        int.TryParse(ExpirationYear, out var expirationYear) && expirationYear >= 2020 &&
-        expirationYear <= 2030;
-
-    public bool IsEyeColorValid => !string.IsNullOrEmpty(EyeColor) && ValidEyeColors.Contains(EyeColor);
-
-    public bool IsHairColorValid =>
-        !string.IsNullOrEmpty(HairColor) && Regex.IsMatch(HairColor, @"^#[0-9a-f]{6}$");
-
-    public bool IsHeightValid => !string.IsNullOrEmpty(Height) && ValidateHeight(Height);
-
-    public bool IsIssueYearValid => !string.IsNullOrEmpty(IssueYear) &&
-        int.TryParse(IssueYear, out var issueYear) && issueYear >= 2010 && issueYear <= 2020;
-
-    public bool IsPassportIdValid =>
-        !string.IsNullOrEmpty(PassportId) && Regex.IsMatch(PassportId, @"^[0-9]{9}$");
 
     public string IssueYear { get; set; }
 

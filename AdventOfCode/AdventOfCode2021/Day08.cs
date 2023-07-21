@@ -6,17 +6,16 @@ public class Day08 : Day<Pattern[]>
 {
     private static readonly int[] EasyLengths = { 2, 3, 4, 7 };
 
-    protected override Pattern[] ParseInput(string inputString)
-    {
-        return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
+    protected override Pattern[] ParseInput(string inputString) =>
+        inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
             .Select(Pattern.Parse).ToArray();
-    }
 
     public override string Perform1(string inputString)
     {
         var patterns = ParseInput(inputString);
         var result = patterns.SelectMany(pattern => pattern.OutputSignals)
             .Count(signal => EasyLengths.Contains(signal.Length));
+
         return result.ToString();
     }
 
@@ -35,19 +34,21 @@ public readonly record struct Pattern(string[] InputSignals, string[] OutputSign
         var splits = input.Split('|', StringSplitOptions.RemoveEmptyEntries);
         var result = new Pattern(splits[0].Split(' ', StringSplitOptions.RemoveEmptyEntries),
             splits[1].Split(' ', StringSplitOptions.RemoveEmptyEntries));
+
         return result;
     }
 
     public long CalculateOutputSignal()
     {
         var inputSignalList =
-            InputSignals.Select(signal => new string(signal.OrderBy(c => c).ToArray())).ToList();
+            InputSignals.Select(signal => new string(signal.OrderBy(@char => @char).ToArray())).ToList();
+
         var numbers = new Dictionary<int, string>
         {
             [1] = inputSignalList.Single(signal => signal.Length == 2),
             [4] = inputSignalList.Single(signal => signal.Length == 4),
             [7] = inputSignalList.Single(signal => signal.Length == 3),
-            [8] = inputSignalList.Single(signal => signal.Length == 7),
+            [8] = inputSignalList.Single(signal => signal.Length == 7)
         };
 
         inputSignalList.Remove(numbers[1]);
@@ -72,12 +73,13 @@ public readonly record struct Pattern(string[] InputSignals, string[] OutputSign
 
         var outputBuilder = new StringBuilder();
         foreach (var outputSignal in OutputSignals.Select(
-                     signal => new string(signal.OrderBy(c => c).ToArray())))
+                     signal => new string(signal.OrderBy(@char => @char).ToArray())))
             outputBuilder.Append(outputBuilderDictionary[outputSignal]);
+
         var result = long.Parse(outputBuilder.ToString());
         return result;
 
         static bool Contains(string original, string substring) =>
-            substring.All(c => original.IndexOf(c) != -1);
+            substring.All(@char => original.IndexOf(@char) != -1);
     }
 }

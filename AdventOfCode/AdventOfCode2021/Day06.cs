@@ -20,8 +20,9 @@ public class Day06 : Day<long[]>
     protected override long[] ParseInput(string inputString)
     {
         var countDictionary = inputString.Trim().Split(',', StringSplitOptions.RemoveEmptyEntries)
-            .Select(int.Parse).GroupBy(x => x)
+            .Select(int.Parse).GroupBy(number => number)
             .ToDictionary(grouping => grouping.Key, grouping => grouping.Count());
+
         var result = new long[9];
         foreach (var (key, value) in countDictionary) result[key] = value;
 

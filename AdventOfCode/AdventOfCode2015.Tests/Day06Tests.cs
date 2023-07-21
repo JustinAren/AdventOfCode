@@ -2,14 +2,16 @@
 
 public class Day06Tests : DayTest<Day06>
 {
-    private const string InputString1 = @"
+    private const string InputString1 = """
 turn on 0,0 through 999,999
 toggle 0,0 through 999,0
-turn off 499,499 through 500,500";
+turn off 499,499 through 500,500
+""";
 
-    private const string InputString2 = @"
+    private const string InputString2 = """
 turn on 0,0 through 0,0
-toggle 0,0 through 999,999";
+toggle 0,0 through 999,999
+""";
 
     [Theory]
     [InlineData(InputString1, "998996")]

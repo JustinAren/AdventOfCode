@@ -20,13 +20,11 @@ public class Day07 : Day<Directory>
         if (directory.Directories.Count == 0 || directory.Size < toBeRemoved) return null;
 
         var sizesToRemove = new List<long> { directory.Size };
-
-        foreach (var subDirectory in directory.Directories)
-        {
-            var sizeToRemove = GetDirectorySizeToRemove(toBeRemoved, subDirectory);
-            if (sizeToRemove is null) continue;
-            sizesToRemove.Add(sizeToRemove.Value);
-        }
+        sizesToRemove.AddRange(from subDirectory in directory.Directories
+                               select GetDirectorySizeToRemove(toBeRemoved, subDirectory)
+                               into sizeToRemove
+                               where sizeToRemove is not null
+                               select sizeToRemove.Value);
 
         return sizesToRemove.MinBy(size => size);
     }
@@ -49,16 +47,21 @@ public class Day07 : Day<Directory>
                             {
                                 ".." => currentDirectory!.Parent,
                                 "/" => root,
-                                _ => currentDirectory!.Directories.Single(d => d.Name == words[2])
+                                _ => currentDirectory!.Directories.Single(directory =>
+                                    directory.Name == words[2])
                             };
+
                             break;
+
                         default: continue;
                     }
 
                     break;
+
                 case "dir":
                     currentDirectory!.Directories.Add(new Directory(words[1], currentDirectory));
                     break;
+
                 default:
                     currentDirectory!.Files.Add(new File(long.Parse(words[0])));
                     break;
@@ -72,7 +75,7 @@ public class Day07 : Day<Directory>
     {
         var root = ParseInput(inputString);
         var foundDirectories = GetDirectoriesWithMaxSize(100000, root);
-        return foundDirectories.Sum(d => d.Size).ToString();
+        return foundDirectories.Sum(directory => directory.Size).ToString();
     }
 
     public override string Perform2(string inputString)
@@ -102,5 +105,5 @@ public class Directory
 
     public Directory? Parent { get; }
 
-    public long Size => Files.Sum(f => f.Size) + Directories.Sum(d => d.Size);
+    public long Size => Files.Sum(file => file.Size) + Directories.Sum(directory => directory.Size);
 }

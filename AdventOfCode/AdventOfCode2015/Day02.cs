@@ -35,7 +35,7 @@ public readonly record struct Present(int Length, int Width, int Height)
     public int CalculateRibbonLength()
     {
         var bowLength = Length * Width * Height;
-        var dimensionOrdered = new[] { Length, Width, Height }.OrderBy(d => d).ToArray();
+        var dimensionOrdered = new[] { Length, Width, Height }.OrderBy(dimension => dimension).ToArray();
         var min1 = dimensionOrdered[0];
         var min2 = dimensionOrdered[1];
         return (2 * min1) + (2 * min2) + bowLength;

@@ -6,18 +6,22 @@ public class Day19 : Day<(Dictionary<byte, Day19Rule> RulesByNumber, string[] Me
     {
         var lineSplitted =
             line.Split(":", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
         var number = byte.Parse(lineSplitted[0]);
 
         if (lineSplitted[1][0] == '"') return new CharacterRule(number, lineSplitted[1].Replace(@"""", ""));
         var sequences = lineSplitted[1]
             .Split("|", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
         var firstSequence = sequences[0]
             .Split(" ", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
             .Select(byte.Parse).ToArray();
+
         var secondSequence = sequences.Length == 2
             ? sequences[1].Split(" ", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
                 .Select(byte.Parse).ToArray()
             : null;
+
         return new SubRule(number, firstSequence, secondSequence);
     }
 
@@ -27,6 +31,7 @@ public class Day19 : Day<(Dictionary<byte, Day19Rule> RulesByNumber, string[] Me
         var lines = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
         var rulesByNumber = lines.Where(line => char.IsDigit(line[0])).Select(ParseLine)
             .ToDictionary(rule => rule.Number);
+
         var messages = lines.Where(line => char.IsLetter(line[0])).ToArray();
         return (rulesByNumber, messages);
     }
@@ -39,22 +44,14 @@ public class Day19 : Day<(Dictionary<byte, Day19Rule> RulesByNumber, string[] Me
         return matchingCount.ToString();
     }
 
-    public override string Perform2(string inputString)
-    {
-        throw new NotImplementedException();
-    }
+    public override string Perform2(string inputString) => throw new NotImplementedException();
 }
 
 public abstract class Day19Rule
 {
-    protected Day19Rule(byte number)
-    {
-        Number = number;
-    }
+    protected Day19Rule(byte number) => Number = number;
 
     public abstract string[] GeneratePossibleValues(Dictionary<byte, Day19Rule> rulesByNumber);
-
-    public override int GetHashCode() => Number.GetHashCode();
 
     protected string[] PossibleValues { get; set; }
 
@@ -64,10 +61,8 @@ public abstract class Day19Rule
 public class CharacterRule : Day19Rule
 {
     public CharacterRule(byte number, string character)
-        : base(number)
-    {
+        : base(number) =>
         Character = character;
-    }
 
     public override string[] GeneratePossibleValues(Dictionary<byte, Day19Rule> rulesByNumber)
     {
@@ -76,7 +71,7 @@ public class CharacterRule : Day19Rule
         return PossibleValues;
     }
 
-    public string Character { get; }
+    private string Character { get; }
 }
 
 public class SubRule : Day19Rule
@@ -114,10 +109,11 @@ public class SubRule : Day19Rule
         if (PossibleValues is not null) return PossibleValues;
         PossibleValues = ProcessSequence(FirstSequence, rulesByNumber)
             .Concat(ProcessSequence(SecondSequence, rulesByNumber)).ToArray();
+
         return PossibleValues;
     }
 
-    public byte[] FirstSequence { get; }
+    private byte[] FirstSequence { get; }
 
-    public byte[] SecondSequence { get; }
+    private byte[] SecondSequence { get; }
 }

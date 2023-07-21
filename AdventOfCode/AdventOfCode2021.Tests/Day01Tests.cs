@@ -2,7 +2,7 @@ namespace AdventOfCode2021.Tests;
 
 public class Day01Tests : DayTest<Day01>
 {
-    private const string Input = @"
+    private const string Input = """
 199
 200
 208
@@ -12,7 +12,8 @@ public class Day01Tests : DayTest<Day01>
 240
 269
 260
-263";
+263
+""";
 
     [Theory]
     [InlineData(Input, "7")]

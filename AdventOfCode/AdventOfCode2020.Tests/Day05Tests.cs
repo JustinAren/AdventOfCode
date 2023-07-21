@@ -2,27 +2,28 @@
 
 public class Day05Tests : DayTest<Day05>
 {
-    private const string TestString = @"
+    private const string TestString = """
 FBFBBFFRLR
 BFFFBBFRRR
 FFFBBBFRRR
 BBFFBBFRLL
 FFFFFFFLLL
-FFFFFFFLRL";
+FFFFFFFLRL
+""";
 
     [Theory]
     [InlineData(TestString, "820")]
-    public override void Test1(string input, string expected)
+    public override void Test1(string inputString, string expected)
     {
-        var result = Day.Perform1(input);
+        var result = Day.Perform1(inputString);
         Assert.Equal(expected, result);
     }
 
     [Theory]
     [InlineData(TestString, "1")]
-    public override void Test2(string input, string expected)
+    public override void Test2(string inputString, string expected)
     {
-        var result = Day.Perform2(input);
+        var result = Day.Perform2(inputString);
         Assert.Equal(expected, result);
     }
 

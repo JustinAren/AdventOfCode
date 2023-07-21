@@ -2,13 +2,13 @@
 
 public class Day03 : Day<string[]>
 {
-    private static long CountTrees(string[] inputArray, int down, int right)
+    private static long CountTrees(IReadOnlyList<string> inputArray, int down, int right)
     {
         long treeCount = 0;
         var position = 0;
         var lineLength = inputArray[0].Length;
 
-        for (var index = 0; index < inputArray.Length; index += down)
+        for (var index = 0; index < inputArray.Count; index += down)
         {
             var line = inputArray[index];
             position %= lineLength;
@@ -19,10 +19,8 @@ public class Day03 : Day<string[]>
         return treeCount;
     }
 
-    protected override string[] ParseInput(string inputString)
-    {
-        return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-    }
+    protected override string[] ParseInput(string inputString) =>
+        inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
     public override string Perform1(string inputString)
     {
@@ -39,8 +37,9 @@ public class Day03 : Day<string[]>
             CountTrees(inputArray, 1, 3),
             CountTrees(inputArray, 1, 5),
             CountTrees(inputArray, 1, 7),
-            CountTrees(inputArray, 2, 1),
+            CountTrees(inputArray, 2, 1)
         };
+
         return solutions.Aggregate((long)1, (a, b) => a * b).ToString();
     }
 }

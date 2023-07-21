@@ -46,18 +46,16 @@ public class Day09 : Day<LowPoint[,]>
         var jMax = grid.GetLength(1);
 
         for (var i = 0; i < iMax; i++)
+        for (var j = 0; j < jMax; j++)
         {
-            for (var j = 0; j < jMax; j++)
-            {
-                var current = grid[i, j];
+            var current = grid[i, j];
 
-                if (i > 0 && grid[i - 1, j].Value <= current.Value) continue;
-                if (j > 0 && grid[i, j - 1].Value <= current.Value) continue;
-                if (i < iMax - 1 && grid[i + 1, j].Value <= current.Value) continue;
-                if (j < jMax - 1 && grid[i, j + 1].Value <= current.Value) continue;
+            if (i > 0 && grid[i - 1, j].Value <= current.Value) continue;
+            if (j > 0 && grid[i, j - 1].Value <= current.Value) continue;
+            if (i < iMax - 1 && grid[i + 1, j].Value <= current.Value) continue;
+            if (j < jMax - 1 && grid[i, j + 1].Value <= current.Value) continue;
 
-                result.Add(current);
-            }
+            result.Add(current);
         }
 
         return result;
@@ -70,6 +68,7 @@ public class Day09 : Day<LowPoint[,]>
         for (var i = 0; i < rows.Length; i++)
         for (var j = 0; j < rows[i].Length; j++)
             result[i, j] = new LowPoint(i, j, long.Parse(rows[i][j].ToString()));
+
         return result;
     }
 

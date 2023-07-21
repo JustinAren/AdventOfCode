@@ -2,7 +2,7 @@
 
 public class Day07Tests : DayTest<Day07>
 {
-    private const string Input = @"16,1,2,0,4,2,7,1,2,14";
+    private const string Input = "16,1,2,0,4,2,7,1,2,14";
 
     [Theory]
     [InlineData(Input, "37")]

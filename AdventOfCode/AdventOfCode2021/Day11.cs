@@ -47,6 +47,7 @@ public class Day11 : Day<byte[,]>
         for (var i = 0; i < rows.Length; i++)
         for (var j = 0; j < rows[i].Length; j++)
             result[i, j] = byte.Parse(rows[i][j].ToString());
+
         return result;
     }
 
@@ -70,6 +71,7 @@ public class Day11 : Day<byte[,]>
             for (var i = 0; i < grid.GetLength(0); i++)
             for (var j = 0; j < grid.GetLength(1); j++)
                 allZeroes &= grid[i, j] == 0;
+
             if (allZeroes) break;
         }
 
