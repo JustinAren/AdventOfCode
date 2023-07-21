@@ -30,18 +30,11 @@ public enum Direction
     North = 0,
     East = 90,
     South = 180,
-    West = 270,
+    West = 270
 }
 
 public class Ship
 {
-    public Ship()
-    {
-        Direction = Direction.East;
-        WayPointXCoordinate = 10;
-        WayPointYCoordinate = 1;
-    }
-
     public void PerformInstruction1(char action, int value)
     {
         switch (action)
@@ -49,34 +42,43 @@ public class Ship
             case 'N':
                 YCoordinate += value;
                 break;
+
             case 'S':
                 YCoordinate -= value;
                 break;
+
             case 'E':
                 XCoordinate += value;
                 break;
+
             case 'W':
                 XCoordinate -= value;
                 break;
+
             case 'L':
                 var newDirectionValue = ((int)Direction - value) % 360;
                 Direction = (Direction)(newDirectionValue < 0 ? 360 + newDirectionValue : newDirectionValue);
                 break;
+
             case 'R':
                 Direction = (Direction)(((int)Direction + value) % 360);
                 break;
+
             case 'F':
                 switch (Direction)
                 {
                     case Direction.North:
                         YCoordinate += value;
                         break;
+
                     case Direction.East:
                         XCoordinate += value;
                         break;
+
                     case Direction.South:
                         YCoordinate -= value;
                         break;
+
                     case Direction.West:
                         XCoordinate -= value;
                         break;
@@ -93,15 +95,19 @@ public class Ship
             case 'N':
                 WayPointYCoordinate += value;
                 break;
+
             case 'S':
                 WayPointYCoordinate -= value;
                 break;
+
             case 'E':
                 WayPointXCoordinate += value;
                 break;
+
             case 'W':
                 WayPointXCoordinate -= value;
                 break;
+
             case 'L':
                 for (var i = 0; i < value / 90; i++)
                 {
@@ -112,6 +118,7 @@ public class Ship
                 }
 
                 break;
+
             case 'R':
                 for (var i = 0; i < value / 90; i++)
                 {
@@ -122,6 +129,7 @@ public class Ship
                 }
 
                 break;
+
             case 'F':
                 XCoordinate += WayPointXCoordinate * value;
                 YCoordinate += WayPointYCoordinate * value;
@@ -129,11 +137,11 @@ public class Ship
         }
     }
 
-    public Direction Direction { get; private set; }
+    private Direction Direction { get; set; } = Direction.East;
 
-    public int WayPointXCoordinate { get; private set; }
+    private int WayPointXCoordinate { get; set; } = 10;
 
-    public int WayPointYCoordinate { get; private set; }
+    private int WayPointYCoordinate { get; set; } = 1;
 
     public int XCoordinate { get; private set; }
 

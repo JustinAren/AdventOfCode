@@ -22,17 +22,16 @@ public class Day03 : Day<string[]>
             var oneCount = 0;
 
             foreach (var row in input)
-            {
                 switch (row[i])
                 {
                     case '0':
                         zeroCount++;
                         break;
+
                     case '1':
                         oneCount++;
                         break;
                 }
-            }
 
             if (zeroCount > oneCount)
             {
@@ -73,6 +72,7 @@ public class Day03 : Day<string[]>
                     case '0':
                         zeroCount++;
                         break;
+
                     case '1':
                         oneCount++;
                         break;
@@ -107,6 +107,7 @@ public class Day03 : Day<string[]>
                     case '0':
                         zeroCount++;
                         break;
+
                     case '1':
                         oneCount++;
                         break;

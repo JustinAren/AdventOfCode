@@ -2,7 +2,7 @@
 
 public class Day06Tests : DayTest<Day06>
 {
-    private const string Input = @"3,4,3,1,2";
+    private const string Input = "3,4,3,1,2";
 
     [Theory]
     [InlineData(Input, "5934")]

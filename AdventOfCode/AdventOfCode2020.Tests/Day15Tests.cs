@@ -2,13 +2,13 @@
 
 public class Day15Tests : DayTest<Day15>
 {
-    private const string TestString1 = @"0,3,6";
-    private const string TestString2 = @"1,3,2";
-    private const string TestString3 = @"2,1,3";
-    private const string TestString4 = @"1,2,3";
-    private const string TestString5 = @"2,3,1";
-    private const string TestString6 = @"3,2,1";
-    private const string TestString7 = @"3,1,2";
+    private const string TestString1 = "0,3,6";
+    private const string TestString2 = "1,3,2";
+    private const string TestString3 = "2,1,3";
+    private const string TestString4 = "1,2,3";
+    private const string TestString5 = "2,3,1";
+    private const string TestString6 = "3,2,1";
+    private const string TestString7 = "3,1,2";
 
     [Theory]
     [InlineData(TestString1, "436")]

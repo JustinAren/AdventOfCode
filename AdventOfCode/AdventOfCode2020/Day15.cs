@@ -34,18 +34,10 @@ public class Day15 : Day<long[]>
         return lastNumber;
     }
 
-    protected override long[] ParseInput(string inputString)
-    {
-        return inputString.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToArray();
-    }
+    protected override long[] ParseInput(string inputString) => inputString
+        .Split(',', StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToArray();
 
-    public override string Perform1(string inputString)
-    {
-        return SolveProblem(inputString, 2020).ToString();
-    }
+    public override string Perform1(string inputString) => SolveProblem(inputString, 2020).ToString();
 
-    public override string Perform2(string inputString)
-    {
-        return SolveProblem(inputString, 30000000).ToString();
-    }
+    public override string Perform2(string inputString) => SolveProblem(inputString, 30000000).ToString();
 }

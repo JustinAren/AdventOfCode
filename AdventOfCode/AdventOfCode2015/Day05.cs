@@ -60,11 +60,11 @@ public record Name(string Value)
         return false;
     }
 
-    private bool HasDoubleCharacters => Doubles.Any(s => Value.Contains(s));
+    private bool HasDoubleCharacters => Doubles.Any(Value.Contains);
 
-    private bool HasForbiddenStrings => Forbidden.Any(s => Value.Contains(s));
+    private bool HasForbiddenStrings => Forbidden.Any(Value.Contains);
 
-    private int VowelCount => Value.Count(s => Vowels.Contains(s));
+    private int VowelCount => Value.Count(vowel => Vowels.Contains(vowel));
 
     public bool IsNice1 => !HasForbiddenStrings && HasDoubleCharacters && VowelCount > 2;
 

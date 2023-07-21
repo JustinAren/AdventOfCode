@@ -2,20 +2,21 @@
 
 public class Day18Tests : DayTest<Day18>
 {
-    private const string TestString1 = @"1 + 2 * 3 + 4 * 5 + 6";
-    private const string TestString2 = @"1 + (2 * 3) + (4 * (5 + 6))";
-    private const string TestString3 = @"2 * 3 + (4 * 5)";
-    private const string TestString4 = @"5 + (8 * 3 + 9 + 3 * 4 * 3)";
-    private const string TestString5 = @"5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))";
-    private const string TestString6 = @"((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2";
+    private const string TestString1 = "1 + 2 * 3 + 4 * 5 + 6";
+    private const string TestString2 = "1 + (2 * 3) + (4 * (5 + 6))";
+    private const string TestString3 = "2 * 3 + (4 * 5)";
+    private const string TestString4 = "5 + (8 * 3 + 9 + 3 * 4 * 3)";
+    private const string TestString5 = "5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))";
+    private const string TestString6 = "((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2";
 
-    private const string TestString7 = @"
+    private const string TestString7 = """
 1 + 2 * 3 + 4 * 5 + 6
 1 + (2 * 3) + (4 * (5 + 6))
 2 * 3 + (4 * 5)
 5 + (8 * 3 + 9 + 3 * 4 * 3)
 5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))
-((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2";
+((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2
+""";
 
     [Theory]
     [InlineData(TestString1, "71")]

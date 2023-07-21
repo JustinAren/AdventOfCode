@@ -7,14 +7,11 @@ public class Day07 : Day<IEnumerable<Bag>>
     protected override IEnumerable<Bag> ParseInput(string inputString)
     {
         inputString = inputString.Replace(" bags", "").Replace(" bag", "").Replace(".", "");
-        var result = new Dictionary<string, Bag>();
 
         var descriptions = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-        foreach (var description in descriptions)
-        {
-            var color = description.Split("contain")[0].Trim();
-            result.Add(color, new Bag(color));
-        }
+        var result = descriptions
+            .Select(description => description.Split("contain")[0].Trim())
+            .ToDictionary(color => color, color => new Bag(color));
 
         foreach (var description in descriptions)
         {
@@ -70,14 +67,11 @@ public class Day07 : Day<IEnumerable<Bag>>
 
 public class Bag
 {
-    public Bag(string color)
-    {
-        Color = color;
-    }
+    public Bag(string color) => Color = color;
 
     public int BagCount => Contains.Sum(kvp => kvp.Key.BagCount * kvp.Value) + 1;
 
     public string Color { get; }
 
-    public Dictionary<Bag, int> Contains { get; } = new Dictionary<Bag, int>();
+    public Dictionary<Bag, int> Contains { get; } = new();
 }

@@ -2,7 +2,7 @@
 
 public class Day10Tests : DayTest<Day10>
 {
-    private const string Input = @"
+    private const string Input = """
 [({(<(())[]>[[{[]{<()<>>
 [(()[<>])]({[<{<<[]>>(
 {([(<{}[<>[]}>{[]{[(<()>
@@ -12,7 +12,8 @@ public class Day10Tests : DayTest<Day10>
 {<[[]]>}<{[{[{[]{()[[[]
 [<(<(<(<{}))><([]([]()
 <{([([[(<>()){}]>(<<{{
-<{([{{}}[<[[[<>{}]]]>[]]";
+<{([{{}}[<[[[<>{}]]]>[]]
+""";
 
     [Theory]
     [InlineData(Input, "26397")]

@@ -22,19 +22,15 @@ public class Day06 : Day<string[]>
 
         foreach (var input in inputs)
         foreach (var character in input)
-        {
             if (dictionary.ContainsKey(character)) dictionary[character]++;
             else dictionary.Add(character, 1);
-        }
 
         return dictionary.Count(kvp => kvp.Value == inputs.Length);
     }
 
-    protected override string[] ParseInput(string inputString)
-    {
-        return inputString.Split($"{Environment.NewLine}{Environment.NewLine}",
+    protected override string[] ParseInput(string inputString) =>
+        inputString.Split($"{Environment.NewLine}{Environment.NewLine}",
             StringSplitOptions.RemoveEmptyEntries);
-    }
 
     public override string Perform1(string inputString)
     {
