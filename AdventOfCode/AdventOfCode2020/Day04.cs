@@ -35,9 +35,6 @@ public class Day04 : Day<IEnumerable<Passport>>
                 case "pid":
                     passport.PassportId = kvp[1];
                     break;
-                case "cid":
-                    passport.CountryId = kvp[1];
-                    break;
             }
         }
 
@@ -88,8 +85,6 @@ public class Passport
     }
 
     public string BirthYear { get; set; }
-
-    public string CountryId { get; set; }
 
     public string ExpirationYear { get; set; }
 

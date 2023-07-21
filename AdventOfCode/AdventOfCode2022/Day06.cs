@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace AdventOfCode2022;
+﻿namespace AdventOfCode2022;
 
 public class Day06 : Day<string>
 {

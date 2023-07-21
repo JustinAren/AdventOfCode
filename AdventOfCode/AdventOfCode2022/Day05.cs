@@ -34,7 +34,7 @@ public record struct Instruction(int Count, int From, int To)
 	}
 }
 
-public record class StackingPlan(List<Stack<char>> Stacks, List<Instruction> Instructions)
+public record StackingPlan(List<Stack<char>> Stacks, List<Instruction> Instructions)
 {
 	public static StackingPlan Parse(string inputString)
 	{

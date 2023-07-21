@@ -65,8 +65,7 @@ public class Day14 : Day<List<BitMaskGroup>>
             var newPositions = ApplyBitMask2(bitMaskGroup.BitMask, position);
             foreach (var newPosition in newPositions)
             {
-                if (resultDictionary.ContainsKey(newPosition)) resultDictionary[newPosition] = value;
-                else resultDictionary.Add(newPosition, value);
+                resultDictionary[newPosition] = value;
             }
         }
     }

@@ -41,7 +41,6 @@ public class Day19 : Day<(Dictionary<byte, Day19Rule> RulesByNumber, string[] Me
 
     public override string Perform2(string inputString)
     {
-        var (rulesByNumber, messages) = ParseInput(inputString);
         throw new NotImplementedException();
     }
 }

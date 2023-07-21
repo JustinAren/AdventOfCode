@@ -60,7 +60,7 @@ public class Day07 : Day<Directory>
                     currentDirectory!.Directories.Add(new Directory(words[1], currentDirectory));
                     break;
                 default:
-                    currentDirectory!.Files.Add(new File(words[1], long.Parse(words[0])));
+                    currentDirectory!.Files.Add(new File(long.Parse(words[0])));
                     break;
             }
         }
@@ -84,7 +84,7 @@ public class Day07 : Day<Directory>
     }
 }
 
-public readonly record struct File(string Name, long Size);
+public readonly record struct File(long Size);
 
 public class Directory
 {

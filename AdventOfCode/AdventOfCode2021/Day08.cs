@@ -51,7 +51,6 @@ public readonly record struct Pattern(string[] InputSignals, string[] OutputSign
         };
 
         inputSignalList.Remove(numbers[1]);
-        ;
         inputSignalList.Remove(numbers[4]);
         inputSignalList.Remove(numbers[7]);
         inputSignalList.Remove(numbers[8]);

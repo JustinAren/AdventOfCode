@@ -6,10 +6,11 @@ public class Day10 : Day<List<int>>
 
     private long Combinations(int curValue, IEnumerable<int> input)
     {
-        if (!input.Any()) return 1;
-        if (_values.ContainsKey(curValue)) return _values[curValue];
-        _values[curValue] = input.TakeWhile(x => x > curValue && x <= curValue + 3)
-            .Select((x, idx) => Combinations(x, input.Skip(idx + 1))).Sum();
+        var inputList = input.ToList();
+        if (!inputList.Any()) return 1;
+        if (_values.TryGetValue(curValue, out var combinations)) return combinations;
+        _values[curValue] = inputList.TakeWhile(x => x > curValue && x <= curValue + 3)
+            .Select((x, idx) => Combinations(x, inputList.Skip(idx + 1))).Sum();
         return _values[curValue];
     }
 
