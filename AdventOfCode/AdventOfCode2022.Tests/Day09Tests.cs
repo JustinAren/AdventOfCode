@@ -2,7 +2,7 @@
 
 public class Day09Tests : DayTest<Day09>
 {
-    private const string Input = @"
+    private const string Input = """
 R 4
 U 4
 L 3
@@ -10,7 +10,8 @@ D 1
 R 4
 D 1
 L 5
-R 2";
+R 2
+""";
 
     [Theory]
     [InlineData(Input, "13")]

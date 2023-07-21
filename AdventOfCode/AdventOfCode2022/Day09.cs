@@ -2,10 +2,7 @@
 
 public class Day09 : Day<Rope>
 {
-    protected override Rope ParseInput(string inputString)
-    {
-        return Rope.Parse(inputString);
-    }
+    protected override Rope ParseInput(string inputString) => Rope.Parse(inputString);
 
     public override string Perform1(string inputString)
     {
@@ -23,10 +20,7 @@ public class Day09 : Day<Rope>
 
 public class Rope
 {
-    public Rope(IReadOnlyList<(char Direction, int Count)> instructions)
-    {
-        Instructions = instructions;
-    }
+    public Rope(IReadOnlyList<(char Direction, int Count)> instructions) => Instructions = instructions;
 
     public static Rope Parse(string input)
     {
