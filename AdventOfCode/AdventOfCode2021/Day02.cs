@@ -4,18 +4,14 @@ public class Day02 : Day<List<CommandDay02>>
 {
     protected override List<CommandDay02> ParseInput(string inputString)
     {
-        var result = new List<CommandDay02>();
         var rows = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
-        foreach (var row in rows)
-        {
-            var splits = row.Split(' ');
-            var command = (CommandEnum)Enum.Parse(typeof(CommandEnum), splits[0], true);
-            var position = byte.Parse(splits[1]);
-            result.Add(new CommandDay02(command, position));
-        }
-
-        return result;
+        return (from row in rows
+                select row.Split(' ')
+                into splits
+                let command = (Command)Enum.Parse(typeof(Command), splits[0], true)
+                let position = byte.Parse(splits[1])
+                select new CommandDay02(command, position)).ToList();
     }
 
     public override string Perform1(string inputString)
@@ -25,20 +21,20 @@ public class Day02 : Day<List<CommandDay02>>
         var depth = 0;
 
         foreach (var command in commands)
-        {
-            switch (command.CommandEnum)
+            switch (command.Command)
             {
-                case CommandEnum.Forward:
+                case Command.Forward:
                     horizontal += command.Position;
                     break;
-                case CommandEnum.Up:
+
+                case Command.Up:
                     depth -= command.Position;
                     break;
-                case CommandEnum.Down:
+
+                case Command.Down:
                     depth += command.Position;
                     break;
             }
-        }
 
         return (horizontal * depth).ToString();
     }
@@ -51,31 +47,31 @@ public class Day02 : Day<List<CommandDay02>>
         var aim = 0;
 
         foreach (var command in commands)
-        {
-            switch (command.CommandEnum)
+            switch (command.Command)
             {
-                case CommandEnum.Forward:
+                case Command.Forward:
                     horizontal += command.Position;
                     depth += aim * command.Position;
                     break;
-                case CommandEnum.Up:
+
+                case Command.Up:
                     aim -= command.Position;
                     break;
-                case CommandEnum.Down:
+
+                case Command.Down:
                     aim += command.Position;
                     break;
             }
-        }
 
         return (horizontal * depth).ToString();
     }
 }
 
-public enum CommandEnum : byte
+public enum Command : byte
 {
     Forward,
     Up,
-    Down,
+    Down
 }
 
-public readonly record struct CommandDay02(CommandEnum CommandEnum, byte Position);
+public readonly record struct CommandDay02(Command Command, byte Position);

@@ -8,9 +8,8 @@ public class Day04 : Day<string>
     private static string GenerateMd5(string input)
     {
         // Use input string to calculate MD5 hash
-        using var md5 = MD5.Create();
         var inputBytes = Encoding.UTF8.GetBytes(input);
-        var hashBytes = md5.ComputeHash(inputBytes);
+        var hashBytes = MD5.HashData(inputBytes);
 
         // Convert the byte array to hexadecimal string
         var sb = new StringBuilder();
@@ -31,10 +30,7 @@ public class Day04 : Day<string>
         }
     }
 
-    protected override string ParseInput(string inputString)
-    {
-        return inputString;
-    }
+    protected override string ParseInput(string inputString) => inputString;
 
     public override string Perform1(string inputString)
     {

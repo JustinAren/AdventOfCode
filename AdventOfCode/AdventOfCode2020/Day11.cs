@@ -7,12 +7,9 @@ public class Day11 : Day<SeatStatus[,]>
         if (map1.Length != map2.Length) return false;
         if (map1.GetLength(0) != map2.GetLength(0)) return false;
         for (var i = 0; i < map1.GetLength(0); i++)
-        {
-            for (var j = 0; j < map1.GetLength(1); j++)
-            {
-                if (map1[i, j] != map2[i, j]) return false;
-            }
-        }
+        for (var j = 0; j < map1.GetLength(1); j++)
+            if (map1[i, j] != map2[i, j])
+                return false;
 
         return true;
     }
@@ -43,12 +40,9 @@ public class Day11 : Day<SeatStatus[,]>
         long occupiedCount = 0;
 
         for (var i = 0; i < map.GetLength(0); i++)
-        {
-            for (var j = 0; j < map.GetLength(1); j++)
-            {
-                if (map[i, j] == SeatStatus.Occupied) occupiedCount++;
-            }
-        }
+        for (var j = 0; j < map.GetLength(1); j++)
+            if (map[i, j] == SeatStatus.Occupied)
+                occupiedCount++;
 
         return occupiedCount;
     }
@@ -153,20 +147,18 @@ public class Day11 : Day<SeatStatus[,]>
         var newMap = new SeatStatus[map.GetLength(0), map.GetLength(1)];
 
         for (var i = 0; i < map.GetLength(0); i++)
+        for (var j = 0; j < map.GetLength(1); j++)
         {
-            for (var j = 0; j < map.GetLength(1); j++)
+            var adjacentSeats = GetAdjacentSeats(map, i, j).ToArray();
+            newMap[i, j] = map[i, j] switch
             {
-                var adjacentSeats = GetAdjacentSeats(map, i, j).ToArray();
-                newMap[i, j] = map[i, j] switch
-                {
-                    SeatStatus.Floor => SeatStatus.Floor,
-                    SeatStatus.Empty when adjacentSeats.All(seat => seat != SeatStatus.Occupied) => SeatStatus
-                        .Occupied,
-                    SeatStatus.Occupied when adjacentSeats.Count(seat => seat == SeatStatus.Occupied) >= 4 =>
-                        SeatStatus.Empty,
-                    _ => map[i, j],
-                };
-            }
+                SeatStatus.Floor => SeatStatus.Floor,
+                SeatStatus.Empty when adjacentSeats.All(seat => seat != SeatStatus.Occupied) => SeatStatus
+                    .Occupied,
+                SeatStatus.Occupied when adjacentSeats.Count(seat => seat == SeatStatus.Occupied) >= 4 =>
+                    SeatStatus.Empty,
+                _ => map[i, j]
+            };
         }
 
         return newMap;
@@ -177,20 +169,18 @@ public class Day11 : Day<SeatStatus[,]>
         var newMap = new SeatStatus[map.GetLength(0), map.GetLength(1)];
 
         for (var i = 0; i < map.GetLength(0); i++)
+        for (var j = 0; j < map.GetLength(1); j++)
         {
-            for (var j = 0; j < map.GetLength(1); j++)
+            var visibleSeats = GetVisibleSeats(map, i, j).ToArray();
+            newMap[i, j] = map[i, j] switch
             {
-                var visibleSeats = GetVisibleSeats(map, i, j).ToArray();
-                newMap[i, j] = map[i, j] switch
-                {
-                    SeatStatus.Floor => SeatStatus.Floor,
-                    SeatStatus.Empty when visibleSeats.All(seat => seat != SeatStatus.Occupied) => SeatStatus
-                        .Occupied,
-                    SeatStatus.Occupied when visibleSeats.Count(seat => seat == SeatStatus.Occupied) >= 5 =>
-                        SeatStatus.Empty,
-                    _ => map[i, j],
-                };
-            }
+                SeatStatus.Floor => SeatStatus.Floor,
+                SeatStatus.Empty when visibleSeats.All(seat => seat != SeatStatus.Occupied) => SeatStatus
+                    .Occupied,
+                SeatStatus.Occupied when visibleSeats.Count(seat => seat == SeatStatus.Occupied) >= 5 =>
+                    SeatStatus.Empty,
+                _ => map[i, j]
+            };
         }
 
         return newMap;
@@ -242,5 +232,5 @@ public enum SeatStatus
 {
     Floor,
     Empty,
-    Occupied,
+    Occupied
 }

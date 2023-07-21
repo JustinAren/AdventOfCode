@@ -2,13 +2,14 @@ namespace AdventOfCode2020.Tests;
 
 public class Day01Tests : DayTest<Day01>
 {
-    private const string TestString1 = @"
+    private const string TestString1 = """
 1721
 979
 366
 299
 675
-1456";
+1456
+""";
 
     [Theory]
     [InlineData(TestString1, "514579")]

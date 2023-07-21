@@ -2,7 +2,7 @@
 
 public class Day11Tests : DayTest<Day11>
 {
-    private const string TestString1 = @"
+    private const string TestString1 = """
 L.LL.LL.LL
 LLLLLLL.LL
 L.L.L..L..
@@ -12,7 +12,8 @@ L.LLLLL.LL
 ..L.L.....
 LLLLLLLLLL
 L.LLLLLL.L
-L.LLLLL.LL";
+L.LLLLL.LL
+""";
 
     [Theory]
     [InlineData(TestString1, "37")]

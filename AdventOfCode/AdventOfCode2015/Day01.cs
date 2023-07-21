@@ -2,27 +2,23 @@
 
 public class Day01 : Day<string>
 {
-    protected override string ParseInput(string inputString)
-    {
-        return inputString;
-    }
+    protected override string ParseInput(string inputString) => inputString;
 
     public override string Perform1(string inputString)
     {
         var result = 0;
 
         foreach (var character in inputString)
-        {
             switch (character)
             {
                 case '(':
                     result++;
                     break;
+
                 case ')':
                     result--;
                     break;
             }
-        }
 
         return result.ToString();
     }
@@ -38,6 +34,7 @@ public class Day01 : Day<string>
                 case '(':
                     result++;
                     break;
+
                 case ')':
                     result--;
                     break;

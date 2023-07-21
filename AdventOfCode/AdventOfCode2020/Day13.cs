@@ -6,8 +6,9 @@ public class Day13 : Day<(long TimeStamp, int[] BusNumbers)>
     {
         var rows = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
         var timeStamp = long.Parse(rows[0]);
-        var busNumbers = rows[1].Split(',').Select(s => int.TryParse(s, out var number) ? number : -1)
+        var busNumbers = rows[1].Split(',').Select(num => int.TryParse(num, out var number) ? number : -1)
             .ToArray();
+
         return (timeStamp, busNumbers);
     }
 

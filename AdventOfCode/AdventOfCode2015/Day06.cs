@@ -16,6 +16,7 @@ public class Day06 : Day<List<CommandStruct>>
                     case "on":
                         result.Add(CreateCommand(CommandEnum.TurnOn, words[2], words[4]));
                         break;
+
                     case "off":
                         result.Add(CreateCommand(CommandEnum.TurnOff, words[2], words[4]));
                         break;
@@ -39,21 +40,15 @@ public class Day06 : Day<List<CommandStruct>>
         var commands = ParseInput(inputString);
         var grid = new bool[1000, 1000];
         foreach (var (commandEnum, (startX, startY), (endX, endY)) in commands)
-        {
             for (var i = startX; i <= endX; i++)
-            {
-                for (var j = startY; j <= endY; j++)
+            for (var j = startY; j <= endY; j++)
+                grid[i, j] = commandEnum switch
                 {
-                    grid[i, j] = commandEnum switch
-                    {
-                        CommandEnum.Toggle => !grid[i, j],
-                        CommandEnum.TurnOn => true,
-                        CommandEnum.TurnOff => false,
-                        _ => throw new ArgumentOutOfRangeException(),
-                    };
-                }
-            }
-        }
+                    CommandEnum.Toggle => !grid[i, j],
+                    CommandEnum.TurnOn => true,
+                    CommandEnum.TurnOff => false,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
 
         var count = 0L;
 
@@ -70,21 +65,15 @@ public class Day06 : Day<List<CommandStruct>>
         var commands = ParseInput(inputString);
         var grid = new int[1000, 1000];
         foreach (var (commandEnum, (startX, startY), (endX, endY)) in commands)
-        {
             for (var i = startX; i <= endX; i++)
-            {
-                for (var j = startY; j <= endY; j++)
+            for (var j = startY; j <= endY; j++)
+                grid[i, j] = commandEnum switch
                 {
-                    grid[i, j] = commandEnum switch
-                    {
-                        CommandEnum.Toggle => grid[i, j] + 2,
-                        CommandEnum.TurnOn => grid[i, j] + 1,
-                        CommandEnum.TurnOff => grid[i, j] > 0 ? grid[i, j] - 1 : 0,
-                        _ => throw new ArgumentOutOfRangeException(),
-                    };
-                }
-            }
-        }
+                    CommandEnum.Toggle => grid[i, j] + 2,
+                    CommandEnum.TurnOn => grid[i, j] + 1,
+                    CommandEnum.TurnOff => grid[i, j] > 0 ? grid[i, j] - 1 : 0,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
 
         var count = 0L;
 
@@ -102,5 +91,5 @@ public enum CommandEnum : byte
 {
     Toggle,
     TurnOn,
-    TurnOff,
+    TurnOff
 }

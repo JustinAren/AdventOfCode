@@ -2,18 +2,20 @@
 
 public class Day05Tests : DayTest<Day05>
 {
-    private const string InputString1 = @"
+    private const string InputString1 = """
 ugknbfddgicrmopn
 aaa
 jchzalrnumimnmhp
 haegwjzuvuyypxyu
-dvszwmarrgswjxmb";
+dvszwmarrgswjxmb
+""";
 
-    private const string InputString2 = @"
+    private const string InputString2 = """
 qjhvhtzxzqqjkmpb
 xxyxx
 uurcxstgmygtbstg
-ieodomkazucvgmuy";
+ieodomkazucvgmuy
+""";
 
     [Theory]
     [InlineData(InputString1, "2")]

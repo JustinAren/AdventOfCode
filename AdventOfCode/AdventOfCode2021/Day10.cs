@@ -7,7 +7,7 @@ public class Day10 : Day<Chunk[]>
         { ')', 3 },
         { ']', 57 },
         { '}', 1197 },
-        { '>', 25137 },
+        { '>', 25137 }
     };
 
     private static readonly IReadOnlyDictionary<char, long> Scores2 = new Dictionary<char, long>
@@ -15,8 +15,20 @@ public class Day10 : Day<Chunk[]>
         { ')', 1 },
         { ']', 2 },
         { '}', 3 },
-        { '>', 4 },
+        { '>', 4 }
     };
+
+    private static char? GetFirstIllegalCharacter(Chunk chunk)
+    {
+        var firstIllegalCharacter = chunk.InnerChunks
+            .Select(GetFirstIllegalCharacter)
+            .FirstOrDefault(illegalCharacter => illegalCharacter != null);
+
+        return firstIllegalCharacter ??
+            (chunk is { IsClosed: true, HasValidClosingCharacter: false }
+                ? chunk.ClosingCharacter
+                : null);
+    }
 
     private static Chunk ParseChunk(IList<char> input)
     {
@@ -33,17 +45,6 @@ public class Day10 : Day<Chunk[]>
         return chunk;
     }
 
-    public static char? GetFirstIllegalCharacter(Chunk chunk)
-    {
-        foreach (var innerChunk in chunk.InnerChunks)
-        {
-            var illegalCharacter = GetFirstIllegalCharacter(innerChunk);
-            if (illegalCharacter != null) return illegalCharacter;
-        }
-
-        return chunk.IsClosed && !chunk.HasValidClosingCharacter ? chunk.ClosingCharacter : null;
-    }
-
     protected override Chunk[] ParseInput(string inputString)
     {
         return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
@@ -53,30 +54,26 @@ public class Day10 : Day<Chunk[]>
     public override string Perform1(string inputString)
     {
         var chunks = ParseInput(inputString);
-        var errors = new List<char>();
+        var errors = (from chunk in chunks
+                      select GetFirstIllegalCharacter(chunk)
+                      into illegalCharacter
+                      where illegalCharacter != null
+                      select illegalCharacter.Value).ToList();
 
-        foreach (var chunk in chunks)
-        {
-            var illegalCharacter = GetFirstIllegalCharacter(chunk);
-            if (illegalCharacter != null) errors.Add(illegalCharacter.Value);
-        }
-
-        return errors.Sum(c => Scores1[c]).ToString();
+        return errors.Sum(error => Scores1[error]).ToString();
     }
 
     public override string Perform2(string inputString)
     {
         var chunks = ParseInput(inputString);
 
-        var missingEnds = new List<string>();
-
-        foreach (var chunk in chunks)
-        {
-            var illegalCharacter = GetFirstIllegalCharacter(chunk);
-            if (illegalCharacter is not null) continue;
-            var missingEnd = chunk.GetMissingEnds();
-            if (missingEnd != null) missingEnds.Add(missingEnd);
-        }
+        var missingEnds = (from chunk in chunks
+                           let illegalCharacter = GetFirstIllegalCharacter(chunk)
+                           where illegalCharacter is null
+                           select chunk.GetMissingEnds()
+                           into missingEnd
+                           where missingEnd != null
+                           select missingEnd).ToList();
 
         var scores = new List<long>();
 
@@ -105,13 +102,10 @@ public class Chunk
         { '(', ')' },
         { '[', ']' },
         { '{', '}' },
-        { '<', '>' },
+        { '<', '>' }
     };
 
-    public Chunk(char openingCharacter)
-    {
-        OpeningCharacter = openingCharacter;
-    }
+    public Chunk(char openingCharacter) => OpeningCharacter = openingCharacter;
 
     public string? GetMissingEnds()
     {
@@ -120,13 +114,13 @@ public class Chunk
         return missingEnds;
     }
 
+    private char OpeningCharacter { get; }
+
     public char? ClosingCharacter { get; set; }
 
     public bool HasValidClosingCharacter => ClosingCharacter == Pairs[OpeningCharacter];
 
-    public List<Chunk> InnerChunks { get; set; } = new List<Chunk>();
+    public List<Chunk> InnerChunks { get; } = new();
 
     public bool IsClosed => ClosingCharacter.HasValue;
-
-    public char OpeningCharacter { get; }
 }

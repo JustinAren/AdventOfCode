@@ -2,7 +2,7 @@
 
 public class Day09Tests : DayTest<Day09>
 {
-    private const string TestString1 = @"
+    private const string TestString1 = """
 35
 20
 15
@@ -22,7 +22,8 @@ public class Day09Tests : DayTest<Day09>
 299
 277
 309
-576";
+576
+""";
 
     [Theory]
     [InlineData(TestString1, "127")]

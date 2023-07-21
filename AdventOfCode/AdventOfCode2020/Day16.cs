@@ -7,10 +7,12 @@ public class Day16 : Day<(Day16Rule[] Rules, Ticket MyTicket, Ticket[] NearbyTic
     {
         var input = inputString.Split($"{Environment.NewLine}{Environment.NewLine}",
             StringSplitOptions.RemoveEmptyEntries);
+
         var ruleStrings = input[0].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
         var myTicketString = input[1].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)[1];
         var nearbyTicketStrings =
             input[2].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Skip(1);
+
         return (ruleStrings.Select(Day16Rule.Parse).ToArray(), Ticket.Parse(myTicketString),
             nearbyTicketStrings.Select(Ticket.Parse).ToArray());
     }
@@ -26,7 +28,7 @@ public class Day16 : Day<(Day16Rule[] Rules, Ticket MyTicket, Ticket[] NearbyTic
             invalidValues.AddRange(invalids);
         }
 
-        return ((long)invalidValues.Sum(v => (decimal)v)).ToString();
+        return ((long)invalidValues.Sum(invalidValue => (decimal)invalidValue)).ToString();
     }
 
     public override string Perform2(string inputString)
@@ -37,16 +39,16 @@ public class Day16 : Day<(Day16Rule[] Rules, Ticket MyTicket, Ticket[] NearbyTic
         var possibleColumnsPerRule = new Dictionary<string, List<int>>();
 
         foreach (var rule in rules)
-        {
             for (var i = 0; i < rules.Length; i++)
             {
-                if (!validTickets.Select(ticket => ticket.Values[i])
-                        .All(value => rule.ValidateValue(value))) continue;
+                if (!validTickets.Select(ticket => ticket.Values[i]).All(rule.ValidateValue))
+                    continue;
 
-                if (possibleColumnsPerRule.ContainsKey(rule.Name)) possibleColumnsPerRule[rule.Name].Add(i);
-                else possibleColumnsPerRule.Add(rule.Name, new List<int> { i });
+                if (possibleColumnsPerRule.TryGetValue(rule.Name, out var possibleRule))
+                    possibleRule.Add(i);
+                else
+                    possibleColumnsPerRule.Add(rule.Name, new List<int> { i });
             }
-        }
 
         var actualColumnForRule = new Dictionary<string, int>();
 
@@ -66,7 +68,7 @@ public class Day16 : Day<(Day16Rule[] Rules, Ticket MyTicket, Ticket[] NearbyTic
 
 public class Day16Rule
 {
-    public Day16Rule(string name, (long Min, long Max) range1, (long Min, long Max) range2)
+    private Day16Rule(string name, (long Min, long Max) range1, (long Min, long Max) range2)
     {
         Name = name;
         Range1 = range1;
@@ -82,35 +84,30 @@ public class Day16Rule
     public static Day16Rule Parse(string inputString)
     {
         var inputs = inputString.Split(':', StringSplitOptions.RemoveEmptyEntries);
-        var ranges = inputs[1].Split("or", StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim())
+        var ranges = inputs[1].Split("or", StringSplitOptions.RemoveEmptyEntries)
+            .Select(part => part.Trim())
             .Select(ParseRange).ToArray();
+
         return new Day16Rule(inputs[0], ranges[0], ranges[1]);
     }
 
-    public bool ValidateValue(long value)
-    {
-        return (value >= Range1.Min && value <= Range1.Max) ||
-            (value >= Range2.Min && value <= Range2.Max);
-    }
+    public bool ValidateValue(long value) =>
+        (value >= Range1.Min && value <= Range1.Max) ||
+        (value >= Range2.Min && value <= Range2.Max);
+
+    private (long Min, long Max) Range1 { get; }
+
+    private (long Min, long Max) Range2 { get; }
 
     public string Name { get; }
-
-    public (long Min, long Max) Range1 { get; }
-
-    public (long Min, long Max) Range2 { get; }
 }
 
 public class Ticket
 {
-    public Ticket(long[] values)
-    {
-        Values = values;
-    }
+    private Ticket(long[] values) => Values = values;
 
-    public static Ticket Parse(string inputString)
-    {
-        return new(inputString.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToArray());
-    }
+    public static Ticket Parse(string inputString) => new(inputString
+        .Split(',', StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToArray());
 
     public bool ValidateAgainstRules(Day16Rule[] rules, out IReadOnlyCollection<long> invalidValues)
     {

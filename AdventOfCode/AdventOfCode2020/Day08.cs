@@ -20,6 +20,7 @@ public class Day08 : Day<(Operation Operation, int Argument)[]>
                 case Operation.Accumulator:
                     accumulatorResult += argument;
                     break;
+
                 case Operation.Jump:
                     i += argument - 1;
                     break;
@@ -37,7 +38,7 @@ public class Day08 : Day<(Operation Operation, int Argument)[]>
         {
             "acc" => Operation.Accumulator,
             "jmp" => Operation.Jump,
-            _ => Operation.NoOperation,
+            _ => Operation.NoOperation
         };
 
         var argument = int.Parse(operations[1]);
@@ -80,5 +81,5 @@ public enum Operation
 {
     NoOperation,
     Accumulator,
-    Jump,
+    Jump
 }

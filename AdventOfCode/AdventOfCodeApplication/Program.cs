@@ -1,10 +1,9 @@
 ﻿using System.Diagnostics;
-
 using AdventOfCode2015;
 
 namespace AdventOfCodeApplication;
 
-public class Program
+public static class Program
 {
     public static void Main()
     {
@@ -50,7 +49,7 @@ public class Program
                     $"AdventOfCode{year:D4}.Day{dayNumber:D2}"),
                 2022 => typeof(AdventOfCode2022.Day01).Assembly.GetType(
                     $"AdventOfCode{year:D4}.Day{dayNumber:D2}"),
-                _ => null,
+                _ => null
             };
 
             if (dayType is null)
@@ -63,6 +62,7 @@ public class Program
             {
                 Console.WriteLine(
                     $"Implementation of AdventOfCode{year:D4}.Day{dayNumber:D2} cannot be created");
+
                 continue;
             }
 
@@ -73,6 +73,7 @@ public class Program
             {
                 Console.WriteLine(
                     $"Implementation of AdventOfCode{year:D4}.Day{dayNumber:D2} Problem {problemNumber} cannot be performed");
+
                 continue;
             }
 

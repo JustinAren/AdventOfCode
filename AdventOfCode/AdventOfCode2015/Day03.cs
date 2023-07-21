@@ -9,12 +9,15 @@ public class Day03 : Day<string>
             case '^':
                 position.Y--;
                 break;
+
             case '>':
                 position.X++;
                 break;
+
             case 'v':
                 position.Y++;
                 break;
+
             case '<':
                 position.X--;
                 break;
@@ -23,10 +26,7 @@ public class Day03 : Day<string>
         return position;
     }
 
-    protected override string ParseInput(string inputString)
-    {
-        return inputString;
-    }
+    protected override string ParseInput(string inputString) => inputString;
 
     public override string Perform1(string inputString)
     {
@@ -49,7 +49,6 @@ public class Day03 : Day<string>
         (int X, int Y) roboPosition = (0, 0);
         var resultSet = new HashSet<(int X, int Y)> { santaPosition, roboPosition };
         for (var i = 0; i < operations.Length; i++)
-        {
             if (i % 2 == 0)
             {
                 santaPosition = PerformOperation(operations[i], santaPosition);
@@ -60,7 +59,6 @@ public class Day03 : Day<string>
                 roboPosition = PerformOperation(operations[i], roboPosition);
                 resultSet.Add(roboPosition);
             }
-        }
 
         return resultSet.Count.ToString();
     }

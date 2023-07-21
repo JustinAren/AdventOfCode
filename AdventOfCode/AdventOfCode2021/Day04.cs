@@ -6,6 +6,7 @@ public class Day04 : Day<Bingo>
     {
         var boardsInput = inputString.Split($"{Environment.NewLine}{Environment.NewLine}",
             StringSplitOptions.TrimEntries);
+
         var numbers = boardsInput[0].Split(',').Select(byte.Parse).ToArray();
 
         var boards = new List<Board>();
@@ -19,6 +20,7 @@ public class Day04 : Day<Bingo>
             {
                 var rowCells = rows[i].Split(" ", StringSplitOptions.RemoveEmptyEntries)
                     .Select(number => new Cell(byte.Parse(number))).ToArray();
+
                 for (var j = 0; j < 5; j++) cells[i, j] = rowCells[j];
             }
 
@@ -32,15 +34,13 @@ public class Day04 : Day<Bingo>
     {
         var (numbers, boards) = ParseInput(inputString);
         foreach (var number in numbers)
+        foreach (var board in boards)
         {
-            foreach (var board in boards)
-            {
-                board.MarkNumber(number);
-                if (!board.HasBingo()) continue;
+            board.MarkNumber(number);
+            if (!board.HasBingo()) continue;
 
-                var unmarkedSum = board.GetUnmarkedSum();
-                return (unmarkedSum * number).ToString();
-            }
+            var unmarkedSum = board.GetUnmarkedSum();
+            return (unmarkedSum * number).ToString();
         }
 
         return 0.ToString();
@@ -54,7 +54,6 @@ public class Day04 : Day<Bingo>
         var lastWonBoardIndex = 0;
 
         foreach (var number in numbers)
-        {
             for (var i = 0; i < boards.Length; i++)
             {
                 if (unmarkedSums.ContainsKey(i)) continue;
@@ -67,7 +66,6 @@ public class Day04 : Day<Bingo>
                 unmarkedSums[i] = unmarkedSum * number;
                 lastWonBoardIndex = i;
             }
-        }
 
         return unmarkedSums[lastWonBoardIndex].ToString();
     }
@@ -87,17 +85,17 @@ public readonly record struct Board(Cell[,] Cells)
     {
         var cells = Cells;
 
-        if (Enumerable.Range(0, 5).Select(i => cells[i, 0]).All(c => c.IsMarked)) return true;
-        if (Enumerable.Range(0, 5).Select(i => cells[i, 1]).All(c => c.IsMarked)) return true;
-        if (Enumerable.Range(0, 5).Select(i => cells[i, 2]).All(c => c.IsMarked)) return true;
-        if (Enumerable.Range(0, 5).Select(i => cells[i, 3]).All(c => c.IsMarked)) return true;
-        if (Enumerable.Range(0, 5).Select(i => cells[i, 4]).All(c => c.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(index => cells[index, 0]).All(cell => cell.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(index => cells[index, 1]).All(cell => cell.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(index => cells[index, 2]).All(cell => cell.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(index => cells[index, 3]).All(cell => cell.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(index => cells[index, 4]).All(cell => cell.IsMarked)) return true;
 
-        if (Enumerable.Range(0, 5).Select(i => cells[0, i]).All(c => c.IsMarked)) return true;
-        if (Enumerable.Range(0, 5).Select(i => cells[1, i]).All(c => c.IsMarked)) return true;
-        if (Enumerable.Range(0, 5).Select(i => cells[2, i]).All(c => c.IsMarked)) return true;
-        if (Enumerable.Range(0, 5).Select(i => cells[3, i]).All(c => c.IsMarked)) return true;
-        if (Enumerable.Range(0, 5).Select(i => cells[4, i]).All(c => c.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(index => cells[0, index]).All(cell => cell.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(index => cells[1, index]).All(cell => cell.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(index => cells[2, index]).All(cell => cell.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(index => cells[3, index]).All(cell => cell.IsMarked)) return true;
+        if (Enumerable.Range(0, 5).Select(index => cells[4, index]).All(cell => cell.IsMarked)) return true;
 
         return false;
     }
@@ -110,10 +108,7 @@ public readonly record struct Board(Cell[,] Cells)
 
 public class Cell
 {
-    public Cell(byte number)
-    {
-        Number = number;
-    }
+    public Cell(byte number) => Number = number;
 
     public void MarkNumber(byte number)
     {

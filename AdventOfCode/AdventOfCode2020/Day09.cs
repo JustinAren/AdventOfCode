@@ -18,21 +18,16 @@ public class Day09 : Day<long[]>
     private static bool IsValid(long controlDigit, IReadOnlyList<long> previousDigits)
     {
         for (var i = 0; i < previousDigits.Count; i++)
-        {
-            for (var j = i + 1; j < previousDigits.Count; j++)
-            {
-                if (previousDigits[i] + previousDigits[j] == controlDigit) return true;
-            }
-        }
+        for (var j = i + 1; j < previousDigits.Count; j++)
+            if (previousDigits[i] + previousDigits[j] == controlDigit)
+                return true;
 
         return false;
     }
 
-    protected override long[] ParseInput(string inputString)
-    {
-        return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse)
+    protected override long[] ParseInput(string inputString) =>
+        inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse)
             .ToArray();
-    }
 
     public override string Perform1(string inputString)
     {
@@ -46,13 +41,12 @@ public class Day09 : Day<long[]>
         var invalidValue = GetInvalidEntry(inputArray);
 
         for (var i = 0; i < inputArray.Length; i++)
+        for (var j = i + 1; j < inputArray.Length; j++)
         {
-            for (var j = i + 1; j < inputArray.Length; j++)
-            {
-                if (i == j) continue;
-                var numbers = inputArray.Skip(i).Take(j - i).ToArray();
-                if (numbers.Sum(n => n) == invalidValue) return (numbers.Min() + numbers.Max()).ToString();
-            }
+            if (i == j) continue;
+            var numbers = inputArray.Skip(i).Take(j - i).ToArray();
+            if (numbers.Sum(number => number) == invalidValue)
+                return (numbers.Min() + numbers.Max()).ToString();
         }
 
         return 0.ToString();

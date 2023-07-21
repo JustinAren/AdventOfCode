@@ -94,42 +94,40 @@ public class Day08 : Day<byte[,]>
         var columnCount = grid.GetLength(1);
 
         for (var i = 0; i < rowCount; i++)
+        for (var j = 0; j < columnCount; j++)
         {
-            for (var j = 0; j < columnCount; j++)
+            var top = 0;
+            var bottom = 0;
+            var left = 0;
+            var right = 0;
+            var height = grid[i, j];
+
+            for (var k = i - 1; k >= 0; k--)
             {
-                var top = 0;
-                var bottom = 0;
-                var left = 0;
-                var right = 0;
-                var height = grid[i, j];
-
-                for (var k = i - 1; k >= 0; k--)
-                {
-                    top++;
-                    if (grid[k, j] >= height) break;
-                }
-
-                for (var k = i + 1; k < rowCount; k++)
-                {
-                    bottom++;
-                    if (grid[k, j] >= height) break;
-                }
-
-                for (var k = j - 1; k >= 0; k--)
-                {
-                    left++;
-                    if (grid[i, k] >= height) break;
-                }
-
-                for (var k = j + 1; k < columnCount; k++)
-                {
-                    right++;
-                    if (grid[i, k] >= height) break;
-                }
-
-                var score = top * bottom * left * right;
-                if (score > highestScore) highestScore = score;
+                top++;
+                if (grid[k, j] >= height) break;
             }
+
+            for (var k = i + 1; k < rowCount; k++)
+            {
+                bottom++;
+                if (grid[k, j] >= height) break;
+            }
+
+            for (var k = j - 1; k >= 0; k--)
+            {
+                left++;
+                if (grid[i, k] >= height) break;
+            }
+
+            for (var k = j + 1; k < columnCount; k++)
+            {
+                right++;
+                if (grid[i, k] >= height) break;
+            }
+
+            var score = top * bottom * left * right;
+            if (score > highestScore) highestScore = score;
         }
 
         return highestScore.ToString();
