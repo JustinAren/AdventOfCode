@@ -24,7 +24,8 @@ public class Rope
 
     public static Rope Parse(string input)
     {
-        var instructions = input.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
+        var instructions = input.Split(Environment.NewLine,
+                StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
             .Select(row => (row[0], int.Parse(row[1..])))
             .ToList();
 
@@ -33,8 +34,8 @@ public class Rope
 
     private void ProcessInstruction(char direction, int count)
     {
-        var (x, y) = Head;
-        var (a, b) = Tail;
+        var head = Head;
+        var tail = Tail;
         var (dx, dy) = direction switch
         {
             'U' => (0, 1),
@@ -46,26 +47,25 @@ public class Rope
 
         for (var i = 0; i < count; i++)
         {
-            x += dx;
-            y += dy;
+            head.X += dx;
+            head.Y += dy;
 
-            if (Math.Abs(x - a) > 1)
+            if (Math.Abs(head.X - Tail.X) > 1)
             {
-                a += dx;
-                if (Math.Abs(y - b) > 0) b += direction == 'R' ? 1 : -1;
+                tail.X = head.X - Tail.X > 0 ? head.X - 1 : head.X + 1;
+                tail.Y = head.Y;
             }
 
-            if (Math.Abs(y - b) > 1)
+            if (Math.Abs(head.Y - Tail.Y) > 1)
             {
-                b += dy;
-                if (Math.Abs(x - a) > 0) a += direction == 'U' ? 1 : -1;
+                tail.X = head.X;
+                tail.Y = head.Y - Tail.Y > 0 ? head.Y - 1 : head.Y + 1;
             }
 
-            Visited.Add((a, b));
+            Head = head;
+            Tail = tail;
+            Visited.Add(Tail);
         }
-
-        Head = (x, y);
-        Tail = (a, b);
     }
 
     public void ProcessInstructions()
