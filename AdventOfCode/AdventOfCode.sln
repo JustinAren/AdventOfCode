@@ -24,9 +24,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2022", "AdventOfCode2022\AdventOfCode2022.csproj", "{B8205B8D-1830-4F11-A0B4-3CE003DF1AE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2022", "AdventOfCode2022\AdventOfCode2022.csproj", "{B8205B8D-1830-4F11-A0B4-3CE003DF1AE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2022.Tests", "AdventOfCode2022.Tests\AdventOfCode2022.Tests.csproj", "{105EF2DD-D3D2-41FC-9F23-DA88964A50A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2022.Tests", "AdventOfCode2022.Tests\AdventOfCode2022.Tests.csproj", "{105EF2DD-D3D2-41FC-9F23-DA88964A50A0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023", "AdventOfCode2023\AdventOfCode2023.csproj", "{4E01605B-A289-4DCB-9713-51417AD56158}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023.Tests", "AdventOfCode2023.Tests\AdventOfCode2023.Tests.csproj", "{B57162B7-3862-40A3-B761-BB1FC5824991}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,6 +78,14 @@ Global
 		{105EF2DD-D3D2-41FC-9F23-DA88964A50A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{105EF2DD-D3D2-41FC-9F23-DA88964A50A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{105EF2DD-D3D2-41FC-9F23-DA88964A50A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E01605B-A289-4DCB-9713-51417AD56158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E01605B-A289-4DCB-9713-51417AD56158}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E01605B-A289-4DCB-9713-51417AD56158}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E01605B-A289-4DCB-9713-51417AD56158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B57162B7-3862-40A3-B761-BB1FC5824991}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B57162B7-3862-40A3-B761-BB1FC5824991}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B57162B7-3862-40A3-B761-BB1FC5824991}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B57162B7-3862-40A3-B761-BB1FC5824991}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
