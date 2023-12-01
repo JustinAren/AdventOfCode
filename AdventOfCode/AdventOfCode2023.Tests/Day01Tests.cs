@@ -3,24 +3,14 @@
 public class Day01Tests : DayTest<Day01>
 {
     private const string Input = """
-                                 1000
-                                 2000
-                                 3000
-
-                                 4000
-
-                                 5000
-                                 6000
-
-                                 7000
-                                 8000
-                                 9000
-
-                                 10000
+                                 1abc2
+                                 pqr3stu8vwx
+                                 a1b2c3d4e5f
+                                 treb7uchet
                                  """;
 
     [Theory]
-    [InlineData(Input, "24000")]
+    [InlineData(Input, "142")]
     public override void Test1(string inputString, string expected)
     {
         var result = Day.Perform1(inputString);

@@ -1,22 +1,21 @@
 ﻿namespace AdventOfCode2023;
 
-public class Day01 : Day<long[][]>
+public class Day01 : Day<int[]>
 {
-    protected override long[][] ParseInput(string inputString) => inputString
-        .Split($"{Environment.NewLine}{Environment.NewLine}", StringSplitOptions.RemoveEmptyEntries)
-        .Select(group => group.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
-            .Select(long.Parse).ToArray())
+    protected override int[] ParseInput(string inputString) => inputString
+        .Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+        .Select(row => int.Parse($"{row.First(char.IsDigit)}{row.Reverse().First(char.IsDigit)}"))
         .ToArray();
 
     public override string Perform1(string inputString)
     {
-        var groups = ParseInput(inputString);
-        return groups.Select(group => group.Sum()).Max().ToString();
+        var integers = ParseInput(inputString);
+        return integers.Sum().ToString();
     }
 
     public override string Perform2(string inputString)
     {
         var groups = ParseInput(inputString);
-        return groups.Select(group => group.Sum()).OrderByDescending(sum => sum).Take(3).Sum().ToString();
+        return "";
     }
 }
