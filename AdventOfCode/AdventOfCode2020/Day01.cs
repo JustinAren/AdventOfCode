@@ -3,8 +3,7 @@
 public class Day01 : Day<int[]>
 {
     protected override int[] ParseInput(string inputString) =>
-        inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse)
-            .ToArray();
+        inputString.SplitNewLine().Select(int.Parse).ToArray();
 
     public override string Perform1(string inputString)
     {

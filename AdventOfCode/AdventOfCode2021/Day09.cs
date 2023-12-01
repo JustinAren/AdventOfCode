@@ -63,7 +63,7 @@ public class Day09 : Day<LowPoint[,]>
 
     protected override LowPoint[,] ParseInput(string inputString)
     {
-        var rows = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var rows = inputString.SplitNewLine();
         var result = new LowPoint[rows.Length, rows[0].Length];
         for (var i = 0; i < rows.Length; i++)
         for (var j = 0; j < rows[i].Length; j++)

@@ -41,8 +41,7 @@ public record StackingPlan(List<Stack<char>> Stacks, List<Instruction> Instructi
         var parts = inputString.Split($"{Environment.NewLine}{Environment.NewLine}",
             StringSplitOptions.RemoveEmptyEntries);
 
-        var stackLines = parts[0].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Reverse()
-            .ToList();
+        var stackLines = parts[0].SplitNewLine().Reverse().ToList();
 
         var stacks = new List<Stack<char>>();
         for (var i = 0; i < (stackLines[0].Length / 4) + 1; i++) stacks.Add(new Stack<char>());
@@ -52,8 +51,7 @@ public record StackingPlan(List<Stack<char>> Stacks, List<Instruction> Instructi
                 if (line[i] >= 'A' && line[i] <= 'Z')
                     stacks[i / 4].Push(line[i]);
 
-        var instructions = parts[1].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
-            .Select(Instruction.Parse).ToList();
+        var instructions = parts[1].SplitNewLine().Select(Instruction.Parse).ToList();
 
         return new StackingPlan(stacks, instructions);
     }

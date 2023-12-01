@@ -47,7 +47,7 @@ public class Day08 : Day<(Operation Operation, int Argument)[]>
 
     protected override (Operation Operation, int Argument)[] ParseInput(string inputString)
     {
-        var commands = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var commands = inputString.SplitNewLine();
         return commands.Select(ParseCommand).ToArray();
     }
 

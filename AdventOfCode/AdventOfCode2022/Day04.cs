@@ -2,9 +2,8 @@
 
 public class Day04 : Day<AssignmentPair[]>
 {
-    protected override AssignmentPair[] ParseInput(string inputString) => inputString
-        .Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(AssignmentPair.Parse)
-        .ToArray();
+    protected override AssignmentPair[] ParseInput(string inputString) =>
+        inputString.SplitNewLine().Select(AssignmentPair.Parse).ToArray();
 
     public override string Perform1(string inputString)
     {

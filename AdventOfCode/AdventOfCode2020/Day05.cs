@@ -50,8 +50,7 @@ public class Day05 : Day<IEnumerable<int>>
     }
 
     protected override IEnumerable<int> ParseInput(string inputString) =>
-        inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
-            .Select(CalculateSeatId);
+        inputString.SplitNewLine().Select(CalculateSeatId);
 
     public override string Perform1(string inputString) => ParseInput(inputString).Max().ToString();
 

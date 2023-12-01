@@ -4,11 +4,7 @@ namespace AdventOfCode2021;
 
 public class Day03 : Day<string[]>
 {
-    protected override string[] ParseInput(string inputString)
-    {
-        var result = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-        return result;
-    }
+    protected override string[] ParseInput(string inputString) => inputString.SplitNewLine();
 
     public override string Perform1(string inputString)
     {

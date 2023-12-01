@@ -7,8 +7,7 @@ public class Day08 : Day<Pattern[]>
     private static readonly int[] EasyLengths = { 2, 3, 4, 7 };
 
     protected override Pattern[] ParseInput(string inputString) =>
-        inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
-            .Select(Pattern.Parse).ToArray();
+        inputString.SplitNewLine().Select(Pattern.Parse).ToArray();
 
     public override string Perform1(string inputString)
     {

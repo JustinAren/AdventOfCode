@@ -2,13 +2,8 @@
 
 public class Day05 : Day<Line[]>
 {
-    protected override Line[] ParseInput(string inputString)
-    {
-        var result = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
-            .Select(Line.Parse).ToArray();
-
-        return result;
-    }
+    protected override Line[] ParseInput(string inputString) =>
+        inputString.SplitNewLine().Select(Line.Parse).ToArray();
 
     public override string Perform1(string inputString)
     {

@@ -70,7 +70,7 @@ public class Day17 : Day<HashSet<(int X, int Y, int Z, int W)>>
     {
         var input = new HashSet<(int X, int Y, int Z, int W)>();
 
-        var lines = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var lines = inputString.SplitNewLine();
         for (var x = 0; x < lines.Length; x++)
         for (var y = 0; y < lines[x].Length; y++)
             if (lines[x][y] == '#')
