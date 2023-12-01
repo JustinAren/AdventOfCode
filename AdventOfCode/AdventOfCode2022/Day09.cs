@@ -7,14 +7,17 @@ public class Day09 : Day<Rope>
     public override string Perform1(string inputString)
     {
         var rope = ParseInput(inputString);
+        rope.SetKnots(2);
         rope.ProcessInstructions();
-        return rope.Visited.Count.ToString();
+        return rope.TailVisited.Count.ToString();
     }
 
     public override string Perform2(string inputString)
     {
         var rope = ParseInput(inputString);
-        throw new NotImplementedException();
+        rope.SetKnots(10);
+        rope.ProcessInstructions();
+        return rope.TailVisited.Count.ToString();
     }
 }
 
@@ -34,8 +37,6 @@ public class Rope
 
     private void ProcessInstruction(char direction, int count)
     {
-        var head = Head;
-        var tail = Tail;
         var (dx, dy) = direction switch
         {
             'U' => (0, 1),
@@ -47,24 +48,32 @@ public class Rope
 
         for (var i = 0; i < count; i++)
         {
-            head.X += dx;
-            head.Y += dy;
+            Knots[0].X += dx;
+            Knots[0].Y += dy;
 
-            if (Math.Abs(head.X - Tail.X) > 1)
+            for (var j = 1; j < Knots.Length; j++)
             {
-                tail.X = head.X - Tail.X > 0 ? head.X - 1 : head.X + 1;
-                tail.Y = head.Y;
+                if (Math.Abs(Knots[j - 1].X - Knots[j].X) == 2 &&
+                    Math.Abs(Knots[j - 1].Y - Knots[j].Y) == 2)
+                {
+                    Knots[j].X = Knots[j - 1].X - Knots[j].X > 0 ? Knots[j - 1].X - 1 : Knots[j - 1].X + 1;
+                    Knots[j].Y = Knots[j - 1].Y - Knots[j].Y > 0 ? Knots[j - 1].Y - 1 : Knots[j - 1].Y + 1;
+                }
+
+                if (Math.Abs(Knots[j - 1].X - Knots[j].X) > 1)
+                {
+                    Knots[j].X = Knots[j - 1].X - Knots[j].X > 0 ? Knots[j - 1].X - 1 : Knots[0].X + 1;
+                    Knots[j].Y = Knots[j - 1].Y;
+                }
+
+                if (Math.Abs(Knots[j - 1].Y - Knots[j].Y) > 1)
+                {
+                    Knots[j].X = Knots[j - 1].X;
+                    Knots[j].Y = Knots[j - 1].Y - Knots[j].Y > 0 ? Knots[j - 1].Y - 1 : Knots[0].Y + 1;
+                }
             }
 
-            if (Math.Abs(head.Y - Tail.Y) > 1)
-            {
-                tail.X = head.X;
-                tail.Y = head.Y - Tail.Y > 0 ? head.Y - 1 : head.Y + 1;
-            }
-
-            Head = head;
-            Tail = tail;
-            Visited.Add(Tail);
+            TailVisited.Add(Knots[^1]);
         }
     }
 
@@ -74,11 +83,11 @@ public class Rope
             ProcessInstruction(direction, count);
     }
 
-    public (int X, int Y) Head { get; private set; } = (0, 0);
+    public void SetKnots(int count) => Knots = new (int X, int Y)[count];
 
     public IReadOnlyList<(char Direction, int Count)> Instructions { get; }
 
-    public (int X, int Y) Tail { get; private set; } = (0, 0);
+    public (int X, int Y)[] Knots { get; private set; } = Array.Empty<(int X, int Y)>();
 
-    public HashSet<(int X, int Y)> Visited { get; } = new() { (0, 0) };
+    public HashSet<(int X, int Y)> TailVisited { get; } = new() { (0, 0) };
 }
