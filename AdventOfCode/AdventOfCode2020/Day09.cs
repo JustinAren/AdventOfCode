@@ -26,8 +26,7 @@ public class Day09 : Day<long[]>
     }
 
     protected override long[] ParseInput(string inputString) =>
-        inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse)
-            .ToArray();
+        inputString.SplitNewLine().Select(long.Parse).ToArray();
 
     public override string Perform1(string inputString)
     {

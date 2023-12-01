@@ -4,7 +4,7 @@ public class Day08 : Day<byte[,]>
 {
     protected override byte[,] ParseInput(string inputString)
     {
-        var lines = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var lines = inputString.SplitNewLine();
         var result = new byte[lines[0].Length, lines.Length];
 
         for (var i = 0; i < lines[0].Length; i++)

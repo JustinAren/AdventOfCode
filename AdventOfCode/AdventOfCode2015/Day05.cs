@@ -6,8 +6,7 @@ public class Day05 : Day<IEnumerable<Name>>
 {
     protected override IEnumerable<Name> ParseInput(string inputString)
     {
-        return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
-            .Select(name => new Name(name));
+        return inputString.SplitNewLine().Select(name => new Name(name));
     }
 
     public override string Perform1(string inputString)

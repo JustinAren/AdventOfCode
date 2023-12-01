@@ -2,8 +2,7 @@
 
 public class Day02 : Day<string[]>
 {
-    protected override string[] ParseInput(string inputString) =>
-        inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+    protected override string[] ParseInput(string inputString) => inputString.SplitNewLine();
 
     public override string Perform1(string inputString)
     {

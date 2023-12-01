@@ -8,10 +8,9 @@ public class Day16 : Day<(Day16Rule[] Rules, Ticket MyTicket, Ticket[] NearbyTic
         var input = inputString.Split($"{Environment.NewLine}{Environment.NewLine}",
             StringSplitOptions.RemoveEmptyEntries);
 
-        var ruleStrings = input[0].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-        var myTicketString = input[1].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)[1];
-        var nearbyTicketStrings =
-            input[2].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Skip(1);
+        var ruleStrings = input[0].SplitNewLine();
+        var myTicketString = input[1].SplitNewLine()[1];
+        var nearbyTicketStrings = input[2].SplitNewLine().Skip(1);
 
         return (ruleStrings.Select(Day16Rule.Parse).ToArray(), Ticket.Parse(myTicketString),
             nearbyTicketStrings.Select(Ticket.Parse).ToArray());

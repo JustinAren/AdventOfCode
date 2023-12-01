@@ -2,10 +2,8 @@
 
 public class Day02 : Day<Round[]>
 {
-    protected override Round[] ParseInput(string inputString) => inputString
-        .Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
-        .Select(Round.Parse)
-        .ToArray();
+    protected override Round[] ParseInput(string inputString) =>
+        inputString.SplitNewLine().Select(Round.Parse).ToArray();
 
     public override string Perform1(string inputString)
     {

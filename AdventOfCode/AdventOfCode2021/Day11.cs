@@ -42,7 +42,7 @@ public class Day11 : Day<byte[,]>
 
     protected override byte[,] ParseInput(string inputString)
     {
-        var rows = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var rows = inputString.SplitNewLine();
         var result = new byte[rows.Length, rows[0].Length];
         for (var i = 0; i < rows.Length; i++)
         for (var j = 0; j < rows[i].Length; j++)

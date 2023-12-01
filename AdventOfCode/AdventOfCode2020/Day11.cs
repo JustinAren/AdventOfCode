@@ -188,7 +188,7 @@ public class Day11 : Day<SeatStatus[,]>
 
     protected override SeatStatus[,] ParseInput(string inputString)
     {
-        var rows = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var rows = inputString.SplitNewLine();
         var map = new SeatStatus[rows.Length, rows[0].Length];
         for (var i = 0; i < rows.Length; i++)
         {

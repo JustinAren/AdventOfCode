@@ -55,11 +55,8 @@ public partial class Day18 : Day<IExpression[]>
         return new Parenthesis(ParseExpression(expressionString, start + 1, end - 1));
     }
 
-    protected override IExpression[] ParseInput(string inputString)
-    {
-        var expressions = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-        return expressions.Select(ParseExpression).ToArray();
-    }
+    protected override IExpression[] ParseInput(string inputString) =>
+        inputString.SplitNewLine().Select(ParseExpression).ToArray();
 
     public override string Perform1(string inputString)
     {

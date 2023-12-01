@@ -6,7 +6,7 @@ public class Day06 : Day<string[]>
     {
         var result = new HashSet<char>();
 
-        var inputs = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var inputs = inputString.SplitNewLine();
 
         foreach (var input in inputs)
         foreach (var character in input)
@@ -17,7 +17,7 @@ public class Day06 : Day<string[]>
 
     private static int ParseInput2(string inputString)
     {
-        var inputs = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var inputs = inputString.SplitNewLine();
         var dictionary = new Dictionary<char, int>();
 
         foreach (var input in inputs)

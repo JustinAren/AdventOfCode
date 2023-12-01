@@ -33,7 +33,7 @@ public class Day07 : Day<Directory>
     {
         var root = new Directory("/", null);
         var currentDirectory = root;
-        var commands = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var commands = inputString.SplitNewLine();
         foreach (var command in commands)
         {
             var words = command.Split(' ', StringSplitOptions.RemoveEmptyEntries);

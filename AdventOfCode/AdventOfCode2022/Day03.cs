@@ -2,8 +2,8 @@
 
 public class Day03 : Day<Rucksack[]>
 {
-    protected override Rucksack[] ParseInput(string inputString) => inputString
-        .Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(Rucksack.Parse).ToArray();
+    protected override Rucksack[] ParseInput(string inputString) =>
+        inputString.SplitNewLine().Select(Rucksack.Parse).ToArray();
 
     public override string Perform1(string inputString)
     {

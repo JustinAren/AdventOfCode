@@ -8,7 +8,7 @@ public class Day07 : Day<IEnumerable<Bag>>
     {
         inputString = inputString.Replace(" bags", "").Replace(" bag", "").Replace(".", "");
 
-        var descriptions = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var descriptions = inputString.SplitNewLine();
         var result = descriptions
             .Select(description => description.Split("contain")[0].Trim())
             .ToDictionary(color => color, color => new Bag(color));

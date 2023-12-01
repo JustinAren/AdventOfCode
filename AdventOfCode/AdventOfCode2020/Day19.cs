@@ -28,7 +28,7 @@ public class Day19 : Day<(Dictionary<byte, Day19Rule> RulesByNumber, string[] Me
     protected override (Dictionary<byte, Day19Rule> RulesByNumber, string[] Messages) ParseInput(
         string inputString)
     {
-        var lines = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var lines = inputString.SplitNewLine();
         var rulesByNumber = lines.Where(line => char.IsDigit(line[0])).Select(ParseLine)
             .ToDictionary(rule => rule.Number);
 

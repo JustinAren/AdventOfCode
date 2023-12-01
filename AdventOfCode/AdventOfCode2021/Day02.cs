@@ -4,7 +4,7 @@ public class Day02 : Day<List<CommandDay02>>
 {
     protected override List<CommandDay02> ParseInput(string inputString)
     {
-        var rows = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var rows = inputString.SplitNewLine();
 
         return (from row in rows
                 select row.Split(' ')

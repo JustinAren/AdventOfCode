@@ -15,11 +15,8 @@ public class Day10 : Day<List<int>>
         return _values[curValue];
     }
 
-    protected override List<int> ParseInput(string inputString)
-    {
-        return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse)
-            .OrderBy(row => row).ToList();
-    }
+    protected override List<int> ParseInput(string inputString) =>
+        inputString.SplitNewLine().Select(int.Parse).OrderBy(row => row).ToList();
 
     public override string Perform1(string inputString)
     {

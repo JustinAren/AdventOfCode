@@ -13,7 +13,7 @@ public class Day04 : Day<Bingo>
 
         foreach (var boardInput in boardsInput.Skip(1))
         {
-            var rows = boardInput.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+            var rows = boardInput.SplitNewLine();
             var cells = new Cell[5, 5];
 
             for (var i = 0; i < 5; i++)

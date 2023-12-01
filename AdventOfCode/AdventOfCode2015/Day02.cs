@@ -4,7 +4,7 @@ public class Day02 : Day<Present[]>
 {
     protected override Present[] ParseInput(string inputString)
     {
-        var strings = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var strings = inputString.SplitNewLine();
         var result = new Present[strings.Length];
         for (var i = 0; i < strings.Length; i++)
         {

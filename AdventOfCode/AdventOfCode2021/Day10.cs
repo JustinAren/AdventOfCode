@@ -45,11 +45,8 @@ public class Day10 : Day<Chunk[]>
         return chunk;
     }
 
-    protected override Chunk[] ParseInput(string inputString)
-    {
-        return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
-            .Select(row => ParseChunk(row.ToList())).ToArray();
-    }
+    protected override Chunk[] ParseInput(string inputString) =>
+        inputString.SplitNewLine().Select(row => ParseChunk(row.ToList())).ToArray();
 
     public override string Perform1(string inputString)
     {

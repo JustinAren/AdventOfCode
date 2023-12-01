@@ -80,7 +80,7 @@ public class Day14 : Day<List<BitMaskGroup>>
         var maskGroupStrings = inputString.Trim().Split("mask = ", StringSplitOptions.RemoveEmptyEntries);
 
         return (from maskGroupString in maskGroupStrings
-                select maskGroupString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
+                select maskGroupString.SplitNewLine()
                 into rows
                 let operations = rows.Skip(1).Select(ReadOperation)
                 select new BitMaskGroup(rows[0], operations)).ToList();

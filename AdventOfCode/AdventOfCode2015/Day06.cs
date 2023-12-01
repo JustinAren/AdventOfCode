@@ -5,7 +5,7 @@ public class Day06 : Day<List<CommandStruct>>
     protected override List<CommandStruct> ParseInput(string inputString)
     {
         var result = new List<CommandStruct>();
-        var rows = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var rows = inputString.SplitNewLine();
         foreach (var row in rows)
         {
             var words = row.Split(" ", StringSplitOptions.RemoveEmptyEntries);

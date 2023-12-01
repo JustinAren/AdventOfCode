@@ -2,11 +2,8 @@
 
 public class Day12 : Day<IEnumerable<(char Action, int Value)>>
 {
-    protected override IEnumerable<(char Action, int Value)> ParseInput(string inputString)
-    {
-        return inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
-            .Select(row => (row[0], int.Parse(row[1..])));
-    }
+    protected override IEnumerable<(char Action, int Value)> ParseInput(string inputString) =>
+        inputString.SplitNewLine().Select(row => (row[0], int.Parse(row[1..])));
 
     public override string Perform1(string inputString)
     {

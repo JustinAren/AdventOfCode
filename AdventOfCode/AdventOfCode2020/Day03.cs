@@ -19,8 +19,7 @@ public class Day03 : Day<string[]>
         return treeCount;
     }
 
-    protected override string[] ParseInput(string inputString) =>
-        inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+    protected override string[] ParseInput(string inputString) => inputString.SplitNewLine();
 
     public override string Perform1(string inputString)
     {

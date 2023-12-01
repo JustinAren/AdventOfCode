@@ -4,7 +4,7 @@ public class Day13 : Day<(long TimeStamp, int[] BusNumbers)>
 {
     protected override (long TimeStamp, int[] BusNumbers) ParseInput(string inputString)
     {
-        var rows = inputString.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        var rows = inputString.SplitNewLine();
         var timeStamp = long.Parse(rows[0]);
         var busNumbers = rows[1].Split(',').Select(num => int.TryParse(num, out var number) ? number : -1)
             .ToArray();
