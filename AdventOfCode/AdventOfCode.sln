@@ -32,6 +32,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023", "AdventO
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2023.Tests", "AdventOfCode2023.Tests\AdventOfCode2023.Tests.csproj", "{B57162B7-3862-40A3-B761-BB1FC5824991}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2024", "AdventOfCode2024\AdventOfCode2024.csproj", "{DAAB999B-45ED-40BD-B38C-50FC458DDCD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2024.Tests", "AdventOfCode2024.Tests\AdventOfCode2024.Tests.csproj", "{65D3B813-CFF1-487B-B4EB-B372F231277C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +90,14 @@ Global
 		{B57162B7-3862-40A3-B761-BB1FC5824991}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B57162B7-3862-40A3-B761-BB1FC5824991}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B57162B7-3862-40A3-B761-BB1FC5824991}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAAB999B-45ED-40BD-B38C-50FC458DDCD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAAB999B-45ED-40BD-B38C-50FC458DDCD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAAB999B-45ED-40BD-B38C-50FC458DDCD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAAB999B-45ED-40BD-B38C-50FC458DDCD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65D3B813-CFF1-487B-B4EB-B372F231277C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D3B813-CFF1-487B-B4EB-B372F231277C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65D3B813-CFF1-487B-B4EB-B372F231277C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65D3B813-CFF1-487B-B4EB-B372F231277C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
