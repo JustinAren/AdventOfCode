@@ -3,12 +3,12 @@
 public class Day08Tests : DayTest<Day08>
 {
     private const string Input = """
-30373
-25512
-65332
-33549
-35390
-""";
+                                 30373
+                                 25512
+                                 65332
+                                 33549
+                                 35390
+                                 """;
 
     [Theory]
     [InlineData(Input, "21")]

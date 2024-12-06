@@ -69,7 +69,10 @@ public class Bag
 {
     public Bag(string color) => Color = color;
 
-    public int BagCount => Contains.Sum(kvp => kvp.Key.BagCount * kvp.Value) + 1;
+    public int BagCount
+    {
+        get { return Contains.Sum(kvp => kvp.Key.BagCount * kvp.Value) + 1; }
+    }
 
     public string Color { get; }
 

@@ -3,17 +3,17 @@ namespace AdventOfCode2021.Tests;
 public class Day01Tests : DayTest<Day01>
 {
     private const string Input = """
-199
-200
-208
-210
-200
-207
-240
-269
-260
-263
-""";
+                                 199
+                                 200
+                                 208
+                                 210
+                                 200
+                                 207
+                                 240
+                                 269
+                                 260
+                                 263
+                                 """;
 
     [Theory]
     [InlineData(Input, "7")]

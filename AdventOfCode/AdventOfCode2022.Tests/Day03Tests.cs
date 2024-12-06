@@ -3,13 +3,13 @@
 public class Day03Tests : DayTest<Day03>
 {
     private const string Input = """
-vJrwpWtwJgWrhcsFMMfFFhFp
-jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
-PmmdzqPrVvPwwTWBwg
-wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
-ttgJtRGJQctTZtZT
-CrZsJsPPZsGzwwsLwLmpwMDw
-""";
+                                 vJrwpWtwJgWrhcsFMMfFFhFp
+                                 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+                                 PmmdzqPrVvPwwTWBwg
+                                 wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+                                 ttgJtRGJQctTZtZT
+                                 CrZsJsPPZsGzwwsLwLmpwMDw
+                                 """;
 
     [Theory]
     [InlineData(Input, "157")]

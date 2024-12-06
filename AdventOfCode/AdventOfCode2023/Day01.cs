@@ -31,7 +31,7 @@ public partial class Day01 : Day<string[]>
             { "six", "6" },
             { "seven", "7n" },
             { "eight", "e8t" },
-            { "nine", "n9e" },
+            { "nine", "n9e" }
         };
 
         return ParseInput(inputString)

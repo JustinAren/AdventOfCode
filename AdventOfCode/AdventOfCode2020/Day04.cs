@@ -98,20 +98,22 @@ public partial class Passport
         return false;
     }
 
-    private bool IsBirthYearValid => !string.IsNullOrEmpty(BirthYear) &&
+    private bool IsBirthYearValid =>
+        !string.IsNullOrEmpty(BirthYear) &&
         int.TryParse(BirthYear, out var birthYear) && birthYear is >= 1920 and <= 2002;
 
-    private bool IsExpirationYearValid => !string.IsNullOrEmpty(ExpirationYear) &&
+    private bool IsExpirationYearValid =>
+        !string.IsNullOrEmpty(ExpirationYear) &&
         int.TryParse(ExpirationYear, out var expirationYear) && expirationYear is >= 2020 and <= 2030;
 
     private bool IsEyeColorValid => !string.IsNullOrEmpty(EyeColor) && ValidEyeColors.Contains(EyeColor);
 
-    private bool IsHairColorValid =>
-        !string.IsNullOrEmpty(HairColor) && HairColorRegex().IsMatch(HairColor);
+    private bool IsHairColorValid => !string.IsNullOrEmpty(HairColor) && HairColorRegex().IsMatch(HairColor);
 
     private bool IsHeightValid => !string.IsNullOrEmpty(Height) && ValidateHeight(Height);
 
-    private bool IsIssueYearValid => !string.IsNullOrEmpty(IssueYear) &&
+    private bool IsIssueYearValid =>
+        !string.IsNullOrEmpty(IssueYear) &&
         int.TryParse(IssueYear, out var issueYear) && issueYear is >= 2010 and <= 2020;
 
     private bool IsPassportIdValid =>

@@ -3,10 +3,10 @@
 public class Day02Tests : DayTest<Day02>
 {
     private const string Input = """
-A Y
-B X
-C Z
-""";
+                                 A Y
+                                 B X
+                                 C Z
+                                 """;
 
     [Theory]
     [InlineData(Input, "15")]

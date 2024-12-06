@@ -3,13 +3,13 @@
 public class Day05Tests : DayTest<Day05>
 {
     private const string TestString = """
-FBFBBFFRLR
-BFFFBBFRRR
-FFFBBBFRRR
-BBFFBBFRLL
-FFFFFFFLLL
-FFFFFFFLRL
-""";
+                                      FBFBBFFRLR
+                                      BFFFBBFRRR
+                                      FFFBBBFRRR
+                                      BBFFBBFRLL
+                                      FFFFFFFLLL
+                                      FFFFFFFLRL
+                                      """;
 
     [Theory]
     [InlineData(TestString, "820")]

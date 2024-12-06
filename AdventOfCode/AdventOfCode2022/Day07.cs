@@ -105,5 +105,8 @@ public class Directory
 
     public Directory? Parent { get; }
 
-    public long Size => Files.Sum(file => file.Size) + Directories.Sum(directory => directory.Size);
+    public long Size
+    {
+        get { return Files.Sum(file => file.Size) + Directories.Sum(directory => directory.Size); }
+    }
 }
