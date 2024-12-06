@@ -3,12 +3,12 @@
 public class Day09Tests : DayTest<Day09>
 {
     private const string Input = """
-2199943210
-3987894921
-9856789892
-8767896789
-9899965678
-""";
+                                 2199943210
+                                 3987894921
+                                 9856789892
+                                 8767896789
+                                 9899965678
+                                 """;
 
     [Theory]
     [InlineData(Input, "15")]

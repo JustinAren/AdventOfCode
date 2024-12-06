@@ -63,7 +63,10 @@ public record Name(string Value)
 
     private bool HasForbiddenStrings => Forbidden.Any(Value.Contains);
 
-    private int VowelCount => Value.Count(vowel => Vowels.Contains(vowel));
+    private int VowelCount
+    {
+        get { return Value.Count(vowel => Vowels.Contains(vowel)); }
+    }
 
     public bool IsNice1 => !HasForbiddenStrings && HasDoubleCharacters && VowelCount > 2;
 

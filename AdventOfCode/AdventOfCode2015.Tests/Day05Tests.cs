@@ -3,19 +3,19 @@
 public class Day05Tests : DayTest<Day05>
 {
     private const string InputString1 = """
-ugknbfddgicrmopn
-aaa
-jchzalrnumimnmhp
-haegwjzuvuyypxyu
-dvszwmarrgswjxmb
-""";
+                                        ugknbfddgicrmopn
+                                        aaa
+                                        jchzalrnumimnmhp
+                                        haegwjzuvuyypxyu
+                                        dvszwmarrgswjxmb
+                                        """;
 
     private const string InputString2 = """
-qjhvhtzxzqqjkmpb
-xxyxx
-uurcxstgmygtbstg
-ieodomkazucvgmuy
-""";
+                                        qjhvhtzxzqqjkmpb
+                                        xxyxx
+                                        uurcxstgmygtbstg
+                                        ieodomkazucvgmuy
+                                        """;
 
     [Theory]
     [InlineData(InputString1, "2")]

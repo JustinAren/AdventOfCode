@@ -3,21 +3,21 @@
 public class Day01Tests : DayTest<Day01>
 {
     private const string Input = """
-1000
-2000
-3000
+                                 1000
+                                 2000
+                                 3000
 
-4000
+                                 4000
 
-5000
-6000
+                                 5000
+                                 6000
 
-7000
-8000
-9000
+                                 7000
+                                 8000
+                                 9000
 
-10000
-""";
+                                 10000
+                                 """;
 
     [Theory]
     [InlineData(Input, "24000")]

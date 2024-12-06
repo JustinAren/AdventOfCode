@@ -72,7 +72,7 @@ public readonly record struct Pattern(string[] InputSignals, string[] OutputSign
 
         var outputBuilder = new StringBuilder();
         foreach (var outputSignal in OutputSignals.Select(
-                     signal => new string(signal.OrderBy(@char => @char).ToArray())))
+            signal => new string(signal.OrderBy(@char => @char).ToArray())))
             outputBuilder.Append(outputBuilderDictionary[outputSignal]);
 
         var result = long.Parse(outputBuilder.ToString());

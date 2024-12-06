@@ -3,12 +3,12 @@
 public class Day12Tests : DayTest<Day12>
 {
     private const string TestString1 = """
-F10
-N3
-F7
-R90
-F11
-""";
+                                       F10
+                                       N3
+                                       F7
+                                       R90
+                                       F11
+                                       """;
 
     [Theory]
     [InlineData(TestString1, "25")]

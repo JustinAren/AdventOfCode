@@ -3,10 +3,10 @@
 public class Day17Tests : DayTest<Day17>
 {
     private const string TestString1 = """
-.#.
-..#
-###
-""";
+                                       .#.
+                                       ..#
+                                       ###
+                                       """;
 
     [Theory]
     [InlineData(TestString1, "112")]

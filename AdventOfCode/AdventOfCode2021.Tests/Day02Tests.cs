@@ -3,13 +3,13 @@
 public class Day02Tests : DayTest<Day02>
 {
     private const string Input = """
-forward 5
-down 5
-forward 8
-up 3
-down 8
-forward 2
-""";
+                                 forward 5
+                                 down 5
+                                 forward 8
+                                 up 3
+                                 down 8
+                                 forward 2
+                                 """;
 
     [Theory]
     [InlineData(Input, "150")]

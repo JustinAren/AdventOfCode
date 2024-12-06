@@ -3,22 +3,22 @@
 public class Day06Tests : DayTest<Day06>
 {
     private const string TestString1 = """
-abc
+                                       abc
 
-a
-b
-c
+                                       a
+                                       b
+                                       c
 
-ab
-ac
+                                       ab
+                                       ac
 
-a
-a
-a
-a
+                                       a
+                                       a
+                                       a
+                                       a
 
-b
-""";
+                                       b
+                                       """;
 
     [Theory]
     [InlineData(TestString1, "11")]

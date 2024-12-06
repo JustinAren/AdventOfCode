@@ -3,34 +3,34 @@
 public class Day13Tests : DayTest<Day13>
 {
     private const string TestString1 = """
-939
-7,13,x,x,59,x,31,19
-""";
+                                       939
+                                       7,13,x,x,59,x,31,19
+                                       """;
 
     private const string TestString2 = """
-939
-17,x,13,19
-""";
+                                       939
+                                       17,x,13,19
+                                       """;
 
     private const string TestString3 = """
-939
-67,7,59,61
-""";
+                                       939
+                                       67,7,59,61
+                                       """;
 
     private const string TestString4 = """
-939
-67,x,7,59,61
-""";
+                                       939
+                                       67,x,7,59,61
+                                       """;
 
     private const string TestString5 = """
-939
-67,7,x,59,61
-""";
+                                       939
+                                       67,7,x,59,61
+                                       """;
 
     private const string TestString6 = """
-939
-1789,37,47,1889
-""";
+                                       939
+                                       1789,37,47,1889
+                                       """;
 
     [Theory]
     [InlineData(TestString1, "295")]
