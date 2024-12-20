@@ -18,17 +18,22 @@ public class Day01 : Day<(List<int> Column1, List<int> Column2)>
             result.Column2.Add(int.Parse(row[1]));
         }
 
+        result.Column1.Sort();
+        result.Column2.Sort();
         return result;
     }
 
     public override string Perform1(string inputString)
     {
         var input = ParseInput(inputString);
-        input.Column1.Sort();
-        input.Column2.Sort();
         var totalDiff = input.Column1.Select((val, i) => Math.Abs(val - input.Column2[i])).Sum();
         return totalDiff.ToString();
     }
 
-    public override string Perform2(string inputString) => throw new NotImplementedException();
+    public override string Perform2(string inputString)
+    {
+        var input = ParseInput(inputString);
+        var similarityScore = input.Column1.Select(val => val * input.Column2.Count(val2 => val2 == val)).Sum();
+        return similarityScore.ToString();
+    }
 }
