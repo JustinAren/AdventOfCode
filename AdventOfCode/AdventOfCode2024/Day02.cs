@@ -8,38 +8,44 @@ public class Day02 : Day<Report[]>
     public override string Perform1(string inputString)
     {
         var reports = ParseInput(inputString);
-        return reports.Count(report => report.IsSafe()).ToString();
+        return reports.Count(report => report.IsSafe1()).ToString();
     }
 
     public override string Perform2(string inputString)
     {
-        var input = ParseInput(inputString);
-        throw new NotImplementedException();
+        var reports = ParseInput(inputString);
+        return reports.Count(report => report.IsSafe2()).ToString();
     }
 }
 
-public record Report(int[] Levels)
+public record Report(List<int> Levels)
 {
+    private static bool IsSafe(List<int> levels)
+    {
+        var increasing = levels[0] < levels[1];
+        for (var i = 1; i < levels.Count; i++)
+        {
+            if (levels[i] == levels[i - 1]
+                || Math.Abs(levels[i] - levels[i - 1]) > 3
+                || levels[i] > levels[i - 1] != increasing) return false;
+        }
+
+        return true;
+    }
+
     public static Report Parse(string row)
     {
         var levels = row.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-            .Select(int.Parse).ToArray();
+            .Select(int.Parse).ToList();
 
         return new Report(levels);
     }
 
-    public bool IsSafe()
+    public bool IsSafe1() => IsSafe(Levels);
+
+    public bool IsSafe2()
     {
-        bool? increasing = null;
-        for (var i = 1; i < Levels.Length; i++)
-        {
-            if (Levels[i] == Levels[i - 1]) return false;
-            if (Math.Abs(Levels[i] - Levels[i - 1]) > 3) return false;
-
-            if (increasing is null) increasing = Levels[i] > Levels[i - 1];
-            else if (Levels[i] > Levels[i - 1] != increasing) return false;
-        }
-
-        return true;
+        return IsSafe1()
+            || Levels.Where((_, i) => IsSafe(Levels.Where((_, index) => index != i).ToList())).Any();
     }
 }
