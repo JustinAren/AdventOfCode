@@ -52,6 +52,8 @@ public static class Program
                     .GetType($"AdventOfCode{year:D4}.Day{dayNumber:D2}"),
                 2023 => typeof(AdventOfCode2023.Day01).Assembly
                     .GetType($"AdventOfCode{year:D4}.Day{dayNumber:D2}"),
+                2024 => typeof(AdventOfCode2024.Day01).Assembly
+                    .GetType($"AdventOfCode{year:D4}.Day{dayNumber:D2}"),
                 _ => null
             };
 
