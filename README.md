@@ -155,7 +155,7 @@
 |Day|Solution 1|Solution 2|
 |---:|---:|---:|
 |[1](https://adventofcode.com/2024/day/1)|1889772|23228917|
-|[2](https://adventofcode.com/2024/day/2)|||
+|[2](https://adventofcode.com/2024/day/2)|483|528|
 |[3](https://adventofcode.com/2024/day/3)|||
 |[4](https://adventofcode.com/2024/day/4)|||
 |[5](https://adventofcode.com/2024/day/5)|||
