@@ -1,0 +1,23 @@
+<Solution>
+  <Folder Name="/Library/">
+    <Project Path="AdventOfCode2015/AdventOfCode2015.csproj" />
+    <Project Path="AdventOfCode2020/AdventOfCode2020.csproj" />
+    <Project Path="AdventOfCode2021/AdventOfCode2021.csproj" />
+    <Project Path="AdventOfCode2022/AdventOfCode2022.csproj" />
+    <Project Path="AdventOfCode2023/AdventOfCode2023.csproj" />
+    <Project Path="AdventOfCode2024/AdventOfCode2024.csproj" />
+    <Project Path="AdventOfCodeBase/AdventOfCodeBase.csproj" />
+  </Folder>
+  <Folder Name="/SolutionItems/">
+    <File Path="../README.md" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="AdventOfCode2015.Tests/AdventOfCode2015.Tests.csproj" />
+    <Project Path="AdventOfCode2020.Tests/AdventOfCode2020.Tests.csproj" />
+    <Project Path="AdventOfCode2021.Tests/AdventOfCode2021.Tests.csproj" />
+    <Project Path="AdventOfCode2022.Tests/AdventOfCode2022.Tests.csproj" />
+    <Project Path="AdventOfCode2023.Tests/AdventOfCode2023.Tests.csproj" />
+    <Project Path="AdventOfCode2024.Tests/AdventOfCode2024.Tests.csproj" />
+  </Folder>
+  <Project Path="AdventOfCodeApplication/AdventOfCodeApplication.csproj" />
+</Solution>
