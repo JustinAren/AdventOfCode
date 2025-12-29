@@ -1,0 +1,25 @@
+<Solution>
+  <Folder Name="/Library/">
+    <Project Path="AdventOfCode2015/AdventOfCode2015.csproj" />
+    <Project Path="AdventOfCode2020/AdventOfCode2020.csproj" />
+    <Project Path="AdventOfCode2021/AdventOfCode2021.csproj" />
+    <Project Path="AdventOfCode2022/AdventOfCode2022.csproj" />
+    <Project Path="AdventOfCode2023/AdventOfCode2023.csproj" />
+    <Project Path="AdventOfCode2024/AdventOfCode2024.csproj" />
+    <Project Path="AdventOfCode2025/AdventOfCode2025.csproj" Id="45b84848-3405-49ce-9c34-784ae0d31eb1" />
+    <Project Path="AdventOfCodeBase/AdventOfCodeBase.csproj" />
+  </Folder>
+  <Folder Name="/SolutionItems/">
+    <File Path="../README.md" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="AdventOfCode2015.Tests/AdventOfCode2015.Tests.csproj" />
+    <Project Path="AdventOfCode2020.Tests/AdventOfCode2020.Tests.csproj" />
+    <Project Path="AdventOfCode2021.Tests/AdventOfCode2021.Tests.csproj" />
+    <Project Path="AdventOfCode2022.Tests/AdventOfCode2022.Tests.csproj" />
+    <Project Path="AdventOfCode2023.Tests/AdventOfCode2023.Tests.csproj" />
+    <Project Path="AdventOfCode2024.Tests/AdventOfCode2024.Tests.csproj" />
+    <Project Path="AdventOfCode2025.Tests/AdventOfCode2025.Tests.csproj" Id="822d6fbc-a73a-4105-be91-a32d7acd5520" />
+  </Folder>
+  <Project Path="AdventOfCodeApplication/AdventOfCodeApplication.csproj" />
+</Solution>
