@@ -4,7 +4,7 @@ public class Day02 : Day<List<(long First, long Last)>>
 {
     private static bool HasDuplicates(string input, int parts)
     {
-        while (parts > 0)
+        while (parts > 1)
         {
             if (input.Length % parts != 0)
             {
@@ -17,8 +17,10 @@ public class Day02 : Day<List<(long First, long Last)>>
             for (var i = 0; i < parts; i++)
             {
                 var part = input.Substring(i * partLength, partLength);
-                if (!partsSet.Add(part)) return true;
+                partsSet.Add(part);
             }
+
+            if (partsSet.Count == 1) return true;
 
             parts--;
         }
