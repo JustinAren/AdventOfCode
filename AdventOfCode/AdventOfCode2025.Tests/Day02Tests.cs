@@ -14,7 +14,7 @@ public class Day02Tests : DayTest<Day02>
     }
 
     [Theory]
-    [InlineData(Input, "6")]
+    [InlineData(Input, "4174379265")]
     public override void Test2(string inputString, string expected)
     {
         var result = Day.Perform2(inputString);
