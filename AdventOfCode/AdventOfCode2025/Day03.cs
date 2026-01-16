@@ -1,37 +1,39 @@
-﻿namespace AdventOfCode2025;
+﻿using System.Text;
+
+namespace AdventOfCode2025;
 
 public class Day03 : Day<List<string>>
 {
+    private static long CalculateJoltage(string bank, int batteryCount)
+    {
+        var joltageSb = new StringBuilder(batteryCount);
+
+        while (batteryCount > 0)
+        {
+            var length = batteryCount == 1 ? bank.Length : (bank.Length - batteryCount) + 1;
+            var maxChar = bank[..length].Max();
+            var maxCharIndex = bank.IndexOf(maxChar);
+            joltageSb.Append(maxChar);
+            bank = bank.Remove(0, maxCharIndex + 1);
+            batteryCount--;
+        }
+
+        return long.Parse(joltageSb.ToString());
+    }
+
     protected override List<string> ParseInput(string inputString) => inputString.SplitNewLine().ToList();
 
     public override string Perform1(string inputString)
     {
         var banks = ParseInput(inputString);
-        var result = 0L;
-
-        foreach (var bank in banks)
-        {
-            var joltage = 0;
-
-            for (var i = 0; i < bank.Length - 1; i++)
-            {
-                for (var j = i + 1; j < bank.Length; j++)
-                {
-                    var value = int.Parse($"{bank[i]}{bank[j]}");
-                    if (value > joltage) joltage = value;
-                }
-            }
-
-            result += joltage;
-        }
-
+        var result = banks.Sum(bank => CalculateJoltage(bank, 2));
         return result.ToString();
     }
 
     public override string Perform2(string inputString)
     {
-        var ranges = ParseInput(inputString);
-        var result = 0L;
+        var banks = ParseInput(inputString);
+        var result = banks.Sum(bank => CalculateJoltage(bank, 12));
         return result.ToString();
     }
 }
